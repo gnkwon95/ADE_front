@@ -1,25 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { HashRouter, Route } from "react-router-dom";
+import "./App.less";
+import HeaderNav from "./components/HeaderNav";
+import { Layout } from "antd";
+import { UserOutlined, MessageOutlined } from "@ant-design/icons";
 
 function App() {
+  const { Content, Footer } = Layout;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <HashRouter>
+      <Layout className="layout">
+        <HeaderNav />
+        <Content style={{ padding: "0 50px" }}>
+          <div className="site-layout-content">Content</div>
+        </Content>
+        <Footer style={{ textAlign: "left" }}>ADE ©2020</Footer>
+      </Layout>
+    </HashRouter>
   );
 }
 
