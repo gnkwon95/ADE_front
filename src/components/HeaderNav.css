@@ -1,10 +1,9 @@
 .logo {
-    font-size: 32px;
-    font-weight: 800;
-    float: left;
-  }
-  
-  
-  .header-right {
-    float: right;
-  }
+  font-size: 32px;
+  font-weight: 800;
+  float: left;
+}
+
+.header-right {
+  float: right;
+}
