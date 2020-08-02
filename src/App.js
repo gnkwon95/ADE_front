@@ -7,9 +7,9 @@ import Mentor from "./routes/Mentor";
 import MyPage from "./routes/MyPage";
 import Chat from "./routes/Chat";
 import "./App.less";
-import SignIn from "./routes/SignIn";
-import Join from "./routes/Join";
-import ForgotPw from "./routes/ForgotPw";
+import SignIn from "./routes/auth/SignIn";
+import Join from "./routes/auth/Join";
+import ForgotPw from "./routes/auth/ForgotPw";
 
 class App extends React.Component {
 
