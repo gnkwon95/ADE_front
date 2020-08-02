@@ -17,7 +17,9 @@ const menu = (
     <Menu.Item>
       <Link to="/mypage">1대1 문의</Link>
     </Menu.Item>
-    <Menu.Item danger>로그아웃</Menu.Item>
+    <Menu.Item danger>
+      로그아웃
+    </Menu.Item>
   </Menu>
 );
 

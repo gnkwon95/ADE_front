@@ -13,9 +13,11 @@ const Join = () => {
 
   return (
     <>
-      <Title level={2} className="signin-title">
-        회원가입
-      </Title>
+      <div className="signin-texts">
+        <Title level={2} className="signin-title">
+          회원가입
+        </Title>
+      </div>
       <Form
         name="join"
         className="login-form"
@@ -26,6 +28,7 @@ const Join = () => {
       >
         <Form.Item
           name="username"
+          hasFeedback
           rules={[
             {
               required: true,
@@ -41,6 +44,7 @@ const Join = () => {
         </Form.Item>
         <Form.Item
           name="email"
+          hasFeedback
           rules={[
             {
               type: "email",
@@ -89,9 +93,7 @@ const Join = () => {
                   return Promise.resolve();
                 }
 
-                return Promise.reject(
-                  "입력한 비밀번호가 일치하지 않습니다!"
-                );
+                return Promise.reject("입력한 비밀번호가 일치하지 않습니다!");
               },
             }),
           ]}

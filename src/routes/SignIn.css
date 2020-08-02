@@ -12,13 +12,14 @@
   width: 100%;
 }
 
-.signin-title {
-    text-align: center;
-    margin: 52px 0;
-}
-
 .signin-option {
     text-align: center;
     display: inline-block;
     margin-top: 8px;
+}
+
+.signin-texts {
+    text-align: center;
+    margin-top: 52px;
+    margin-bottom: 20px;
 }

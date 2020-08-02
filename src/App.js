@@ -9,6 +9,7 @@ import Chat from "./routes/Chat";
 import "./App.less";
 import SignIn from "./routes/SignIn";
 import Join from "./routes/Join";
+import ForgotPw from "./routes/ForgotPw";
 
 class App extends React.Component {
 
@@ -23,9 +24,10 @@ class App extends React.Component {
               <Route exact path="/"  component={Home} />
               <Route exact path="/signin" component={SignIn} />
               <Route exact path="/join" component={Join} />
-              <Route path="/mentor" component={Mentor} />
-              <Route path="/mypage" component={MyPage} />
-              <Route path="/chat" component={Chat} />
+              <Route exact path="/forgotpw" component={ForgotPw} />
+              <Route exact path="/mentor" component={Mentor} />
+              <Route exact path="/mypage" component={MyPage} />
+              <Route exact path="/chat" component={Chat} />
             </Content>
             <Footer style={{ textAlign: "left" }}>ADE ©2020</Footer>
           </Layout>
