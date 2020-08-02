@@ -4,17 +4,18 @@ import "./HeaderNav.css";
 import { Layout, Avatar, Menu, Dropdown, Button, Tooltip, Space } from "antd";
 
 import { UserOutlined, MessageOutlined } from "@ant-design/icons";
+import app from "../firebase";
 
 const menu = (
   <Menu>
     <Menu.Item>
-      <a href="/#/mypage">내 정보</a>
+      <Link to="/mypage">내 정보</Link>
     </Menu.Item>
     <Menu.Item>
-      <a href="/#/mypage">상담 내역</a>
+      <Link to="/mypage">상담 내역</Link>
     </Menu.Item>
     <Menu.Item>
-      <a href="/#/mypage">1대1 문의</a>
+      <Link to="/mypage">1대1 문의</Link>
     </Menu.Item>
     <Menu.Item danger>로그아웃</Menu.Item>
   </Menu>
@@ -24,22 +25,30 @@ function HeaderNav() {
   const { Header } = Layout;
 
   return (
-    <Header>
-      <a href="/" class="logo">
+    <Header id="header">
+      <Link to="/" className="logo">
         <span>ADE</span>
-      </a>
+      </Link>
       <div className="header-right">
         <Space size="middle">
-          <a href="/#/mentor">
+          <Link to="/join">
+            <Button shape="round">회원가입</Button>
+          </Link>
+          <Link to="/signin">
+            <Button shape="round" type="primary">로그인</Button>
+          </Link>
+          <Link to="/mentor">
             <Button shape="round">멘토 프로필</Button>
-          </a>
+          </Link>
           <Tooltip title="채팅하기">
-            <a href="/#/chat">
+            <Link to="/chat">
               <Button id="chat-btn" shape="circle" icon={<MessageOutlined />} />
-            </a>
+            </Link>
           </Tooltip>
           <Dropdown overlay={menu} placement="bottomRight" arrow>
-            <a href="/#/mypage"><Avatar size="normal" icon={<UserOutlined />} /></a>
+            <Link to="/mypage">
+              <Avatar size="normal" icon={<UserOutlined />} />
+            </Link>
           </Dropdown>
         </Space>
       </div>
