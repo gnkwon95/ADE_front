@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Button, Typography } from "antd";
+import { Form, Input, Button, Typography, Card } from "antd";
 import { MailOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import "./SignIn.css";
@@ -12,7 +12,7 @@ const ForgotPw = () => {
   const { Title, Text } = Typography;
 
   return (
-    <>
+    <Card title={false} bordered={false} className="login-card">
     <div className="signin-texts">
       <Title level={2} className="signin-title">
         비밀번호 찾기
@@ -65,7 +65,7 @@ const ForgotPw = () => {
           </Link>
         </Form.Item>
       </Form>
-    </>
+    </Card>
   );
 };
 

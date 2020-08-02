@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Button, Typography, Checkbox } from "antd";
+import { Form, Input, Button, Typography, Checkbox, Card } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import "./SignIn.css";
@@ -12,7 +12,7 @@ const Join = () => {
   const { Title } = Typography;
 
   return (
-    <>
+    <Card title={false} bordered={false} className="login-card">
       <div className="signin-texts">
         <Title level={2} className="signin-title">
           회원가입
@@ -138,7 +138,7 @@ const Join = () => {
           </Link>
         </Form.Item>
       </Form>
-    </>
+    </Card>
   );
 };
 

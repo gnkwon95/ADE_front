@@ -20,8 +20,8 @@ class App extends React.Component {
         <BrowserRouter>
           <Layout className="layout">
             <HeaderNav />
-            <Content style={{ padding: "0 50px" }}>
               <Route exact path="/"  component={Home} />
+            <Content style={{ padding: "0 50px" }}>
               <Route exact path="/signin" component={SignIn} />
               <Route exact path="/join" component={Join} />
               <Route exact path="/forgotpw" component={ForgotPw} />
@@ -29,7 +29,7 @@ class App extends React.Component {
               <Route exact path="/mypage" component={MyPage} />
               <Route exact path="/chat" component={Chat} />
             </Content>
-            <Footer style={{ textAlign: "left" }}>ADE ©2020</Footer>
+            <Footer style={{ textAlign: "right" }}>ADE ©2020</Footer>
           </Layout>
         </BrowserRouter>
     );
