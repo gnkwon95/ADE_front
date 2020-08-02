@@ -1,5 +1,5 @@
 import React from "react";
-import { List, Avatar, Button, Skeleton } from "antd";
+import { List, Avatar, Button, Skeleton, Card } from "antd";
 import { Link } from "react-router-dom";
 import "./Counsel.css";
 import reqwest from "reqwest";
@@ -79,6 +79,7 @@ class Counsel extends React.Component {
       ) : null;
 
     return (
+        <Card title="상담 내역">
       <List
         className="demo-loadmore-list"
         loading={initLoading}
@@ -105,6 +106,7 @@ class Counsel extends React.Component {
           </List.Item>
         )}
       />
+      </Card>
     );
   }
 }
