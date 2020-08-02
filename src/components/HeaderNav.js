@@ -4,7 +4,6 @@ import "./HeaderNav.css";
 import { Layout, Avatar, Menu, Dropdown, Button, Tooltip, Space } from "antd";
 
 import { UserOutlined, MessageOutlined } from "@ant-design/icons";
-import app from "../firebase";
 
 const menu = (
   <Menu>
