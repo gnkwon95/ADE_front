@@ -12,13 +12,7 @@ function callback(key) {
   console.log(key);
 }
 
-const MyPage = (props) => (
-  <AuthUserContext.Consumer>
-    {authUser => authUser ? props.history.push('/') : <MyPages />}
-  </AuthUserContext.Consumer>
-)
-
-const MyPages = () => {
+const MyPage = () => {
   const { TabPane } = Tabs;
   const { Title } = Typography;
 
