@@ -1,32 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { withFirebase } from '../firebase';
+
 import "./HeaderNav.css";
 import { Layout, Avatar, Menu, Dropdown, Button, Tooltip, Space } from "antd";
-
 import { UserOutlined, MessageOutlined } from "@ant-design/icons";
 
-const menu = (
-  <Menu>
-    <Menu.Item>
-      <Link to="/mypage">내 정보</Link>
-    </Menu.Item>
-    <Menu.Item>
-      <Link to="/mypage">상담 내역</Link>
-    </Menu.Item>
-    <Menu.Item>
-      <Link to="/mypage">1대1 문의</Link>
-    </Menu.Item>
-    <Menu.Item danger>
-      로그아웃
-    </Menu.Item>
-  </Menu>
+const HeaderNav = ({ authUser }) => (
+<div>{authUser ? <UserNav /> : <VisitorNav />}</div>
 );
 
-function HeaderNav() {
-  const { Header } = Layout;
 
-  return (
-    <Header id="header">
+
+const { Header } = Layout;
+
+const VisitorNav = () => (
+  <div>
+   <Header id="header">
       <Link to="/" className="logo">
         <span>ADE</span>
       </Link>
@@ -38,6 +28,19 @@ function HeaderNav() {
           <Link to="/signin">
             <Button shape="round" type="primary">로그인</Button>
           </Link>
+        </Space>
+      </div>
+     </Header>
+    </div>
+)
+
+const UserNav = () => (
+    <Header id="header">
+      <Link to="/" className="logo">
+        <span>ADE</span>
+      </Link>
+      <div className="header-right">
+        <Space size="middle">
           <Link to="/mentor">
             <Button shape="round">멘토 프로필</Button>
           </Link>
@@ -46,15 +49,37 @@ function HeaderNav() {
               <Button id="chat-btn" shape="circle" icon={<MessageOutlined />} />
             </Link>
           </Tooltip>
-          <Dropdown overlay={menu} placement="bottomRight" arrow>
-            <Link to="/mypage">
-              <Avatar size="normal" icon={<UserOutlined />} />
-            </Link>
+          <Dropdown
+            overlay={UserMenu} onClick={e => e.preventDefault()}
+            placement="bottomRight" arrow
+          >
+            <Avatar size="normal" icon={<UserOutlined />} />
           </Dropdown>
+          <SignOutButton />
         </Space>
       </div>
     </Header>
-  );
-}
+)
+
+
+const OutButton = ({ firebase }) => ( <Button onClick={firebase.doSignOut}>로그아웃</Button>);
+const SignOutButton = withFirebase(OutButton);
+
+const UserMenu = withFirebase(({ firebase }) => (
+        <Menu>
+          <Menu.Item>
+            <Link to="/mypage">내 정보</Link>
+          </Menu.Item>
+          <Menu.Item>
+            <Link to="/mypage">상담 내역</Link>
+          </Menu.Item>
+          <Menu.Item>
+            <Link to="/mypage">1대1 문의</Link>
+          </Menu.Item>
+          {/* <Menu.Item key="logout" danger>
+            로그아웃
+          </Menu.Item> */}
+        </Menu>
+))
 
 export default HeaderNav;
