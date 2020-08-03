@@ -4,10 +4,13 @@ import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import { Link, withRouter } from "react-router-dom";
 import { compose } from 'recompose';
 import { withFirebase } from '../../firebase';
+import { AuthUserContext } from '../../session'
 import "./SignIn.css";
 
-const SignIn = () => (
-  <SignInEmail />
+const SignIn = (props) => (
+  <AuthUserContext.Consumer>
+    {authUser => authUser ? props.history.push('/') : <SignInEmail />}
+  </AuthUserContext.Consumer>
 )
 
 class SignInEmailForm extends Component {

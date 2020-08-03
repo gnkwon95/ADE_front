@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { withFirebase } from '../firebase';
+import { AuthUserContext } from '../session'
 
 import "./HeaderNav.css";
 import { Layout, Avatar, Menu, Dropdown, Button, Tooltip, Space } from "antd";
@@ -8,14 +9,16 @@ import { UserOutlined, MessageOutlined } from "@ant-design/icons";
 
 const { Header } = Layout;
 
-const HeaderNav = ({authUser}) => (
+const HeaderNav = () => (
     <Header id="header">
       <Link to="/" className="logo">
         <span>ADE</span>
       </Link>
       <div className="header-right">
       <Space size="middle"></Space>
-        {authUser ? <UserNav /> : <VisitorNav />}
+      <AuthUserContext.Consumer>
+        {authUser => authUser ? <UserNav /> : <VisitorNav />}
+      </AuthUserContext.Consumer>
       </div>
     </Header>
 );
@@ -62,7 +65,7 @@ const UserNav = () => (
 // const SignOutButton = withFirebase(OutButton);
 
 const UserMenu = withFirebase(({ firebase }) => (
-        <Menu onClick={firebase.doSignOut}>
+        <Menu onClick={ firebase.doSignOut }>
           <Menu.Item>
             <Link to="/mypage">내 정보</Link>
           </Menu.Item>

@@ -28,7 +28,6 @@ class Firebase {
   doSignOut = ({key}) => {
     if (key === "logout") {
       this.auth.signOut();
-      console.log("logout")
     }
   };
 

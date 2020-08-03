@@ -4,12 +4,14 @@ import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Link, withRouter } from "react-router-dom";
 import { compose } from 'recompose';
 import { withFirebase } from '../../firebase';
+import { AuthUserContext } from '../../session'
+
 import "./SignIn.css";
 
-const Join = () => (
-  <div>
-    <RegisterForm />
-  </div>
+const SignUp = (props) => (
+  <AuthUserContext.Consumer>
+    {authUser => authUser ? props.history.push('/') : <RegisterForm />}
+  </AuthUserContext.Consumer>
 )
 
 class FormBase extends Component {
@@ -196,4 +198,4 @@ const RegisterForm = compose(
 )(FormBase);
 
 
-export default Join;
+export default SignUp;
