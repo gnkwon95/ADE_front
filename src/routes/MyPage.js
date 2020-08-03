@@ -1,15 +1,24 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 import { Tabs, Typography } from "antd";
 import "./MyPage.css";
 import MyInfo from "../components/mypage/MyInfo";
 import Counsel from "../components/mypage/Counsel";
 import OneOnOne from "../components/mypage/OneOnOne";
+import { AuthUserContext } from '../session'
+import { withFirebase } from '../firebase'
 
 function callback(key) {
   console.log(key);
 }
 
-const MyPage = () => {
+const MyPage = (props) => (
+  <AuthUserContext.Consumer>
+    {authUser => authUser ? props.history.push('/') : <MyPages />}
+  </AuthUserContext.Consumer>
+)
+
+const MyPages = () => {
   const { TabPane } = Tabs;
   const { Title } = Typography;
 

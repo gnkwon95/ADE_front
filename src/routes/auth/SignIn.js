@@ -3,6 +3,7 @@ import { Card, Form, Input, Button, Typography } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import { Link, withRouter } from "react-router-dom";
 import { AuthUserContext } from '../../session'
+import { withFirebase } from '../../firebase'
 import "./SignIn.css";
 
 const SignIn = (props) => (
@@ -118,6 +119,6 @@ class SignInEmailForm extends Component {
   }
 };
 
-const SignInEmail = withRouter(SignInEmailForm);
+const SignInEmail = withRouter(withFirebase(SignInEmailForm));
 
 export default SignIn;
