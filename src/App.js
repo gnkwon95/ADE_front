@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import { Layout } from "antd";
 import HeaderNav from "./components/HeaderNav";
@@ -10,8 +10,28 @@ import "./App.less";
 import SignIn from "./routes/auth/SignIn";
 import Join from "./routes/auth/Join";
 import ForgotPw from "./routes/auth/ForgotPw";
+import { withFirebase } from './firebase';
 
-class App extends React.Component {
+class App extends Component {
+  constructor(props) {
+    super(props);
+ 
+    this.state = {
+      authUser: null,
+    };
+  }
+
+  componentDidMount() {
+    this.listner = this.props.firebase.auth.onAuthStateChanged(authUser => {
+      authUser
+        ? this.setState({ authUser })
+        : this.setState({ authUser: null });
+    });
+  }
+
+  componentWillUnmount() {
+    this.listener();
+  }
 
   render() {
     const { Content, Footer } = Layout;
@@ -19,7 +39,7 @@ class App extends React.Component {
     return (
         <BrowserRouter>
           <Layout className="layout">
-            <HeaderNav />
+            <HeaderNav authUser={this.state.authUser} />
               <Route exact path="/"  component={Home} />
             <Content style={{ padding: "0 50px" }}>
               <Route exact path="/signin" component={SignIn} />
@@ -36,4 +56,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withFirebase(App);

@@ -38,6 +38,7 @@ class SignInEmailForm extends Component {
   
   render(){
     const { Title } = Typography;
+
     return (
       <Card title={false} bordered={false} className="login-card">
         <div className="signin-texts">
@@ -110,7 +111,7 @@ class SignInEmailForm extends Component {
           </Form.Item>
         </Form>
       </Card>
-    );
+    )
   }
 };
 
