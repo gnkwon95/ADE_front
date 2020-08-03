@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Card, Form, Input, Button, Typography, message } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import { Link, withRouter } from "react-router-dom";
@@ -14,118 +14,112 @@ const SignIn = (props) => (
   </AuthUserContext.Consumer>
 )
 
-class SignInEmailForm extends Component {
-
-  constructor(props) {
-    super(props);
-  }
+const SignInEmailForm = (props) => {
+  const onFinish = values => {
+      const email = values.email
+      const password = values.password
+      
+      props.firebase
+        .doSignInWithEmailAndPassword(email, password)
+        .then(() => {
+          props.history.push('/');
+        })
+        .catch(error => {
+          switch(error.code) {
+            case 'auth/wrong-password':
+              message.info(`가입하지 않은 이메일이거나, 잘못된 비밀번호입니다.`);
+              break;
+            case 'auth/user-not-found':
+              message.info(`가입하지 않은 이메일이거나, 잘못된 비밀번호입니다.`);
+              break;
+            case 'auth/too-many-request':
+              message.info(`잠시 후 다시 시도해주세요`);
+              break;
+            default:
+              console.log(error)
+          }
+          form.resetFields()
+        });
+    };
   
-  onFinish = values => {
-    const email = values.email
-    const password = values.password
-    
-    this.props.firebase
-      .doSignInWithEmailAndPassword(email, password)
-      .then(() => {
-        this.props.history.push('/');
-      })
-      .catch(error => {
-        switch(error.code) {
-          case 'auth/wrong-password':
-            message.info(`가입하지 않은 이메일이거나, 잘못된 비밀번호입니다.`);
-            break;
-          case 'auth/user-not-found':
-            message.info(`가입하지 않은 이메일이거나, 잘못된 비밀번호입니다.`);
-            break;
-          case 'auth/too-many-request':
-            message.info(`잠시 후 다시 시도해주세요`);
-            break;
-          default:
-            console.log(error)
-        }
-        
-      });
-  };
+  const { Title } = Typography;
+  const [form] = Form.useForm();
 
-  
-  render(){
-    const { Title } = Typography;
-
-    return (
-      <Card title={false} bordered={false} className="login-card">
-        <div className="signin-texts">
-          <Title level={2} className="signin-title">
-            로그인
-          </Title>
-        </div>
-        <Form
-          name="normal_login"
-          className="login-form"
-          initialValues={{
-            remember: true,
-          }}
-          onFinish={this.onFinish}
+  return (
+    <Card title={false} bordered={false} className="login-card">
+      <div className="signin-texts">
+        <Title level={2} className="signin-title">
+          로그인
+        </Title>
+      </div>
+      <Form
+        form={form}
+        name="normal_login"
+        className="login-form"
+        initialValues={{
+          remember: true,
+        }}
+        onFinish={onFinish}
+      >
+        <Form.Item
+          name="email"
+          rules={[
+            {
+              type: "email",
+              message: "올바른 이메일 형식이 아닙니다!",
+            },
+            {
+              required: true,
+              message: "이메일 주소를 입력하세요!",
+            },
+          ]}
         >
-          <Form.Item
-            name="email"
-            rules={[
-              {
-                type: "email",
-                message: "올바른 이메일 형식이 아닙니다!",
-              },
-              {
-                required: true,
-                message: "이메일 주소를 입력하세요!",
-              },
-            ]}
-          >
-            <Input
-              prefix={<MailOutlined className="site-form-item-icon" />}
-              placeholder="이메일"
-              size="large"
-            />
-          </Form.Item>
-          <Form.Item
-            name="password"
-            rules={[
-              {
-                required: true,
-                message: "비밀번호를 입력하세요!",
-              },
-            ]}
-          >
-            <Input
-              prefix={<LockOutlined className="site-form-item-icon" />}
-              type="password"
-              placeholder="비밀번호"
-              size="large"
-            />
-          </Form.Item>
-          <Form.Item>
-            <Link to="/forgotpw" className="signin-option">
-              비밀번호를 잊으셨나요?
-            </Link>
-          </Form.Item>
+          <Input
+            prefix={<MailOutlined className="site-form-item-icon" />}
+            placeholder="이메일"
+            size="large"
+          />
+        </Form.Item>
+        <Form.Item
+          name="password"
+          rules={[
+            {
+              required: true,
+              message: "비밀번호를 입력하세요!",
+            },
+          ]}
+        >
+          <Input
+            prefix={<LockOutlined className="site-form-item-icon" />}
+            type="password"
+            placeholder="비밀번호"
+            size="large"
+          />
+        </Form.Item>
+        <Form.Item>
+          <Link to="/forgotpw" className="signin-option">
+            비밀번호를 잊으셨나요?
+          </Link>
+        </Form.Item>
 
-          <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-form-button"
-              size="large"
-            >
-              로그인
-            </Button>
-            계정이 없으세요?{" "}
-            <Link to="/join" className="signin-option">
-              회원가입
-            </Link>
-          </Form.Item>
-        </Form>
-      </Card>
-    )
-  }
-};
+        <Form.Item>
+          <Button
+            type="primary"
+            htmlType="submit"
+            className="login-form-button"
+            size="large"
+          >
+            로그인
+          </Button>
+          계정이 없으세요?{" "}
+          <Link to="/join" className="signin-option">
+            회원가입
+          </Link>
+        </Form.Item>
+      </Form>
+    </Card>
+  )
+}
 
 const SignInEmail = withRouter(withFirebase(SignInEmailForm));
 
