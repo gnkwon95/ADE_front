@@ -2,8 +2,6 @@ import React,  { Component } from "react";
 import { Form, Input, Button, Typography, Checkbox, Card } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Link, withRouter } from "react-router-dom";
-import { compose } from 'recompose';
-import { withFirebase } from '../../firebase';
 import { AuthUserContext } from '../../session'
 
 import "./SignIn.css";
@@ -192,10 +190,6 @@ class FormBase extends Component {
   
 };
 
-const RegisterForm = compose(
-  withRouter,
-  withFirebase
-)(FormBase);
-
+const RegisterForm = withRouter(FormBase);
 
 export default SignUp;
