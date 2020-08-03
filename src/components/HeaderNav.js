@@ -26,7 +26,7 @@ const HeaderNav = () => (
 const VisitorNav = () => (
 
         <Space size="middle">
-          <Link to="/join">
+          <Link to="/signup">
             <Button shape="round">회원가입</Button>
           </Link>
           <Link to="/signin">

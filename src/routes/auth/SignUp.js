@@ -14,10 +14,7 @@ const SignUp = (props) => (
 )
 
 class FormBase extends Component {
-  state = {
-    error: null
-  }
-
+  
   constructor(props) {
     super(props);
   }
@@ -44,7 +41,7 @@ class FormBase extends Component {
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
           alert(`해당 이메일로 가입된 계정이 있습니다.`);
-          this.props.history.push('/login');
+          this.props.history.push('/signin');
         }
       });
   };

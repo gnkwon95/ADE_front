@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Form, Input, Button, Typography } from "antd";
+import { Card, Form, Input, Button, Typography, message } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import { Link, withRouter } from "react-router-dom";
 import { AuthUserContext } from '../../session'
@@ -15,9 +15,6 @@ const SignIn = (props) => (
 )
 
 class SignInEmailForm extends Component {
-  state = {
-    error: null
-  }
 
   constructor(props) {
     super(props);
@@ -33,9 +30,20 @@ class SignInEmailForm extends Component {
         this.props.history.push('/');
       })
       .catch(error => {
-        if (error.code === 'auth/wrong-password') {
-          alert(`가입하지 않은 이메일이거나, 잘못된 비밀번호입니다.`);
+        switch(error.code) {
+          case 'auth/wrong-password':
+            message.info(`가입하지 않은 이메일이거나, 잘못된 비밀번호입니다.`);
+            break;
+          case 'auth/user-not-found':
+            message.info(`가입하지 않은 이메일이거나, 잘못된 비밀번호입니다.`);
+            break;
+          case 'auth/too-many-request':
+            message.info(`잠시 후 다시 시도해주세요`);
+            break;
+          default:
+            console.log(error)
         }
+        
       });
   };
 
