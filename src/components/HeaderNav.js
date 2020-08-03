@@ -6,67 +6,63 @@ import "./HeaderNav.css";
 import { Layout, Avatar, Menu, Dropdown, Button, Tooltip, Space } from "antd";
 import { UserOutlined, MessageOutlined } from "@ant-design/icons";
 
-const HeaderNav = ({ authUser }) => (
-<div>{authUser ? <UserNav /> : <VisitorNav />}</div>
-);
-
-
-
 const { Header } = Layout;
 
-const VisitorNav = () => (
-  <div>
-   <Header id="header">
-      <Link to="/" className="logo">
-        <span>ADE</span>
-      </Link>
-      <div className="header-right">
-        <Space size="middle">
-          <Link to="/join">
-            <Button shape="round">회원가입</Button>
-          </Link>
-          <Link to="/signin">
-            <Button shape="round" type="primary">로그인</Button>
-          </Link>
-        </Space>
-      </div>
-     </Header>
-    </div>
-)
-
-const UserNav = () => (
+const HeaderNav = ({authUser}) => (
     <Header id="header">
       <Link to="/" className="logo">
         <span>ADE</span>
       </Link>
       <div className="header-right">
-        <Space size="middle">
-          <Link to="/mentor">
-            <Button shape="round">멘토 프로필</Button>
-          </Link>
-          <Tooltip title="채팅하기">
-            <Link to="/chat">
-              <Button id="chat-btn" shape="circle" icon={<MessageOutlined />} />
-            </Link>
-          </Tooltip>
-          <Dropdown
-            overlay={UserMenu} onClick={e => e.preventDefault()}
-            placement="bottomRight" arrow
-          >
-            <Avatar size="normal" icon={<UserOutlined />} />
-          </Dropdown>
-          <SignOutButton />
-        </Space>
+      <Space size="middle"></Space>
+        {authUser ? <UserNav /> : <VisitorNav />}
       </div>
     </Header>
-)
+);
+
+const VisitorNav = () => (
+
+        <Space size="middle">
+          <Link to="/join">
+            <Button shape="round">회원가입</Button>
+          </Link>
+          <Link to="/signin">
+            <Button shape="round" type="primary">
+              로그인
+            </Button>
+          </Link>
+        </Space>
+);
+
+const UserNav = () => (
+
+      <Space size="middle">
+        <Link to="/mentor">
+          <Button shape="round">멘토 프로필</Button>
+        </Link>
+        <Tooltip title="채팅하기">
+          <Link to="/chat">
+            <Button id="chat-btn" shape="circle" icon={<MessageOutlined />} />
+          </Link>
+        </Tooltip>
+        <Dropdown
+          overlay={UserMenu}
+          onClick={(e) => e.preventDefault()}
+          placement="bottomRight"
+          arrow
+        >
+          <Avatar size="normal" icon={<UserOutlined />} />
+        </Dropdown>
+        {/* <SignOutButton/> */}
+      </Space>
+);
 
 
-const OutButton = ({ firebase }) => ( <Button onClick={firebase.doSignOut}>로그아웃</Button>);
-const SignOutButton = withFirebase(OutButton);
+// const OutButton = ({ firebase }) => ( <Button onClick={firebase.doSignOut}>로그아웃</Button>);
+// const SignOutButton = withFirebase(OutButton);
 
 const UserMenu = withFirebase(({ firebase }) => (
-        <Menu>
+        <Menu onClick={firebase.doSignOut}>
           <Menu.Item>
             <Link to="/mypage">내 정보</Link>
           </Menu.Item>
@@ -76,9 +72,9 @@ const UserMenu = withFirebase(({ firebase }) => (
           <Menu.Item>
             <Link to="/mypage">1대1 문의</Link>
           </Menu.Item>
-          {/* <Menu.Item key="logout" danger>
+          <Menu.Item key="logout" danger>
             로그아웃
-          </Menu.Item> */}
+          </Menu.Item>
         </Menu>
 ))
 
