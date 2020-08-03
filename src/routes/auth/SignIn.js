@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { Card, Form, Input, Button, Typography, message } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import { Link, withRouter } from "react-router-dom";
@@ -6,12 +6,27 @@ import { AuthUserContext } from '../../session'
 import { withFirebase } from '../../firebase'
 import "./SignIn.css";
 
+const { Title } = Typography;
+
 const SignIn = (props) => (
   <AuthUserContext.Consumer>
     {authUser => authUser ? props.history.push('/')
-                            : <SignInEmail />
+                            : <SignInPage />
     }
   </AuthUserContext.Consumer>
+)
+
+const SignInPage = () => (
+  <Card title={false} bordered={false} className="login-card">
+    <div className="signin-texts">
+      <Title level={2} className="signin-title">
+        로그인
+      </Title>
+    </div>
+    <SignInGoogle />
+    <SignInFacebook />
+    <SignInEmail />
+  </Card>
 )
 
 const SignInEmailForm = (props) => {
@@ -42,16 +57,10 @@ const SignInEmailForm = (props) => {
         });
     };
   
-  const { Title } = Typography;
+
   const [form] = Form.useForm();
 
   return (
-    <Card title={false} bordered={false} className="login-card">
-      <div className="signin-texts">
-        <Title level={2} className="signin-title">
-          로그인
-        </Title>
-      </div>
       <Form
         form={form}
         name="normal_login"
@@ -117,10 +126,104 @@ const SignInEmailForm = (props) => {
           </Link>
         </Form.Item>
       </Form>
-    </Card>
   )
 }
 
+class SignInGoogleBase extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { error: null };
+  }
+
+  onSubmit = event => {
+    console.log(event)
+    this.props.firebase
+      .doSignInWithGoogle()
+      .then(socialAuthUser => {
+        // Create a user in your Firebase Realtime Database too
+        return this.props.firebase.user(socialAuthUser.user.uid).set({
+          username: socialAuthUser.user.displayName,
+          email: socialAuthUser.user.email,
+          roles: {},
+        });
+      })
+      .then(() => {
+        this.setState({ error: null });
+        this.props.history.push('/');
+      })
+      .catch(error => {
+        if (error.code === 'auth/account-exists-with-different-credential') {
+          error.message = '해당 이메일로 가입된 계정이 이미 있습니다.';
+        }
+
+        this.setState({ error });
+      });
+
+    event.preventDefault();
+  };
+
+  render() {
+    const { error } = this.state;
+
+    return (
+      <form onSubmit={this.onSubmit}>
+        <Button htmlType="submit" className="login-form-button">구글 아이디로 로그인</Button>
+
+        {error && <p>{error.message}</p>}
+      </form>
+    );
+  }
+}
+
+class SignInFacebookBase extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { error: null };
+  }
+
+  onSubmit = event => {
+    this.props.firebase
+      .doSignInWithFacebook()
+      .then(socialAuthUser => {
+        // Create a user in your Firebase Realtime Database too
+        return this.props.firebase.user(socialAuthUser.user.uid).set({
+          username: socialAuthUser.additionalUserInfo.profile.name,
+          email: socialAuthUser.additionalUserInfo.profile.email,
+          roles: {},
+        });
+      })
+      .then(() => {
+        this.setState({ error: null });
+        this.props.history.push('/');
+      })
+      .catch(error => {
+        if (error.code === 'auth/account-exists-with-different-credential') {
+          error.message = '해당 이메일로 가입된 계정이 이미 있습니다.';
+        }
+
+        this.setState({ error });
+      });
+
+    event.preventDefault();
+  };
+
+  render() {
+    const { error } = this.state;
+
+    return (
+      <form onSubmit={this.onSubmit}>
+        <Button htmlType="submit" className="login-form-button">페이스북 아이디로 로그인</Button>
+
+        {error && <p>{error.message}</p>}
+      </form>
+    );
+  }
+}
+
 const SignInEmail = withRouter(withFirebase(SignInEmailForm));
+const SignInGoogle = withRouter(withFirebase(SignInGoogleBase));
+const SignInFacebook = withRouter(withFirebase(SignInFacebookBase));
 
 export default SignIn;

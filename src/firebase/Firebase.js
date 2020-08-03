@@ -16,6 +16,11 @@ class Firebase {
     app.initializeApp(config);
 
     this.auth = app.auth();
+    
+    /* 소셜로그인 */
+    this.googleProvider = new app.auth.GoogleAuthProvider();
+    this.facebookProvider = new app.auth.FacebookAuthProvider();
+    
   }
 
   // *** Auth API ***
@@ -31,7 +36,18 @@ class Firebase {
     }
   };
 
+  doSignInWithGoogle = () =>
+    this.auth.signInWithPopup(this.googleProvider);
+
+  doSignInWithFacebook = () =>
+    this.auth.signInWithPopup(this.facebookProvider);
+
   doPasswordReset = (email) => this.auth.sendPasswordResetEmail(email);
+
+  doSendEmailVerification = () =>
+    this.auth.currentUser.sendEmailVerification({
+      url: process.env.REACT_APP_CONFIRMATION_EMAIL_REDIRECT,
+    });
 
   doPasswordUpdate = (password) =>
     this.auth.currentUser.updatePassword(password);

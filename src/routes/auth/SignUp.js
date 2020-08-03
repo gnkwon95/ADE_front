@@ -21,13 +21,13 @@ const FormBase = (props) => {
     const password = values.password
     props.firebase
       .doCreateUserWithEmailAndPassword( email, password)
-      .then(authUser => {
-        // Create a user in your Firebase realtime database
-        return props.firebase.user(authUser.user.uid).set({
-          username,
-          email,
-        });
-      })
+      // .then(authUser => {
+      //   // Create a user in your Firebase realtime database
+      //   return props.firebase.user(authUser.user.uid).set({
+      //     username,
+      //     email,
+      //   });
+      // })
       .then(() => {
         return props.firebase.doSendEmailVerification();
       })
@@ -36,7 +36,7 @@ const FormBase = (props) => {
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
-          message.info(`해당 이메일로 가입된 계정이 있습니다.`);
+          message.info(`해당 이메일로 가입된 계정이 이미 있습니다.`);
           props.history.push('/signin');
         }
       });
