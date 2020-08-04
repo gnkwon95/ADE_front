@@ -2,7 +2,7 @@ import React from "react";
 import { Form, Input, Button, Typography, Card } from "antd";
 import { MailOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import { withFirebase } from '../../firebase'
+import { withAuthorization } from '../../session'
 
 const ForgotPw = (props) => {
 
@@ -79,4 +79,6 @@ const ForgotPw = (props) => {
   );
 };
 
-export default withFirebase(ForgotPw);
+const condition = authUser => authUser == null;
+
+export default withAuthorization(condition)(ForgotPw);

@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { Card, Typography, Button } from "antd";
 import { Link } from 'react-router-dom'
-import { AuthUserContext } from '../../session'
+import { withAuthorization } from '../../session'
 import "./SignIn.css";
 
 import * as SignInMethods from '../../components/signin'
@@ -9,15 +9,7 @@ import * as SignInMethods from '../../components/signin'
 
 const { Title } = Typography;
 
-const SignIn = (props) => (
-  <AuthUserContext.Consumer>
-    {authUser => authUser ? props.history.push('/')
-                            : <SignInPage />
-    }
-  </AuthUserContext.Consumer>
-)
-
-const SignInPage = () => {
+const SignIn = () => {
   const [toggle, setToggle] = useState(false)
 
   const toggleClick = () => {
@@ -51,6 +43,6 @@ const SignInPage = () => {
   )
 }
 
+const condition = authUer => authUer == null;
 
-
-export default SignIn;
+export default withAuthorization(condition)(SignIn);

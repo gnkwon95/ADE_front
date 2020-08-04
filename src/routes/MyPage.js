@@ -5,8 +5,7 @@ import "./MyPage.css";
 import MyInfo from "../components/mypage/MyInfo";
 import Counsel from "../components/mypage/Counsel";
 import OneOnOne from "../components/mypage/OneOnOne";
-import { AuthUserContext } from '../session'
-import { withFirebase } from '../firebase'
+import { withAuthorization } from '../session'
 
 function callback(key) {
   console.log(key);
@@ -36,4 +35,8 @@ const MyPage = () => {
   );
 };
 
-export default MyPage;
+const condition = authUser => !!authUser;
+
+export default withAuthorization(condition)(MyPage);
+
+// export default MyPage;
