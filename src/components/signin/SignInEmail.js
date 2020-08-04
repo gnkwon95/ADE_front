@@ -95,10 +95,6 @@ const SignInEmail = (props) => {
             >
                 로그인
             </Button>
-            계정이 없으세요?{" "}
-            <Link to="/join" className="signin-option">
-                회원가입
-            </Link>
             </Form.Item>
         </Form>
     )

@@ -31,7 +31,7 @@ const SignInFacebook = props => {
 
   return (
     <form onSubmit={onSubmit}>
-      <Button htmlType="submit" className="social-login-button">페이스북 아이디로 로그인</Button>
+      <Button htmlType="submit" className="social-login-button">페이스북 아이디로 로그인하기</Button>
     </form>
   );
 

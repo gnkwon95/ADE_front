@@ -32,7 +32,7 @@ const SignInGoogle = props => {
 
   return (
     <form onSubmit={onSubmit}>
-      <Button htmlType="submit" className="social-login-button">구글 아이디로 로그인</Button>
+      <Button htmlType="submit" className="social-login-button">구글 아이디로 로그인하기</Button>
     </form>
   );
 }

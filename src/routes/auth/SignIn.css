@@ -11,6 +11,11 @@
   width: 100%;
 }
 
+.social-login-button {
+  width: 100%;
+  size: "small"
+}
+
 .signin-option {
     text-align: center;
     display: inline-block;
