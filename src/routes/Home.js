@@ -1,23 +1,26 @@
 import React from "react";
 import "./Home.css";
 import { Carousel } from "antd";
+import MainPageCarousel from "../components/mainpage/mainpagecarousel";
+
+
+/*
+state = {
+    profile: []
+}
+
+getProfiles = () => {
+    axios.get('profiles').then(res => this.setState({profiles: res.data}));
+};
+
+resetState = () => {
+    this.getProfiles();
+}
+*/
 
 const Home = () => {
   return (
-    <Carousel autoplay>
-      <div>
-        <h3>상품소개 이미지 1</h3>
-      </div>
-      <div>
-        <h3>상품소개 이미지 2</h3>
-      </div>
-      <div>
-        <h3>상품소개 이미지 3</h3>
-      </div>
-      <div>
-        <h3>상품소개 이미지 4</h3>
-      </div>
-    </Carousel>
+    <MainPageCarousel />
   );
 };
 

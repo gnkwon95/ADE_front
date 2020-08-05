@@ -4,14 +4,19 @@ import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Link, withRouter } from "react-router-dom";
 import { AuthUserContext } from '../../session'
 import { withFirebase } from '../../firebase'
+import axios from "axios";
 
 import "./SignIn.css";
+
+
+axios.defaults.baseURL ='http://15.164.251.155:8000/'
 
 const SignUp = (props) => (
   <AuthUserContext.Consumer>
     {authUser => authUser ? props.history.push('/') : <RegisterForm />}
   </AuthUserContext.Consumer>
 )
+
 
 const FormBase = (props) => {
 
@@ -34,10 +39,35 @@ const FormBase = (props) => {
       .then(() => {
         props.history.push('/');
       })
+      .then( authUser=> {
+        return this.props.firebase
+            .user(authUser.user.uid)
+            .set({
+                username,
+                email,
+            });
+       })
+       .then(
+        axios.post('mypage/', {
+            user_uid: "dummy_uid", // props.firebase.auth.currentUser.user_uid
+            email: values.email,
+            user_id: values.username,
+            credit: 0,
+            credit_used: 0
+        })
+              .then(function (response) {
+                console.log(response);
+              })
+              .catch(error => {
+                console.log(error);
+              })
+       )
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
           message.info(`해당 이메일로 가입된 계정이 이미 있습니다.`);
           props.history.push('/signin');
+        } else{
+            console.log(error)
         }
       });
   };
