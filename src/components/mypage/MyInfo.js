@@ -3,6 +3,7 @@ import { Card, Col, Row, Space } from "antd";
 import { Link } from "react-router-dom";
 import "./MyInfo.css";
 import MentorCard from "./MyInfoMentorCard";
+import ChangePw from "./ChangePw"
 
 const MyInfo = () => {
   return (
@@ -42,6 +43,9 @@ const MyInfo = () => {
           </Card>
         </Col>
       </Row>
+      <Row>
+        <ChangePw />
+      </ Row>
       <Row>
         <Col flex={1}>
           <Card

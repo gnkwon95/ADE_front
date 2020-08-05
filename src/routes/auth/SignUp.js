@@ -1,24 +1,20 @@
 import React from "react";
 import { Form, Input, Button, Typography, Checkbox, Card, message } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
+<<<<<<< HEAD
 import { Link, withRouter } from "react-router-dom";
+import { withAuthorization } from '../../session'
 import { AuthUserContext } from '../../session'
 import { withFirebase } from '../../firebase'
 import axios from "axios";
 
 import "./SignIn.css";
-
-
 axios.defaults.baseURL ='http://15.164.251.155:8000/'
 
-const SignUp = (props) => (
-  <AuthUserContext.Consumer>
-    {authUser => authUser ? props.history.push('/') : <RegisterForm />}
-  </AuthUserContext.Consumer>
-)
 
+import "./SignIn.css";
 
-const FormBase = (props) => {
+const SignUp = (props) => {
 
   const onFinish = values => {
     const username = values.username
@@ -211,6 +207,6 @@ const FormBase = (props) => {
   
 };
 
-const RegisterForm = withRouter(withFirebase(FormBase));
+const condition = authUser => authUser == null;
 
-export default SignUp;
+export default withAuthorization(condition)(SignUp);

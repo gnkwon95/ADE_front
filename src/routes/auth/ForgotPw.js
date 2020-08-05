@@ -2,11 +2,21 @@ import React from "react";
 import { Form, Input, Button, Typography, Card } from "antd";
 import { MailOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import "./SignIn.css";
+import { withAuthorization } from '../../session'
 
-const ForgotPw = () => {
-  const onFinish = (values) => {
+const ForgotPw = (props) => {
+
+  const onFinish = values => {
     console.log("Received values of form: ", values);
+    const email = values.email
+    props.firebase.doPassWordReset(email)
+    .then(() => {
+      // 변경되었습니다. 다시 로그인해주세요 등의 알림
+    })
+    .catch(error => {
+      alert("error!")
+      console.log(error)
+    })
   };
 
   const { Title, Text } = Typography;
@@ -69,4 +79,6 @@ const ForgotPw = () => {
   );
 };
 
-export default ForgotPw;
+const condition = authUser => authUser == null;
+
+export default withAuthorization(condition)(ForgotPw);
