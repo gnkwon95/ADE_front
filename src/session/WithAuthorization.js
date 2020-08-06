@@ -1,6 +1,7 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import { withFirebase } from '../firebase';
+import AuthUserContext from './Context'
 import { message } from 'antd'
  
 /***************************************************************************
@@ -18,7 +19,7 @@ import { message } from 'antd'
     const condition = authUser => !!authUser;
   
   - (아직 X) 관리자만 접근 가능
-    const condition = authUser => authUser.role === 'ADMIN';
+    const condition = authUser => authUser && authUser.role === 'ADMIN';
   
   - (아직 X) 허용된 사용자만 접근 가능
     const condition = authUser => authUser.permissions.canEditAccount;
@@ -29,11 +30,14 @@ import { message } from 'antd'
 const withAuthorization = condition => Component => {
   class WithAuthorization extends React.Component {
     componentDidMount() {
+      console.log("in withAuth")
+      
       this.listener = this.props.firebase.auth.onAuthStateChanged(
         authUser => {
+          console.log(authUser)
           if (!condition(authUser)) {
             message.info("잘못된 접근입니다.")
-            this.props.history.push('/');
+            this.props.history.push('/')
           }
         },
       );
@@ -45,7 +49,10 @@ const withAuthorization = condition => Component => {
  
     render() {
       return (
-        <Component {...this.props} />
+        <AuthUserContext.Consumer>
+          { authUser => 
+              condition(authUser) ? <Component {...this.props} /> : null }
+        </AuthUserContext.Consumer>
       );
     }
   }

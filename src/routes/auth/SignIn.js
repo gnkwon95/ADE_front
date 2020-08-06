@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { withAuthorization } from '../../session'
 import "./SignIn.css";
 
-import * as SignInMethods from '../../components/signin'
+import * as SignInMethods from '../../components/signIn'
 
 
 const { Title } = Typography;
@@ -36,8 +36,8 @@ const SignIn = () => {
       <br />
       {toggle && <SignInMethods.SignInEmail />}
       계정이 없으세요?{" "}
-      <Link to="/join" className="signin-option">
-          회원가입
+      <Link to="/signup" className="signin-option">
+          회원가입 
       </Link>
     </Card>
   )
