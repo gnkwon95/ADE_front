@@ -21,11 +21,11 @@ const App = () => (
       <AdBar />
       <HeaderNav />
       <Route exact path="/" component={Home} />
-      <Content style={{ padding: "0 50px" }}>
+      <Route exact path="/mentor" component={Mentor} />
+      <Content style={{ margin: "0 50px" }}>
         <Route exact path="/signin" component={SignIn} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/forgotpw" component={ForgotPw} />
-        <Route exact path="/mentor" component={Mentor} />
         <Route exact path="/mypage" component={MyPage} />
         <Route exact path="/chat" component={Chat} />
       </Content>

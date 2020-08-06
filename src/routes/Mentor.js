@@ -9,13 +9,6 @@ const Mentor = () => {
   return (
     <>
       <MentorInfo />
-      <Row>
-        <Col sm={24} md={4}></Col>
-        <Col sm={24} md={16}>
-          <MentorDetails />
-        </Col>
-        <Col sm={24} md={4}></Col>
-      </Row>
     </>
   );
 };
