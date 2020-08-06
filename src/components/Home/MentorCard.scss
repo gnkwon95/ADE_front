@@ -1,0 +1,78 @@
+.Mentor_Card {
+  font-family: Roboto;
+  display: flex;
+  flex-direction: column;
+  padding: 3% 10%;
+  margin: 20px;
+  border-bottom: 2px solid #b5b5b5;
+  .Mentor_Avatar {
+    display: flex;
+    margin-bottom: 20px;
+    line-height: 29px;
+    flex-wrap: wrap;
+    h1 {
+      margin-left: 5%;
+      margin-bottom: 0px;
+      span {
+        font-size: 0.9rem;
+      }
+    }
+
+    a {
+      margin-left: auto;
+    }
+  }
+  .Mentor_company {
+    display: flex;
+    flex-wrap: wrap;
+    p {
+      flex-basis: 100%;
+    }
+    h3 {
+      display: inline;
+      margin: 0;
+      font-size: 0.8rem;
+    }
+    div {
+      display: flex;
+      flex-wrap: wrap;
+      span {
+        font-style: normal;
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 14px;
+        padding: 1px 4px;
+        display: inline-block;
+        background: #c4c4c4;
+        min-width: 97px;
+        max-height: 17px;
+        margin: 5px 5px;
+        text-align: center;
+        vertical-align: middle;
+      }
+      span:nth-child(2) {
+        margin-left: 10px;
+      }
+    }
+  }
+}
+@media only screen and (max-width: 600px) {
+  .Mentor_Card {
+    margin-left: 0;
+    margin-right: 0;
+    padding: 3% 3%;
+  }
+  .Mentor_company {
+    div {
+      h3::after {
+        content: "123412341234123412334123412341234";
+        width: 300px;
+        background-color: white;
+        color: white;
+      }
+      span {
+        margin: 5px 5px !important;
+      }
+    }
+  }
+}

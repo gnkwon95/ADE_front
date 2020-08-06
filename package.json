@@ -12,13 +12,15 @@
     "axios": "^0.19.2",
     "craco-less": "^1.17.0",
     "firebase": "^7.17.1",
+    "node-sass": "^4.14.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "recompose": "^0.30.0",
-    "reqwest": "^2.0.5"
+    "reqwest": "^2.0.5",
+    "styled-components": "^5.1.1"
   },
   "scripts": {
     "start": "craco start",
