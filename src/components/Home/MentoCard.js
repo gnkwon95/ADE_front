@@ -1,29 +1,12 @@
 import React from "react";
 import { Avatar } from "antd";
-import { UserOutlined, HeartFilled, StarFilled } from "@ant-design/icons";
+import { UserOutlined } from "@ant-design/icons";
 import Sample from "../../imageSamples/Sample.PNG";
-import styled from "styled-components";
 
 import "./MentorCard.scss";
 import { Link } from "react-router-dom";
 
-const HeartsAndStars = styled.div`
-  margin-left: auto;
-  position: absolute;
-  right: 0;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
-  @media only screen and (max-width: 600px) {
-    margin-left: 0;
-    position: static;
-    flex-direction: row;
-    margin-bottom: 10px;
-    span {
-      display: inline-block;
-    }
-  }
-`;
+import HeartsAndStars from "../Etc/HeartAndStars";
 
 const MentoCard = ({ title }) => {
   return (
@@ -43,14 +26,7 @@ const MentoCard = ({ title }) => {
             <span>김 갓 멘토</span>
           </h1>
         </div>
-        <HeartsAndStars>
-          <span>
-            <HeartFilled /> 999명
-          </span>
-          <span>
-            <StarFilled /> 4.5점
-          </span>
-        </HeartsAndStars>
+        <HeartsAndStars hearts={`99`} stars={"4.5"} />
         <div className="Mentor_company">
           <p>
             소개글 줄글소개글 줄글소개글 줄글소개글 줄글소개글 줄글소개글

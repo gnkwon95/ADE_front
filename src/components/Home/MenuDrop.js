@@ -10,7 +10,7 @@ const MenuDrop = ({ dropdownState, setDropdownState }) => {
     setDropdownState("평점 순으로 정렬");
   });
   const onDropdownClick3 = useCallback(() => {
-    setDropdownState("리뷰 많은 순으로 정렬?");
+    setDropdownState("리뷰 많은 순으로 정렬");
   });
 
   return (
