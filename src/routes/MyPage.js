@@ -11,17 +11,20 @@ function callback(key) {
   console.log(key);
 }
 
-const MyPage = () => {
+const MyPage = props => {
   const { TabPane } = Tabs;
   const { Title } = Typography;
+  console.log(props.firebase.getCurrentUser())
 
   return (
     <AuthUserContext.Consumer>
       {authUser => (
         <div>
-          {console.log(authUser)}
           <Title level={4} className="mypage-title">
-            {authUser.email}님 안녕하세요 :)
+            {console.log(authUser)}
+            1번: {authUser.email}님 안녕하세요 :)
+            <br />
+            2번: {props.firebase.getCurrentUser().email} 
           </Title>
           <Tabs defaultActiveKey="1" onChange={callback} size="large">
             <TabPane tab="내 정보" key="myInfo">

@@ -30,11 +30,9 @@ import { message } from 'antd'
 const withAuthorization = condition => Component => {
   class WithAuthorization extends React.Component {
     componentDidMount() {
-      console.log("in withAuth")
       
       this.listener = this.props.firebase.auth.onAuthStateChanged(
         authUser => {
-          console.log(authUser)
           if (!condition(authUser)) {
             message.info("잘못된 접근입니다.")
             this.props.history.push('/')
