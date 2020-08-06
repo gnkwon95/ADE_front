@@ -1,5 +1,5 @@
 .Service_Intro_images {
-  min-height: 500px;
+  min-height: 420px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -33,4 +33,11 @@
   .Service_Intro_images {
     min-height: 300px;
   }
+}
+
+a {
+  color: black;
+}
+a:active {
+  color: black;
 }

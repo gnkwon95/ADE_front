@@ -23,7 +23,7 @@ const MenuDrop = ({ dropdownState, setDropdownState }) => {
           평점 순으로 정렬
         </Menu.Item>
         <Menu.Item key="3" onClick={onDropdownClick3} icon={<UserOutlined />}>
-          리뷰 많은 순으로 정렬?
+          리뷰 많은 순으로 정렬
         </Menu.Item>
       </Menu>
     </>

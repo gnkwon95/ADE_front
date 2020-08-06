@@ -5,21 +5,27 @@
   padding: 3% 10%;
   margin: 20px;
   border-bottom: 2px solid #b5b5b5;
+  font-weight: bold;
+  flex-wrap: wrap;
+  a {
+    margin-left: auto;
+  }
   .Mentor_Avatar {
     display: flex;
-    margin-bottom: 20px;
     line-height: 29px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    .avatar_icon {
+      min-width: 60px;
+      min-height: 60px;
+    }
     h1 {
       margin-left: 5%;
       margin-bottom: 0px;
+      font-style: normal;
+      font-weight: bold;
       span {
         font-size: 0.9rem;
       }
-    }
-
-    a {
-      margin-left: auto;
     }
   }
   .Mentor_company {
@@ -27,6 +33,7 @@
     flex-wrap: wrap;
     p {
       flex-basis: 100%;
+      font-weight: 900;
     }
     h3 {
       display: inline;
@@ -61,15 +68,19 @@
     margin-left: 0;
     margin-right: 0;
     padding: 3% 3%;
+    h1 {
+      font-size: 1.1rem;
+      span {
+        font-size: 0.7rem;
+      }
+    }
+    .Mentor_Avatar {
+      margin-bottom: 0;
+    }
   }
+
   .Mentor_company {
     div {
-      h3::after {
-        content: "123412341234123412334123412341234";
-        width: 300px;
-        background-color: white;
-        color: white;
-      }
       span {
         margin: 5px 5px !important;
       }

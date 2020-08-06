@@ -30,7 +30,6 @@ const StyledBtn = styled(Button)`
 
 const Home = () => {
   const [dropdownState, setDropdownState] = useState("최근 등록 순으로 정렬");
-
   return (
     <>
       <Row style={{ background: "#b5b5b5" }}>
@@ -61,10 +60,12 @@ const Home = () => {
             </Dropdown>
           </div>
           <Filter />
-          <MentoCard />
-          <MentoCard />
-          <MentoCard />
-          <MentoCard />
+          <MentoCard
+            title={"20글자입니다20글자입니다20글자입니다20글자입니다"}
+          />
+          <MentoCard title={"15글자입니다15글자입니다15글자입니다"} />
+          <MentoCard title={"가나다라마바사아자차카타파하"} />
+          <MentoCard title={"5글자입니다"} />
         </Col>
         <Col xs={24} md={6}></Col>
       </Row>
