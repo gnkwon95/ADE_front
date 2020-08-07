@@ -1,28 +1,46 @@
 import React from "react";
 
-import styled from "styled-components"
+import Review from "./Review";
+import { StyledDetails } from "./styles";
 
-const StyledDetails = styled.div`
-  margin: 0 10%;
-  h1{
-    margin-top: 10%;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: bold;
-  }
-  p{
-    span{
-      display:block;
-    }
-  }
-  @media only screen and (max-width: 600px) {
-    margin: 0px;
-    min-width: 80%;
-    p{
-      padding: 0px;
-    }
-  }
-`
+const dummyData = {
+  review: {
+    contents: [
+      {
+        id: 1,
+        user: "김",
+        comment: "취뽀헀어요1!",
+        createdAt: "2020.07.23",
+      },
+      {
+        id: 2,
+        user: "이",
+        comment: "취뽀헀어요2!",
+        createdAt: "2020.07.23",
+      },
+      {
+        id: 3,
+        user: "박",
+        comment: "취뽀헀어요3!",
+        createdAt: "2020.07.23",
+      },
+      {
+        id: 4,
+        user: "최",
+        comment: "취뽀헀어요4!",
+        createdAt: "2020.07.23",
+      },
+      {
+        id: 5,
+        user: "정",
+        comment:
+          "취뽀헀어요5!Ullamco dolor cillum deserunt veniam dolor enim ex ex nisi cillum. Exercitation veniam labore id ut officia sint consectetur commodo labore consectetur irure dolor ut. Adipisicing eu sit ut ad minim dolor.",
+        createdAt: "2020.07.23",
+      },
+    ],
+    score: 4.5,
+  },
+};
 
 const MentorDetails = () => {
   return (
@@ -37,34 +55,33 @@ const MentorDetails = () => {
       <p>서울대학교 경영학과 졸업</p>
       <h1>함께 준비했던 회사 및 직군</h1>
       <p>
-        <span>
-        -SKTelecom 데이터 분석 직군
-        </span>
-        <span>
-        -소카 데이터 분석 직군
-        </span>
-        <span>
-        -스파크랩 벤쳐스 심사역
-        </span>
+        <span>-SKTelecom 데이터 분석 직군</span>
+        <span>-소카 데이터 분석 직군</span>
+        <span>-스파크랩 벤쳐스 심사역</span>
       </p>
       <h1>주요 인턴 및 경험</h1>
       <p>
         <span>-쏘카 데이터사이언스팀 인턴</span>
       </p>
-      <h1>합격 당시 스펙</h1>
-      <p>
-        <span>
-          -HSK 6급
-        </span>
-        <span>
-          -정보처리 기능사
-        </span>
-      </p>
-      <h1>기타 활동</h1>
-      <p>
-        <span>-SK Sunny 대학생 자원 봉사단</span>
-        <span>-ㅇㅇ 봉사단 대상 수상</span>
-      </p>
+
+      <h1 style={{ marginBottom: "5%" }}>합격 당시 스펙</h1>
+
+      <h2>보유 자격증 및 어학 시험 점수</h2>
+      <div className="mentor_spec">
+        <p>
+          <span>-HSK 6급</span>
+          <span>-정보처리 기능사</span>
+        </p>
+      </div>
+      <h2>기타 활동</h2>
+      <div className="mentor_spec">
+        <p>
+          <span>-SK Sunny 대학생 자원 봉사단</span>
+          <span>-ㅇㅇ 봉사단 대상 수상</span>
+        </p>
+      </div>
+
+      <Review id="review" review={dummyData.review} />
     </StyledDetails>
   );
 };

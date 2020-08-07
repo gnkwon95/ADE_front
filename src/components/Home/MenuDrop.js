@@ -1,17 +1,17 @@
-import React, { useState, useCallback } from "react";
+import React, { useCallback } from "react";
 import { Menu } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 
-const MenuDrop = ({ dropdownState, setDropdownState }) => {
+const MenuDrop = ({ setDropdownState }) => {
   const onDropdownClick1 = useCallback(() => {
     setDropdownState("최근 등록 순으로 정렬");
-  });
+  }, [setDropdownState]);
   const onDropdownClick2 = useCallback(() => {
     setDropdownState("평점 순으로 정렬");
-  });
+  }, [setDropdownState]);
   const onDropdownClick3 = useCallback(() => {
     setDropdownState("리뷰 많은 순으로 정렬");
-  });
+  }, [setDropdownState]);
 
   return (
     <>

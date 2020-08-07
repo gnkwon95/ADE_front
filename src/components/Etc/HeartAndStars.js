@@ -14,7 +14,7 @@ const HeartsAndStars = styled.div`
     position: static;
     flex-direction: row;
     margin-bottom: 10px;
-    span { 
+    span {
       font-size: 15px;
       margin-right: 5px;
     }
@@ -28,7 +28,7 @@ const HeartAndStars = ({ hearts, stars }) => {
         <HeartFilled /> {hearts}명
       </span>{" "}
       <span>
-        <StarFilled /> {stars}  
+        <StarFilled /> {stars}
       </span>
     </HeartsAndStars>
   );
@@ -37,22 +37,21 @@ const HeartAndStars = ({ hearts, stars }) => {
 export default HeartAndStars;
 
 const StyledOriginalHnS = styled.div`
-  span{
+  span {
     font-size: 20px;
   }
-  span:nth-child(1){
+  span:nth-child(1) {
     margin-right: auto;
   }
-  span:nth-child(2){
+  span:nth-child(2) {
     margin-left: 5px;
   }
-  @media only screen and (max-width: 600px){
-    span{
+  @media only screen and (max-width: 600px) {
+    span {
       font-size: 15px;
     }
   }
-`
-
+`;
 
 export const OriginalHnS = ({ hearts, stars }) => {
   return (

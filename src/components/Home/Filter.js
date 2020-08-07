@@ -8,7 +8,7 @@ const Filter = () => {
   const [showFilter, setShowFilter] = useState(false);
   const onFilterClicked = useCallback(() => {
     setShowFilter((prev) => !prev);
-  });
+  }, []);
   return (
     <div className="filter">
       <UnorderedListOutlined />

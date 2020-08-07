@@ -1,5 +1,42 @@
-import styled from "styled-components"
-
+import styled from "styled-components";
+export const StyledDetails = styled.div`
+  margin: 0 10%;
+  h1 {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+  }
+  > h1 {
+    margin-top: 10%;
+  }
+  h1:nth-last-child(1) {
+    margin-bottom: 5%;
+  }
+  h2 {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+  p {
+    span {
+      display: block;
+    }
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  .mentor_spec {
+    padding-left: 1%;
+    margin-bottom: 7%;
+  }
+  @media only screen and (max-width: 900px) {
+    min-width: 80%;
+    margin: 0 10%;
+    p {
+      padding: 0px;
+    }
+  }
+`;
 export const StyledMentorInfo = styled.div`
   border-top: 1px solid grey;
   display: flex;
@@ -8,7 +45,7 @@ export const StyledMentorInfo = styled.div`
     padding-top: 100px;
     padding-left: 5%;
     padding-right: 5%;
-    img {
+    > img {
       display: block;
       margin: 0 auto;
       margin-bottom: 20px;
@@ -25,10 +62,9 @@ export const StyledMentorInfo = styled.div`
       padding-left: 40px;
       text-align: center;
     }
-
   }
   .withCompanyLogo {
-    background:#FEDA6A;
+    background: #feda6a;
     padding: 5% 5%;
     display: flex;
     flex-direction: column;
@@ -55,9 +91,9 @@ export const StyledMentorInfo = styled.div`
         margin-left: 10px;
       }
     }
-    .flex-column-reverse{
-        display:flex;
-        flex-direction: column;
+    .flex-column-reverse {
+      display: flex;
+      flex-direction: column;
     }
     .MentorPage_buttons {
       display: flex;
@@ -92,7 +128,7 @@ export const StyledMentorInfo = styled.div`
       }
     }
   }
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 900px) {
     flex-direction: column-reverse;
     .withCompanyLogo {
       position: -webkit-sticky; /* Safari */
@@ -108,17 +144,17 @@ export const StyledMentorInfo = styled.div`
         height: 80px;
         border-radius: 50%;
       }
-      h1{
-          margin-top: 10px;
-          font-size: 1rem;
+      h1 {
+        margin-top: 10px;
+        font-size: 1rem;
       }
-      h2{
+      h2 {
         font-size: 1rem;
       }
 
       background: white;
-      .flex-column-reverse{
-        display:flex;
+      .flex-column-reverse {
+        display: flex;
         flex-direction: column-reverse;
         margin: 0;
       }
@@ -126,7 +162,7 @@ export const StyledMentorInfo = styled.div`
         display: flex;
         flex-direction: row-reverse;
         position: fixed;
-        bottom: -8px;
+        bottom: -13px;
         left: 0;
         width: 100%;
         button {
@@ -159,12 +195,11 @@ export const StyledMentorInfo = styled.div`
       }
     }
     .MentorPage_InfoCard {
-    padding: 0;
+      padding: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       > p {
-        margin: 0;
         border-left: none;
         padding-left: 10px;
         font-size: 1.2rem;
@@ -181,5 +216,3 @@ export const StyledMentorInfo = styled.div`
     }
   }
 `;
-
-

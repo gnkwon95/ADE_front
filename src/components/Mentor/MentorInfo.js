@@ -2,13 +2,13 @@ import React from "react";
 import Sample from "../../imageSamples/Sample.PNG";
 
 import { OriginalHnS } from "../Etc/HeartAndStars";
-import { Link } from "react-router-dom"
-
+import { Link } from "react-router-dom";
 
 import quotes from "../../imageSamples/quotes.PNG";
 import heart from "../../imageSamples/heart.png";
 import MentorDetails from "./MentorDetails";
-import {StyledMentorInfo} from "./styles"
+
+import { StyledMentorInfo } from "./styles";
 
 const MentorInfo = () => {
   return (
@@ -27,7 +27,10 @@ const MentorInfo = () => {
 
       <div className="withCompanyLogo">
         <div>
-          <Link to="#">멘토소개</Link> <Link to="#">상담후기</Link>
+          <Link to="#">멘토소개</Link>{" "}
+          <Link to="#review">
+            <a href="#review">상담후기</a>
+          </Link>
         </div>
 
         <img src={Sample} alt={Sample} />
@@ -38,12 +41,12 @@ const MentorInfo = () => {
           <div>
             <OriginalHnS stars={"4.5"} hearts={10} />
           </div>
-          <h2>CompanyName</h2>  
+          <h2>CompanyName</h2>
         </div>
         <div className="MentorPage_buttons">
           <button>상담 신청하기</button>
           <button>
-            <img src={heart} alt={`찜하기${heart}개`}/> 찜하기
+            <img src={heart} alt={`찜하기${heart}개`} /> 찜하기
           </button>
         </div>
 

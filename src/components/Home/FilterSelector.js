@@ -11,8 +11,6 @@ const StyledSelect = styled(Select)`
   border: 1px solid black;
 `;
 
-const { Option } = Select;
-
 const FilterSelector = () => {
   return (
     <div className="FilterSelector">

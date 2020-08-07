@@ -1,60 +1,50 @@
 import React from "react";
 import { Form, Input, Button, Typography, Checkbox, Card, message } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
-import { Link, withRouter } from "react-router-dom";
-import { withAuthorization } from '../../session'
-import { AuthUserContext } from '../../session'
-import { withFirebase } from '../../firebase'
+import { Link } from "react-router-dom";
+import { withAuthorization } from "../../session";
 import axios from "axios";
 import "./SignIn.css";
 import * as firebase from "firebase/app";
-import 'firebase/auth';
-import 'firebase/firestore';
+import "firebase/auth";
+import "firebase/firestore";
 
-axios.defaults.baseURL ='http://15.164.251.155:8000/'
-
-
-
-
-
+axios.defaults.baseURL = "http://15.164.251.155:8000/";
 
 const SignUp = (props) => {
-
-
   const djangoRegister = () => {
-      firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-            console.log('logged in');
-            axios.post('mypage/', {
-                user_uid: user.uid,
-                email: user.email,
-                user_id: user.username,
-                credit: 0,
-                credit_used: 0
-            })
-              .then(function (response) {
-                console.log(response);
-                console.log(firebase.auth().currentUser.email);
-                console.log(firebase.auth().currentUser.uid);
-              })
-              .catch(error => {
-                message.info('정상적으로 회원가입이 되지 못했습니다.');
-                props.history.push('/signin');
-                console.log(error);
-                console.log(firebase.auth().currentUser.email);
-                console.log(firebase.auth().currentUser.uid);
-              })
-        }
-    })
-   }
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        console.log("logged in");
+        axios
+          .post("mypage/", {
+            user_uid: user.uid,
+            email: user.email,
+            user_id: user.username,
+            credit: 0,
+            credit_used: 0,
+          })
+          .then(function (response) {
+            console.log(response);
+            console.log(firebase.auth().currentUser.email);
+            console.log(firebase.auth().currentUser.uid);
+          })
+          .catch((error) => {
+            message.info("정상적으로 회원가입이 되지 못했습니다.");
+            props.history.push("/signin");
+            console.log(error);
+            console.log(firebase.auth().currentUser.email);
+            console.log(firebase.auth().currentUser.uid);
+          });
+      }
+    });
+  };
 
-
-  const onFinish = values => {
-    const username = values.username
-    const email = values.email
-    const password = values.password
+  const onFinish = (values) => {
+    const email = values.email;
+    const password = values.password;
     props.firebase
-      .doCreateUserWithEmailAndPassword( email, password)
+      .doCreateUserWithEmailAndPassword(email, password)
       // .then(authUser => {
       //   // Create a user in your Firebase realtime database
       //   return props.firebase.user(authUser.user.uid).set({
@@ -66,27 +56,28 @@ const SignUp = (props) => {
         return props.firebase.doSendEmailVerification();
       })
       .then(() => {
-        props.history.push('/');
+        props.history.push("/");
       })
-      .then(()=>{
-         axios.post('mypage/', {
+      .then(() => {
+        axios
+          .post("mypage/", {
             user_uid: firebase.auth().currentUser.uid,
             email: values.email,
             user_id: values.username,
             credit: 0,
-            credit_used: 0
-        })
-           .catch(error => {
-                console.log('django error')
-                console.log(error)
-           })
+            credit_used: 0,
+          })
+          .catch((error) => {
+            console.log("django error");
+            console.log(error);
+          });
       })
-      .catch(error => {
-        if (error.code === 'auth/email-already-in-use') {
+      .catch((error) => {
+        if (error.code === "auth/email-already-in-use") {
           message.info(`해당 이메일로 가입된 계정이 이미 있습니다.`);
-          props.history.push('/signin');
-        } else{
-            console.log(error)
+          props.history.push("/signin");
+        } else {
+          console.log(error);
         }
       });
   };
@@ -218,7 +209,6 @@ const SignUp = (props) => {
           >
             회원가입
           </Button>
-
           이미 계정이 있나요?{" "}
           <Link to="/signin" className="signin-option">
             로그인
@@ -227,9 +217,8 @@ const SignUp = (props) => {
       </Form>
     </Card>
   );
-  
 };
 
-const condition = authUser => authUser == null;
+const condition = (authUser) => authUser == null;
 
 export default withAuthorization(condition)(SignUp);

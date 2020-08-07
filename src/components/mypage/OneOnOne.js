@@ -1,14 +1,5 @@
 import React from "react";
-import {
-  Form,
-  Input,
-  InputNumber,
-  Button,
-  Card,
-  List,
-  Typography,
-  Space,
-} from "antd";
+import { Form, Input, Button, Card, List, Typography, Space } from "antd";
 
 const layout = {
   labelCol: {
@@ -23,7 +14,7 @@ const validateMessages = {
   types: {
     email: "${label} is not validate email!",
     number: "${label} is not a validate number!",
-  }
+  },
 };
 
 const data = [
