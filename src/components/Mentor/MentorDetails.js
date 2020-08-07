@@ -17,6 +17,7 @@ const StyledDetails = styled.div`
   }
   @media only screen and (max-width: 600px) {
     margin: 0px;
+    min-width: 80%;
     p{
       padding: 0px;
     }
