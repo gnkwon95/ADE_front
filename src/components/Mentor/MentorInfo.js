@@ -1,175 +1,14 @@
 import React from "react";
 import Sample from "../../imageSamples/Sample.PNG";
-import styled from "styled-components";
 
 import { OriginalHnS } from "../Etc/HeartAndStars";
+import { Link } from "react-router-dom"
 
-import "./MentorInfo.scss";
+
 import quotes from "../../imageSamples/quotes.PNG";
 import heart from "../../imageSamples/heart.png";
 import MentorDetails from "./MentorDetails";
-
-const StyledMentorInfo = styled.div`
-  border-top: 1px solid grey;
-  display: flex;
-
-  .MentorPage_InfoCard {
-    padding-top: 100px;
-    padding-left: 5%;
-    padding-right: 5%;
-    img {
-      display: block;
-      margin: 0 auto;
-      margin-bottom: 20px;
-    }
-    p {
-      font-family: Roboto;
-      font-style: normal;
-      font-weight: bolder;
-      font-size: 1.3rem;
-      line-height: 36px;
-      margin: 0 10%;
-      border-left: 3px solid rgba(0, 0, 0, 0.5);
-      padding: 10px;
-      padding-left: 40px;
-      text-align: center;
-    }
-    div {
-      margin: 0 10%;
-    }
-  }
-  .withCompanyLogo {
-    margin: 5% 5%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    > img {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-    }
-    a {
-      display: block;
-      font-size: 18px;
-      color: black;
-    }
-    div {
-      display: flex;
-      margin-bottom: 2%;
-      a:nth-child(1) {
-        margin-bottom: 10px;
-        margin-right: 10px;
-      }
-      a:nth-child(2) {
-        margin-bottom: 10px;
-        margin-left: 10px;
-      }
-    }
-    .MentorPage_buttons {
-      display: flex;
-      flex-direction: column;
-      font-size: 1rem;
-      line-height: 29px;
-      button {
-        font-family: Roboto;
-        font-weight: 999;
-        font-size: 1.4rem;
-        background: #a8a8a8;
-        border: none;
-        outline: none;
-        width: 200px;
-        height: 50px;
-        margin: 0;
-        border-radius: 20px;
-        cursor: pointer;
-      }
-      button:active {
-        outline: none;
-      }
-      button:nth-child(1) {
-        padding: 10px;
-        margin: 10px;
-        height: 80px;
-      }
-      button:nth-child(2) {
-        padding: 10px;
-        margin: 10px;
-      }
-    }
-  }
-  @media only screen and (max-width: 600px) {
-    flex-direction: column-reverse;
-    .withCompanyLogo {
-      position: -webkit-sticky; /* Safari */
-      position: sticky;
-      top: 0;
-      z-index: 300;
-      a {
-        display: none;
-      }
-      > img {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-      }
-      background: white;
-      .MentorPage_buttons {
-        display: flex;
-        flex-direction: row-reverse;
-        position: fixed;
-        bottom: -8px;
-        left: 0;
-        width: 100%;
-        button {
-          background: #ff9d2b;
-          padding: 10px;
-          color: #000000;
-          font-family: Roboto;
-          font-weight: bold;
-          font-size: 20px;
-          line-height: 29px;
-          border: none;
-          outline: none;
-          border-radius: 0;
-          margin: 0;
-          img {
-            width: 20px;
-            height: 20px;
-          }
-        }
-        button:nth-child(1) {
-          width: 100%;
-          margin: 0;
-        }
-        button:nth-child(2) {
-          width: 40%;
-          border-right: 1px solid black;
-          margin: 0;
-          height: auto;
-        }
-      }
-    }
-    .MentorPage_InfoCard {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      p {
-        margin: 0;
-        border-left: none;
-        padding-left: 10px;
-      }
-    }
-  }
-  @media only screen and (max-width: 500px) {
-    .withCompanyLogo {
-      .MentorPage_buttons {
-        button {
-          font-size: 16px;
-        }
-      }
-    }
-  }
-`;
+import {StyledMentorInfo} from "./styles"
 
 const MentorInfo = () => {
   return (
@@ -188,25 +27,27 @@ const MentorInfo = () => {
 
       <div className="withCompanyLogo">
         <div>
-          <a>멘토소개</a> <a>상담후기</a>
+          <Link to="#">멘토소개</Link> <Link to="#">상담후기</Link>
         </div>
 
         <img src={Sample} alt={Sample} />
         <h1>
           <strong>김 갓</strong> 멘토님
         </h1>
-        <div>
-          <OriginalHnS stars={10} hearts={"4.5"} />
+        <div className="flex-column-reverse">
+          <div>
+            <OriginalHnS stars={"4.5"} hearts={10} />
+          </div>
+          <h2>CompanyName</h2>  
         </div>
-        <h2>CompanyName</h2>
         <div className="MentorPage_buttons">
           <button>상담 신청하기</button>
           <button>
-            <img src={heart} /> 찜하기
+            <img src={heart} alt={`찜하기${heart}개`}/> 찜하기
           </button>
         </div>
 
-        <a>상담 방식이 궁금해요!</a>
+        <Link to="#">상담 방식이 궁금해요!</Link>
       </div>
     </StyledMentorInfo>
   );
