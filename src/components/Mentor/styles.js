@@ -55,6 +55,10 @@ export const StyledMentorInfo = styled.div`
         margin-left: 10px;
       }
     }
+    .flex-column-reverse{
+        display:flex;
+        flex-direction: column;
+    }
     .MentorPage_buttons {
       display: flex;
       flex-direction: column;
@@ -79,11 +83,12 @@ export const StyledMentorInfo = styled.div`
       button:nth-child(1) {
         padding: 10px;
         margin: 10px;
-        height: 6%;
+        height: auto;
       }
       button:nth-child(2) {
         padding: 10px;
         margin: 10px;
+        height: auto;
       }
     }
   }
@@ -104,6 +109,7 @@ export const StyledMentorInfo = styled.div`
         border-radius: 50%;
       }
       h1{
+          margin-top: 10px;
           font-size: 1rem;
       }
       h2{
@@ -114,6 +120,7 @@ export const StyledMentorInfo = styled.div`
       .flex-column-reverse{
         display:flex;
         flex-direction: column-reverse;
+        margin: 0;
       }
       .MentorPage_buttons {
         display: flex;

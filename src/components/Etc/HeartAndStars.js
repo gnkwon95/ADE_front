@@ -40,12 +40,15 @@ const StyledOriginalHnS = styled.div`
   span{
     font-size: 20px;
   }
+  span:nth-child(1){
+    margin-right: auto;
+  }
+  span:nth-child(2){
+    margin-left: 5px;
+  }
   @media only screen and (max-width: 600px){
     span{
       font-size: 15px;
-    }
-    > span:nth-child(1){
-      margin-right: 8px;
     }
   }
 `
