@@ -7,7 +7,7 @@ import styled from "styled-components";
 import MenuDrop from "../components/Home/MenuDrop";
 import MentoCard from "../components/Home/MentoCard";
 import Filter from "../components/Home/Filter";
-import "./Home.scss";
+import "./Home.css";
 
 const StyledBtn = styled(Button)`
   position: absolute;
@@ -27,6 +27,36 @@ const StyledBtn = styled(Button)`
     display: none;
   }
 `;
+const StyledServiceImage = styled.div`
+  min-height: 420px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  background: #b5b5b5;
+  @media only screen and (max-width: 600px) {
+    min-height: 300px;
+  }
+`;
+
+const HomeMain = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h2 {
+    text-align: center;
+    margin: 58px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 28px;
+  }
+  button {
+    margin-bottom: 5%;
+    text-align: center;
+  }
+`;
 
 const Home = () => {
   const [dropdownState, setDropdownState] = useState("최근 등록 순으로 정렬");
@@ -34,7 +64,7 @@ const Home = () => {
     <>
       <Row style={{ background: "#b5b5b5" }}>
         <Col md={24}>
-          <div className="Service_Intro_images"></div>
+          <StyledServiceImage className="Service_Intro_images"></StyledServiceImage>
           <StyledBtn>
             <Link to="/">&gt; 자세히 알아보기</Link>
           </StyledBtn>
@@ -43,7 +73,7 @@ const Home = () => {
       <Row gutter={0}>
         <Col xs={24} md={6}></Col>
         <Col xs={24} md={12}>
-          <div className="home_main">
+          <HomeMain>
             <h2>Find your advisor!</h2>
             <Dropdown
               overlay={
@@ -58,7 +88,7 @@ const Home = () => {
                 <DownOutlined />
               </Button>
             </Dropdown>
-          </div>
+          </HomeMain>
           <Filter />
           <MentoCard
             title={"20글자입니다20글자입니다20글자입니다20글자입니다"}

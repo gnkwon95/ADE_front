@@ -45,12 +45,12 @@ export const StyledMentorInfo = styled.div`
     padding-top: 100px;
     padding-left: 5%;
     padding-right: 5%;
-    > img {
+    .stickyIn > img {
       display: block;
       margin: 0 auto;
       margin-bottom: 20px;
     }
-    > p {
+    .stickyIn > p {
       font-family: Roboto;
       font-style: normal;
       font-weight: bolder;
@@ -69,6 +69,8 @@ export const StyledMentorInfo = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
+
     > img {
       width: 160px;
       height: 160px;

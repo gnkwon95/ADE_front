@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Sample from "../../imageSamples/Sample.PNG";
 
 import { OriginalHnS } from "../Etc/HeartAndStars";
@@ -11,21 +11,35 @@ import MentorDetails from "./MentorDetails";
 import { StyledMentorInfo } from "./styles";
 
 const MentorInfo = () => {
+  const [padding, setPadding] = useState(70);
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      setPadding(100 + window.scrollY);
+    });
+  }, []);
   return (
-    <StyledMentorInfo>
+    <StyledMentorInfo
+      onScroll={() => {
+        setPadding(window.scrollY);
+        console.log(window.scrollY);
+      }}
+    >
       <div className="MentorPage_InfoCard">
-        <img src={quotes} alt="quotes" />
-        <p>
-          여러분과 저는 다르지 않다고 생각합니다.
-          <br /> 똑같이 힘든 취업 과정을 겪고 다만 조금 먼저 이겨낸 사람으로써,
-          그 과정이 얼마나 힘든지 알기에 어떠한 도움이라도 되어드리고 싶습니다.
-          제가 실패했던 이유, 그리고 결국 성공을 일궈낼 수 있엇던 이유, 가감없이
-          전부 말씀드리겠습니다.
-        </p>
+        <header className="stickyIn">
+          <img src={quotes} alt="quotes" />
+          <p>
+            여러분과 저는 다르지 않다고 생각합니다.
+            <br /> 똑같이 힘든 취업 과정을 겪고 다만 조금 먼저 이겨낸
+            사람으로써, 그 과정이 얼마나 힘든지 알기에 어떠한 도움이라도
+            되어드리고 싶습니다. 제가 실패했던 이유, 그리고 결국 성공을 일궈낼
+            수 있엇던 이유, 가감없이 전부 말씀드리겠습니다.
+          </p>
+        </header>
+
         <MentorDetails />
       </div>
 
-      <div className="withCompanyLogo">
+      <div className="withCompanyLogo" style={{ paddingTop: `${padding}px` }}>
         <div>
           <Link to="#">멘토소개</Link>{" "}
           <Link to="#review">

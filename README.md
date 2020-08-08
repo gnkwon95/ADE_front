@@ -5,3 +5,5 @@
 
 > > styled-components 사용
 > > scss 사용
+
+2020//08/08 멘토페이지 완성
