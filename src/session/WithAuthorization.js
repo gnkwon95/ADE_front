@@ -1,9 +1,9 @@
-import React from 'react';
-import { withRouter, Redirect } from 'react-router-dom';
-import { withFirebase } from '../firebase';
-import AuthUserContext from './Context'
-import { message } from 'antd'
- 
+import React from "react";
+import { withRouter } from "react-router-dom";
+import { withFirebase } from "../firebase";
+import AuthUserContext from "./Context";
+import { message } from "antd";
+
 /***************************************************************************
 
   < 접근 권한 제어하는 법 >
@@ -26,36 +26,35 @@ import { message } from 'antd'
 
  ***************************************************************************/
 
-
-const withAuthorization = condition => Component => {
+const withAuthorization = (condition) => (Component) => {
   class WithAuthorization extends React.Component {
     componentDidMount() {
-      
       this.listener = this.props.firebase.auth.onAuthStateChanged(
-        authUser => {
+        (authUser) => {
           if (!condition(authUser)) {
-            message.info("잘못된 접근입니다.")
-            this.props.history.push('/')
+            message.info("잘못된 접근입니다.");
+            this.props.history.push("/");
           }
-        },
+        }
       );
     }
- 
+
     componentWillUnmount() {
       this.listener();
     }
- 
+
     render() {
       return (
         <AuthUserContext.Consumer>
-          { authUser => 
-              condition(authUser) ? <Component {...this.props} /> : null }
+          {(authUser) =>
+            condition(authUser) ? <Component {...this.props} /> : null
+          }
         </AuthUserContext.Consumer>
       );
     }
   }
- 
+
   return withRouter(withFirebase(WithAuthorization));
 };
- 
+
 export default withAuthorization;

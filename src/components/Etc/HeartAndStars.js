@@ -1,5 +1,5 @@
 import React from "react";
-import { UserOutlined, HeartFilled, StarFilled } from "@ant-design/icons";
+import { HeartFilled, StarFilled } from "@ant-design/icons";
 import styled from "styled-components";
 
 const HeartsAndStars = styled.div`
@@ -15,6 +15,7 @@ const HeartsAndStars = styled.div`
     flex-direction: row;
     margin-bottom: 10px;
     span {
+      font-size: 15px;
       margin-right: 5px;
     }
   }
@@ -34,15 +35,33 @@ const HeartAndStars = ({ hearts, stars }) => {
 };
 
 export default HeartAndStars;
+
+const StyledOriginalHnS = styled.div`
+  span {
+    font-size: 20px;
+  }
+  span:nth-child(1) {
+    margin-right: auto;
+  }
+  span:nth-child(2) {
+    margin-left: 5px;
+  }
+  @media only screen and (max-width: 600px) {
+    span {
+      font-size: 15px;
+    }
+  }
+`;
+
 export const OriginalHnS = ({ hearts, stars }) => {
   return (
-    <>
-      <span style={{ fontSize: "20px" }}>
+    <StyledOriginalHnS>
+      <span>
         <HeartFilled /> {hearts}명
       </span>{" "}
-      <span style={{ fontSize: "20px" }}>
+      <span>
         <StarFilled /> {stars}
       </span>
-    </>
+    </StyledOriginalHnS>
   );
 };

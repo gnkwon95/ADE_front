@@ -1,34 +1,33 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
 import { Tabs, Typography } from "antd";
 import "./MyPage.css";
 import MyInfo from "../components/mypage/MyInfo";
 import Counsel from "../components/mypage/Counsel";
 import OneOnOne from "../components/mypage/OneOnOne";
-import { withAuthorization, AuthUserContext } from '../session'
+import { withAuthorization, AuthUserContext } from "../session";
 
 function callback(key) {
   console.log(key);
 }
 
-const MyPage = props => {
+const MyPage = (props) => {
   const { TabPane } = Tabs;
   const { Title } = Typography;
-  console.log(props.firebase.getCurrentUser())
+  console.log(props.firebase.getCurrentUser());
 
   return (
     <AuthUserContext.Consumer>
-      {authUser => (
+      {(authUser) => (
         <div>
           <Title level={4} className="mypage-title">
             {console.log(authUser)}
            {authUser.email}님 안녕하세요 :)
             <br />
-            {props.firebase.getCurrentUser().email}
+
           </Title>
           <Tabs defaultActiveKey="1" onChange={callback} size="large">
             <TabPane tab="내 정보" key="myInfo">
-              <MyInfo/>
+              <MyInfo />
             </TabPane>
             <TabPane tab="상담 내역" key="counsel">
               <Counsel />
@@ -43,7 +42,7 @@ const MyPage = props => {
   );
 };
 
-const condition = authUser => authUser != null;
+const condition = (authUser) => authUser != null;
 
 export default withAuthorization(condition)(MyPage);
 

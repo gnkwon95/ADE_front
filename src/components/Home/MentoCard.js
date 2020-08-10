@@ -3,15 +3,16 @@ import { Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import Sample from "../../imageSamples/Sample.PNG";
 
-//import "./MentorCard.scss";
+
 import { Link } from "react-router-dom";
 
 import HeartsAndStars from "../Etc/HeartAndStars";
+import { StyledMentorCard } from "./styles";
 
 const MentoCard = ({ title }) => {
   return (
     <Link to="/mentor" style={{ color: "black" }}>
-      <div className="Mentor_Card">
+      <StyledMentorCard>
         <div className="Mentor_Avatar">
           <Avatar
             className="avatar_icon"
@@ -43,7 +44,7 @@ const MentoCard = ({ title }) => {
             <span>보기</span>
           </div>
         </div>
-      </div>
+      </StyledMentorCard>
     </Link>
   );
 };

@@ -1,4 +1,43 @@
-.Mentor_Card {
+import styled from "styled-components";
+import { Select } from "antd";
+
+export const StyledFilter = styled.div`
+  text-align: right;
+  span:hover {
+    cursor: pointer;
+  }
+  position: relative;
+`;
+
+export const StyledSelect = styled(Select)`
+  width: 80%;
+  text-align: center;
+  margin-right: auto;
+  margin-left: 10%;
+  border: 1px solid black;
+`;
+export const StyledFilterSelector = styled.div`
+  position: absolute;
+  width: 223px;
+  height: 360px;
+  border: 1px solid grey;
+  background-color: white;
+  z-index: 5000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  margin-right: auto;
+  right: 0%;
+  p {
+    margin-right: auto;
+    margin-left: 10%;
+    font-weight: 900;
+    margin-top: 20px;
+  }
+`;
+
+export const StyledMentorCard = styled.div`
   font-family: Roboto;
   display: flex;
   flex-direction: column;
@@ -62,9 +101,7 @@
       }
     }
   }
-}
-@media only screen and (max-width: 600px) {
-  .Mentor_Card {
+  @media only screen and (max-width: 600px) {
     margin-left: 0;
     margin-right: 0;
     padding: 3% 3%;
@@ -77,13 +114,13 @@
     .Mentor_Avatar {
       margin-bottom: 0;
     }
-  }
 
-  .Mentor_company {
-    div {
-      span {
-        margin: 5px 5px !important;
+    .Mentor_company {
+      div {
+        span {
+          margin: 5px 5px !important;
+        }
       }
     }
   }
-}
+`;
