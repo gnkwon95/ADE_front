@@ -22,9 +22,9 @@ const MyPage = props => {
         <div>
           <Title level={4} className="mypage-title">
             {console.log(authUser)}
-            1번: {authUser.email}님 안녕하세요 :)
+           {authUser.email}님 안녕하세요 :)
             <br />
-            2번: {props.firebase.getCurrentUser().email} 
+            {props.firebase.getCurrentUser().email}
           </Title>
           <Tabs defaultActiveKey="1" onChange={callback} size="large">
             <TabPane tab="내 정보" key="myInfo">

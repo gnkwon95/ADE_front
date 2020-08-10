@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import { OriginalHnS } from "../Etc/HeartAndStars";
 
-import "./MentorInfo.scss";
+//import "./MentorInfo.scss";
 import quotes from "../../imageSamples/quotes.PNG";
 import heart from "../../imageSamples/heart.png";
 import MentorDetails from "./MentorDetails";

@@ -2,7 +2,7 @@ import React, { useState, useCallback } from "react";
 import { UnorderedListOutlined } from "@ant-design/icons";
 
 import FilterSelector from "./FilterSelector";
-import "./Filter.scss";
+//import "./Filter.scss";
 
 const Filter = () => {
   const [showFilter, setShowFilter] = useState(false);

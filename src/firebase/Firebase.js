@@ -1,6 +1,7 @@
 import app from "firebase/app";
 import "firebase/auth";
-import "firebase/database";
+import 'firebase/database';
+import axios from "axios";
 
 const config = {
   apiKey: process.env.REACT_APP_FIREBASE_KEY,
@@ -11,11 +12,15 @@ const config = {
   messagingSenderId: process.env.REACT_APP_FIREBASE_SENDER_ID,
 };
 
+axios.defaults.baseURL ='http://15.164.251.155:8000/'
+
 class Firebase {
   constructor() {
     app.initializeApp(config);
 
+
     this.auth = app.auth();
+    this.db = app.database();
     
     /* 소셜로그인 */
     this.googleProvider = new app.auth.GoogleAuthProvider();
@@ -23,8 +28,14 @@ class Firebase {
     
   }
 
+    // *** User API
+
+  user = uid => this.db.ref(`users/${uid}`);
+  users = () => this.db.ref('users');
+
   // *** Auth API ***
   getCurrentUser = () => this.auth.currentUser;
+  getDB = () => this.db;
 
   doCreateUserWithEmailAndPassword = (email, password) =>
     this.auth.createUserWithEmailAndPassword(email, password);
@@ -53,9 +64,6 @@ class Firebase {
 
   doPasswordUpdate = (password) =>
     this.auth.currentUser.updatePassword(password);
-
-  getUserUid= () =>
-    this.auth.currentUser.uid;
 
   onAuthUserListener = (next, fallback) =>
     this.auth.onAuthStateChanged(authUser => {

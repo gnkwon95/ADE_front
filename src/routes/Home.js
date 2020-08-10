@@ -7,7 +7,7 @@ import styled from "styled-components";
 import MenuDrop from "../components/Home/MenuDrop";
 import MentoCard from "../components/Home/MentoCard";
 import Filter from "../components/Home/Filter";
-import "./Home.scss";
+//import "./Home.scss";
 
 const StyledBtn = styled(Button)`
   position: absolute;

@@ -3,7 +3,7 @@ import { Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import Sample from "../../imageSamples/Sample.PNG";
 
-import "./MentorCard.scss";
+//import "./MentorCard.scss";
 import { Link } from "react-router-dom";
 
 import HeartsAndStars from "../Etc/HeartAndStars";

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Select } from "antd";
-import "./FilterSelector.scss";
+//import "./FilterSelector.scss";
 
 const StyledSelect = styled(Select)`
   width: 80%;
