@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { withAuthorization } from '../../session'
 import "./SignIn.css";
 
-import * as SignInMethods from '../../components/signin'
+import * as SignInMethods from '../../components/signIn'
 
 
 const { Title } = Typography;
