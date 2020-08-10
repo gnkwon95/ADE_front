@@ -37,6 +37,7 @@ const BigBox = styled.div`
     margin-left: 10%;
   }
   @media only screen and (max-width: 600px) {
+    padding: 5% 0;
     > div:nth-child(1) {
       padding: 5% 5%;
     }

@@ -14,7 +14,11 @@ const MentorInfo = () => {
   const [padding, setPadding] = useState(70);
   useEffect(() => {
     window.addEventListener("scroll", () => {
-      setPadding(100 + window.scrollY);
+      if (window.screen.width > 900) {
+        setPadding(100 + window.scrollY);
+      } else {
+        setPadding(10);
+      }
     });
   }, []);
   return (
@@ -39,7 +43,10 @@ const MentorInfo = () => {
         <MentorDetails />
       </div>
 
-      <div className="withCompanyLogo" style={{ paddingTop: `${padding}px` }}>
+      <div
+        className="withCompanyLogo"
+        style={{ paddingTop: `${padding}px`, transition: "all 0.1s" }}
+      >
         <div>
           <Link to="#">멘토소개</Link>{" "}
           <Link to="#review">
