@@ -3,12 +3,21 @@ import Sample from "../../imageSamples/Sample.PNG";
 
 import { OriginalHnS } from "../Etc/HeartAndStars";
 import { Link } from "react-router-dom";
+import { Pagination } from "antd";
 
 import quotes from "../../imageSamples/quotes.PNG";
 import heart from "../../imageSamples/heart.png";
 import MentorDetails from "./MentorDetails";
 
 import { StyledMentorInfo } from "./styles";
+import styled from "styled-components";
+
+const StyledPaginaion = styled(Pagination)`
+  margin-left: 10%;
+  @media only screen and (max-width: 900px) {
+    margin-left: 0;
+  }
+`;
 
 const MentorInfo = () => {
   const [padding, setPadding] = useState(70);
@@ -41,6 +50,7 @@ const MentorInfo = () => {
         </header>
 
         <MentorDetails />
+        <StyledPaginaion defaultCurrent={1} total={50} />
       </div>
 
       <div
