@@ -18,7 +18,8 @@ class ChatBlock extends React.Component {
             chats: [],
             content: '',
             readError: null,
-            writeError: null
+            writeError: null,
+            is_mentor: this.props.is_mentor
         }
          this.handleChange = this.handleChange.bind(this);
         this.handleSubmit=this.handleSubmit.bind(this);
@@ -85,7 +86,11 @@ class ChatBlock extends React.Component {
                      <button type="submit">보내기</button>
                  </form>
                 <div> {/*field available in email */}
-                    Login as user : {this.state.user.uid}
+                    Login as user : {
+                        this.state.is_mentor
+                        ? this.state.mentor_id
+                        : this.state.mentee_id
+                    }
                 </div>
             </div>
         );

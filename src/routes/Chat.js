@@ -34,6 +34,17 @@ class Chat extends React.Component {
         } catch(e){
             console.log(e);
         }
+/*
+        try{
+            const response = await axios.get(
+                'mypage/?user=' + this.props.firebase.getCurrentUser().uid
+            );
+            this.setState({
+                user: response.data
+            });
+            } catch(e){
+                console.log(e);
+            } */
     };
 
     resetState = () => {
@@ -53,9 +64,15 @@ class Chat extends React.Component {
 
              { this.state.connections.map( (connection, i) => (
              <>
-                <TabPane tab={`${connection.mentor}`} key={connection.mentor}>
-                  <ChatBlock connection = {connection} />
-                </TabPane>
+                {connection.mentor_uid == this.props.firebase.getCurrentUser().uid
+                ? <TabPane tab={`${connection.mentee_id}`} key={i}>
+                      <ChatBlock connection = {connection} is_mentor = {true} />
+                    </TabPane>
+                : <TabPane tab={`${connection.mentor_id}`} key={i}>
+                      <ChatBlock connection = {connection} is_mentor= {false} />
+                    </TabPane>
+                }
+
                </>
               )) }
         </Tabs>
