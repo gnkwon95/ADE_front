@@ -76,7 +76,7 @@ const UserMenu = withFirebase(({ firebase }) => (
     <Menu.Item>
       <Link to="/mypage">1대1 문의</Link>
     </Menu.Item>
-    <Menu.Item key="logout" danger>
+    <Menu.Item key="logout" danger href='/'>
       로그아웃
     </Menu.Item>
   </Menu>
