@@ -21,49 +21,22 @@ class Firebase {
 
     this.auth = app.auth();
     this.db = app.database();
-    
-    /* 소셜로그인 */
+
+    this.emailProvider = new app.auth.EmailAuthProvider();
     this.googleProvider = new app.auth.GoogleAuthProvider();
     this.facebookProvider = new app.auth.FacebookAuthProvider();
     
   }
 
-    // *** User API
+  checkApi = () => console.log("Firebase working");
+
+  // *** User API
 
   user = uid => this.db.ref(`users/${uid}`);
   users = () => this.db.ref('users');
 
-  // *** Auth API ***
-  getCurrentUser = () => this.auth.currentUser;
+  // *** Database API ***
   getDB = () => this.db;
-
-  doCreateUserWithEmailAndPassword = (email, password) =>
-    this.auth.createUserWithEmailAndPassword(email, password);
-
-  doSignInWithEmailAndPassword = (email, password) =>
-    this.auth.signInWithEmailAndPassword(email, password);
-
-  doSignOut = ({key}) => {
-    if (key === "logout") {
-      this.auth.signOut();
-    }
-  };
-
-  doSignInWithGoogle = () =>
-    this.auth.signInWithPopup(this.googleProvider);
-
-  doSignInWithFacebook = () =>
-    this.auth.signInWithPopup(this.facebookProvider);
-
-  doPasswordReset = (email) => this.auth.sendPasswordResetEmail(email);
-
-  doSendEmailVerification = () =>
-    this.auth.currentUser.sendEmailVerification({
-      // url: process.env.REACT_APP_CONFIRMATION_EMAIL_REDIRECT,
-    });
-
-  doPasswordUpdate = (password) =>
-    this.auth.currentUser.updatePassword(password);
 
   onAuthUserListener = (next, fallback) =>
     this.auth.onAuthStateChanged(authUser => {
@@ -93,6 +66,74 @@ class Firebase {
         fallback();
       }
     });
+
+  // *** Auth API ***
+  getCurrentUser = () => this.auth.currentUser;
+  
+  doCreateUserWithEmailAndPassword = (email, password) =>
+    this.auth.createUserWithEmailAndPassword(email, password);
+
+  doSendEmailVerification = () => console.log("send varification email")
+  //   this.auth.currentUser.sendEmailVerification({
+  //     // url: process.env.REACT_APP_CONFIRMATION_EMAIL_REDIRECT,
+  // });
+
+  doSignInWithEmailAndPassword = (email, password) =>
+    this.auth.signInWithEmailAndPassword(email, password);
+
+  doSignOut = ({key}) => {
+    if (key === "logout") {
+      this.auth.signOut();
+    }
+  };
+
+  doSignInWithGoogle = () =>
+    this.auth.signInWithPopup(this.googleProvider);
+
+  doSignInWithFacebook = () =>
+    this.auth.signInWithPopup(this.facebookProvider);
+
+  doDeleteUserEmail = providedPassword => {
+    const user = this.auth.currentUser;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+    const credential = app.auth.EmailAuthProvider.credential(
+      user.email, 
+      providedPassword
+    )
+    user.reauthenticateWithCredential(credential)
+    .then(() => {
+      user.delete()
+    })
+  }
+
+  doDeleteUserOAuth = () => {
+    const user = this.auth.currentUser;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+    // var credential =this.googleProvider.credential(
+    //   googleUser.getAuthResponse().id_token);
+    
+    // user.reauthenticateWithCredential(credential)
+    // .then(() => console.log("reauth"))
+    // .catch((error) => {
+    //     console.log(error);
+    // });
+  }
+
+  doPasswordReset = () => this.auth.sendPasswordResetEmail();
+
+  doPasswordUpdate = (prev, password) => {
+    const user = this.auth.currentUser;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+    const credential = app.auth.EmailAuthProvider.credential(
+      user.email, 
+      prev
+    )
+    user.reauthenticateWithCredential(credential)
+    .then(() => {
+      this.auth.currentUser.updatePassword(password);
+    })
+  }
+
+
+  doDeleteAccount = () => console.log('delete')//this.auth.currentUser.delete();
+
 }
 
 export default Firebase;

@@ -4,6 +4,7 @@ import "./MyPage.css";
 import MyInfo from "../components/mypage/MyInfo";
 import Counsel from "../components/mypage/Counsel";
 import OneOnOne from "../components/mypage/OneOnOne";
+import ChangePw from "../components/mypage/ChangePw";
 import { withAuthorization, AuthUserContext } from "../session";
 
 function callback(key) {
@@ -13,14 +14,12 @@ function callback(key) {
 const MyPage = (props) => {
   const { TabPane } = Tabs;
   const { Title } = Typography;
-  console.log(props.firebase.getCurrentUser());
 
   return (
     <AuthUserContext.Consumer>
       {(authUser) => (
         <div>
           <Title level={4} className="mypage-title">
-            {console.log(authUser)}
            {authUser.email}님 안녕하세요 :)
             <br />
 
@@ -34,6 +33,9 @@ const MyPage = (props) => {
             </TabPane>
             <TabPane tab="1대1 문의" key="oneOnOne">
               <OneOnOne />
+            </TabPane>
+            <TabPane tab="비밀번호 변경" key="changePw">
+              <ChangePw />
             </TabPane>
           </Tabs>
         </div>

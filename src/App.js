@@ -6,6 +6,7 @@ import Home from "./routes/Home";
 import Mentor from "./routes/Mentor";
 import MyPage from "./routes/MyPage";
 import Chat from "./routes/Chat";
+import DeleteAccount from "./routes/DeleteAccount";
 import "./App.less";
 import AdBar from "./components/AdBar";
 import SignIn from "./routes/auth/SignIn";
@@ -28,6 +29,7 @@ const App = () => (
         <Route exact path="/forgotpw" component={ForgotPw} />
         <Route exact path="/mypage" component={MyPage} />
         <Route exact path="/chat" component={Chat} />
+        <Route exact path="/delete-account" component={DeleteAccount} />
       </Content>
       <Footer style={{ textAlign: "right" }}>ADE ©2020</Footer>
     </Layout>

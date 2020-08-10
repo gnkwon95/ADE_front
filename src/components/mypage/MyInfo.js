@@ -1,9 +1,8 @@
 import React from "react";
-import { Card, Col, Row, Space } from "antd";
+import { Card, Col, Row, Space, Button } from "antd";
 import { Link } from "react-router-dom";
 import "./MyInfo.css";
 import MentorCard from "./MyInfoMentorCard";
-import ChangePw from "./ChangePw"
 
 const MyInfo = () => {
   return (
@@ -44,9 +43,6 @@ const MyInfo = () => {
         </Col>
       </Row>
       <Row>
-        <ChangePw />
-      </ Row>
-      <Row>
         <Col flex={1}>
           <Card
             title="내가 찜한 멘토"
@@ -63,6 +59,11 @@ const MyInfo = () => {
           </Card>
         </Col>
         </Row>
+        <Row>
+          <Button type="link" href="/delete-account">
+          ADE 계정 탈퇴하기
+          </Button>
+      </ Row>
     </>
   );
 };
