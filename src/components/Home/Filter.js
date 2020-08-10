@@ -2,6 +2,7 @@ import React, { useState, useCallback } from "react";
 import { UnorderedListOutlined } from "@ant-design/icons";
 
 import FilterSelector from "./FilterSelector";
+
 import { StyledFilter } from "./styles";
 
 const Filter = () => {

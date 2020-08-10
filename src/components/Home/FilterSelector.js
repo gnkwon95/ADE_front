@@ -1,4 +1,5 @@
 import React from "react";
+
 import { StyledFilterSelector, StyledSelect } from "./styles";
 
 const FilterSelector = () => {

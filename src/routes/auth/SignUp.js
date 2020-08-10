@@ -12,37 +12,11 @@ import "firebase/firestore";
 axios.defaults.baseURL = "http://15.164.251.155:8000/";
 
 const SignUp = (props) => {
-  const djangoRegister = () => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        console.log("logged in");
-        axios
-          .post("mypage/", {
-            user_uid: user.uid,
-            email: user.email,
-            user_id: user.username,
-            credit: 0,
-            credit_used: 0,
-          })
-          .then(function (response) {
-            console.log(response);
-            console.log(firebase.auth().currentUser.email);
-            console.log(firebase.auth().currentUser.uid);
-          })
-          .catch((error) => {
-            message.info("정상적으로 회원가입이 되지 못했습니다.");
-            props.history.push("/signin");
-            console.log(error);
-            console.log(firebase.auth().currentUser.email);
-            console.log(firebase.auth().currentUser.uid);
-          });
-      }
-    });
-  };
+  const onFinish = values => {
+    const username = values.username
+    const email = values.email
+    const password = values.password
 
-  const onFinish = (values) => {
-    const email = values.email;
-    const password = values.password;
     props.firebase
       .doCreateUserWithEmailAndPassword(email, password)
       // .then(authUser => {
@@ -61,7 +35,7 @@ const SignUp = (props) => {
       .then(() => {
         axios
           .post("mypage/", {
-            user_uid: firebase.auth().currentUser.uid,
+            user_uid: this.props.firebase.getCurrentUser().uid,
             email: values.email,
             user_id: values.username,
             credit: 0,
