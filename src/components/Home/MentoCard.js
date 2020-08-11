@@ -3,13 +3,21 @@ import { Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import Sample from "../../imageSamples/Sample.PNG";
 
-
 import { Link } from "react-router-dom";
 
 import HeartsAndStars from "../Etc/HeartAndStars";
 import { StyledMentorCard } from "./styles";
 
-const MentoCard = ({ title }) => {
+const MentoCard = ({ data }) => {
+  const {
+    id,
+    title,
+    profile,
+    hearts,
+    stars,
+    info_paragraph,
+    prepared_companies,
+  } = data;
   return (
     <Link to="/mentor" style={{ color: "black" }}>
       <StyledMentorCard>
@@ -24,24 +32,17 @@ const MentoCard = ({ title }) => {
           <h1>
             {title}
             <br />
-            <span>김 갓 멘토</span>
+            <span>{profile} 멘토</span>
           </h1>
         </div>
-        <HeartsAndStars hearts={`99`} stars={"4.5"} />
+        <HeartsAndStars hearts={hearts} stars={stars} />
         <div className="Mentor_company">
-          <p>
-            소개글 줄글소개글 줄글소개글 줄글소개글 줄글소개글 줄글소개글
-            줄글소개글 줄글소개글 줄글소개글 줄글소개글 줄글소개글 줄글소개글
-            줄글소개글 줄글소개글 줄글소개글 줄글소개글 줄글글 줄글소개글 줄글글
-            줄글소개글 줄글글 줄글소개글 줄글
-          </p>
+          <p>{info_paragraph}</p>
           <h3>함께 준비했던 회사: </h3>
           <div>
-            <span>보기</span>
-            <span>보기</span>
-            <span>보기</span>
-            <span>보기</span>
-            <span>보기</span>
+            {prepared_companies.map((data) => (
+              <span key={id}>{data}</span>
+            ))}
           </div>
         </div>
       </StyledMentorCard>
