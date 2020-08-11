@@ -1,25 +1,10 @@
-.login-form {
-  
-}
-.login-form-forgot {
-  float: right;
-}
-.ant-col-rtl .login-form-forgot {
-  float: left;
-}
 .login-form-button {
   width: 100%;
 }
 
 .social-login-button {
   width: 100%;
-  size: "small"
-}
-
-.signin-option {
-    text-align: center;
-    display: inline-block;
-    margin-top: 8px;
+  marginTop: '16px';
 }
 
 .signin-texts {

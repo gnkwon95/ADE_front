@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { Card, Typography, Button } from "antd";
 import { Link } from 'react-router-dom'
 import { withAuthorization } from '../../session'
+import { MailOutlined } from "@ant-design/icons";
 import "./SignIn.css";
 
 import * as SignInMethods from '../../components/signIn'
@@ -23,15 +24,13 @@ const SignIn = () => {
           로그인
         </Title>
       </div>
-      <SignInMethods.SignInGoogle />
+      <SignInMethods.SignInGoogle purpose="로그인"/>
       <br />
-      <SignInMethods.SignInFacebook />
+      <SignInMethods.SignInFacebook purpose="로그인"/>
       <br />
-      <SignInMethods.SignInNaver />
-      <br />
-      <SignInMethods.SignInKakao />
-      <br />
-      <Button className="social-login-button" onClick={toggleClick}>이메일로 로그인하기</Button>
+      {/* <SignInMethods.SignInNaver />
+      <SignInMethods.SignInKakao /> */}
+      <Button className="social-login-button" onClick={toggleClick} size="large" icon={<MailOutlined />}>이메일로 로그인하기</Button>
       <br />
       <br />
       {toggle && <SignInMethods.SignInEmail />}

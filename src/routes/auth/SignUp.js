@@ -1,17 +1,24 @@
-import React from "react";
+import React, {useState} from "react";
 import { Form, Input, Button, Typography, Checkbox, Card, message } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { withAuthorization } from "../../session";
 import axios from "axios";
 import "./SignIn.css";
-import * as firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
+
+import * as SignInMethods from '../../components/signIn'
 
 axios.defaults.baseURL = "http://15.164.251.155:8000/";
 
 const SignUp = (props) => {
+  const [toggle, setToggle] = useState(false)
+
+  const toggleClick = () => {
+    setToggle(!toggle)
+  }
+
   const onFinish = values => {
     const username = values.username
     const email = values.email
@@ -65,130 +72,139 @@ const SignUp = (props) => {
           회원가입
         </Title>
       </div>
-      <Form
-        name="join"
-        className="login-form"
-        initialValues={{
-          remember: true,
-        }}
-        onFinish={onFinish}
-      >
-        <Form.Item
-          name="username"
-          hasFeedback
-          rules={[
-            {
-              required: true,
-              message: "이름을 입력해주세요!",
-            },
-          ]}
+      <SignInMethods.SignInGoogle purpose="가입"/>
+      <br />
+      <SignInMethods.SignInFacebook purpose="가입"/>
+      <br />
+      <Button className="social-login-button" onClick={toggleClick} size="large" icon={<MailOutlined />}>이메일로 가입하기</Button>
+      <br />
+      <br />
+      { toggle && 
+        <Form
+          name="join"
+          className="login-form"
+          initialValues={{
+            remember: true,
+          }}
+          onFinish={onFinish}
         >
-          <Input
-            prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="이름"
-            size="large"
-          />
-        </Form.Item>
-        <Form.Item
-          name="email"
-          hasFeedback
-          rules={[
-            {
-              type: "email",
-              message: "올바른 이메일 형식이 아닙니다!",
-            },
-            {
-              required: true,
-              message: "이메일 주소를 입력하세요!",
-            },
-          ]}
-        >
-          <Input
-            prefix={<MailOutlined className="site-form-item-icon" />}
-            placeholder="이메일"
-            size="large"
-          />
-        </Form.Item>
-        <Form.Item
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: "비밀번호를 입력하세요!",
-            },
-            {
-              min: 6,
-              message: "비밀번호는 6글자 이상입니다.",
-            },
-          ]}
-        >
-          <Input
-            prefix={<LockOutlined className="site-form-item-icon" />}
-            type="password"
-            placeholder="비밀번호"
-            size="large"
-          />
-        </Form.Item>
-        <Form.Item
-          name="confirm"
-          dependencies={["password"]}
-          hasFeedback
-          rules={[
-            {
-              required: true,
-              message: "비밀번호 확인이 필요합니다!",
-            },
-            ({ getFieldValue }) => ({
-              validator(rule, value) {
-                if (!value || getFieldValue("password") === value) {
-                  return Promise.resolve();
-                }
-
-                return Promise.reject("입력한 비밀번호가 일치하지 않습니다!");
+          <Form.Item
+            name="username"
+            hasFeedback
+            rules={[
+              {
+                required: true,
+                message: "이름을 입력해주세요!",
               },
-            }),
-          ]}
-        >
-          <Input
-            prefix={<LockOutlined className="site-form-item-icon" />}
-            type="password"
-            placeholder="비밀번호 확인"
-            size="large"
-          />
-        </Form.Item>
-        <Form.Item
-          name="agreement"
-          valuePropName="checked"
-          rules={[
-            {
-              validator: (_, value) =>
-                value
-                  ? Promise.resolve()
-                  : Promise.reject("동의 없이는 가입이 불가합니다."),
-            },
-          ]}
-        >
-          <Checkbox>
-            회원가입을 하면 ADE의 <Link to="">이용약관</Link> 및{" "}
-            <Link to="">개인정보 처리방침</Link>에 동의한는 것으로 간주합니다.
-          </Checkbox>
-        </Form.Item>
-
-        <Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-            className="login-form-button"
-            size="large"
+            ]}
           >
-            회원가입
-          </Button>
-          이미 계정이 있나요?{" "}
-          <Link to="/signin" className="signin-option">
-            로그인
-          </Link>
-        </Form.Item>
-      </Form>
+            <Input
+              prefix={<UserOutlined className="site-form-item-icon" />}
+              placeholder="이름"
+              size="large"
+            />
+          </Form.Item>
+          <Form.Item
+            name="email"
+            hasFeedback
+            rules={[
+              {
+                type: "email",
+                message: "올바른 이메일 형식이 아닙니다!",
+              },
+              {
+                required: true,
+                message: "이메일 주소를 입력하세요!",
+              },
+            ]}
+          >
+            <Input
+              prefix={<MailOutlined className="site-form-item-icon" />}
+              placeholder="이메일"
+              size="large"
+            />
+          </Form.Item>
+          <Form.Item
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: "비밀번호를 입력하세요!",
+              },
+              {
+                min: 6,
+                message: "비밀번호는 6글자 이상입니다.",
+              },
+            ]}
+          >
+            <Input
+              prefix={<LockOutlined className="site-form-item-icon" />}
+              type="password"
+              placeholder="비밀번호"
+              size="large"
+            />
+          </Form.Item>
+          <Form.Item
+            name="confirm"
+            dependencies={["password"]}
+            hasFeedback
+            rules={[
+              {
+                required: true,
+                message: "비밀번호 확인이 필요합니다!",
+              },
+              ({ getFieldValue }) => ({
+                validator(rule, value) {
+                  if (!value || getFieldValue("password") === value) {
+                    return Promise.resolve();
+                  }
+
+                  return Promise.reject("입력한 비밀번호가 일치하지 않습니다!");
+                },
+              }),
+            ]}
+          >
+            <Input
+              prefix={<LockOutlined className="site-form-item-icon" />}
+              type="password"
+              placeholder="비밀번호 확인"
+              size="large"
+            />
+          </Form.Item>
+          <Form.Item
+            name="agreement"
+            valuePropName="checked"
+            rules={[
+              {
+                validator: (_, value) =>
+                  value
+                    ? Promise.resolve()
+                    : Promise.reject("동의 없이는 가입이 불가합니다."),
+              },
+            ]}
+          >
+            <Checkbox>
+              회원가입을 하면 ADE의 <Link to="">이용약관</Link> 및{" "}
+              <Link to="">개인정보 처리방침</Link>에 동의한는 것으로 간주합니다.
+            </Checkbox>
+          </Form.Item>
+
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login-form-button"
+              size="large"
+            >
+              회원가입
+            </Button>
+          </Form.Item>
+        </Form>
+      }
+      이미 계정이 있나요?{" "}
+      <Link to="/signin" className="signin-option">
+          로그인 
+      </Link>
     </Card>
   );
 };

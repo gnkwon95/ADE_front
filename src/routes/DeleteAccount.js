@@ -25,6 +25,7 @@ const ERROR_MSG_VALUE_NEEDED = '필수 항목입니다.'
 const DeleteAccount = (props) => {
     const authProvider = props.firebase.getCurrentUser().providerData[0].providerId
     const userValue = authProvider === "password" ? "비밀번호를" : "이메일을";
+    console.log(props.firebase.getCurrentUser())
 
     const onFinish = values => {
         const option = values.option
@@ -35,10 +36,10 @@ const DeleteAccount = (props) => {
                 // .then(() => {
                 //     // 탈퇴 사유 저장
                 // })
-                // .then(() => {
-                //     message.info("탈퇴 처리 완료 ㅠㅠ")
-                //     props.history.push("/");
-                // })
+                .then(() => {
+                    message.info("탈퇴 처리 완료 ㅠㅠ")
+                    props.history.push("/");
+                })
                 .catch((error) => {
                     alert(error)
                     console.log(error);

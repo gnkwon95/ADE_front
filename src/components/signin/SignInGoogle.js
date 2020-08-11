@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "antd";
 import { withRouter } from "react-router-dom";
 import { withFirebase } from '../../firebase'
+import { GoogleOutlined } from '@ant-design/icons'
 
 const SignInGoogle = props => {
   
@@ -9,6 +10,9 @@ const SignInGoogle = props => {
     console.log(event)
     props.firebase
       .doSignInWithGoogle()
+      .then((t) => {
+        console.log(t)
+      })
       // .then(socialAuthUser => {
       //   // Create a user in your Firebase Realtime Database too
       //   return props.firebase.user(socialAuthUser.user.uid).set({
@@ -32,7 +36,12 @@ const SignInGoogle = props => {
 
   return (
     <form onSubmit={onSubmit}>
-      <Button htmlType="submit" className="social-login-button">구글 아이디로 로그인하기</Button>
+      <Button
+        htmlType="submit"
+        className="social-login-button"
+        size="large"
+        icon={<GoogleOutlined />}
+      >구글 아이디로 {props.purpose}하기</Button>
     </form>
   );
 }

@@ -117,7 +117,7 @@ class Firebase {
     // });
   }
 
-  doPasswordReset = () => this.auth.sendPasswordResetEmail();
+  doPasswordReset = email => this.auth.sendPasswordResetEmail(email);
 
   doPasswordUpdate = (prev, password) => {
     const user = this.auth.currentUser;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
@@ -130,9 +130,6 @@ class Firebase {
       this.auth.currentUser.updatePassword(password);
     })
   }
-
-
-  doDeleteAccount = () => console.log('delete')//this.auth.currentUser.delete();
 
 }
 
