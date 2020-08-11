@@ -9,9 +9,9 @@ import {Card, Col, Row, Button, Layout} from 'antd';
 
 
 //import ChatLayout from "./ChatBox";
-import makeStyles from "@material-ui/core/styles/makeStyles";
+//import makeStyles from "@material-ui/core/styles/makeStyles";
 const {Content, Sider} = Layout;
-
+/*
 const ChatLayout = makeStyles(theme => ({
   container: {
     bottom: 0
@@ -29,7 +29,7 @@ const ChatLayout = makeStyles(theme => ({
     padding: "10px",
     display: "inline-block"
   }
-}));
+}));*/
 
 /*
 .chatbox {
