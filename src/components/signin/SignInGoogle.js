@@ -10,9 +10,6 @@ const SignInGoogle = props => {
     console.log(event)
     props.firebase
       .doSignInWithGoogle()
-      .then((t) => {
-        console.log(t)
-      })
       // .then(socialAuthUser => {
       //   // Create a user in your Firebase Realtime Database too
       //   return props.firebase.user(socialAuthUser.user.uid).set({

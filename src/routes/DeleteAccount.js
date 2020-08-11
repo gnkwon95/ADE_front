@@ -49,20 +49,20 @@ const DeleteAccount = (props) => {
                 message.info(`이메일 주소가 일치하지 않습니다.`)
                 return;
             }
-
-            props.firebase
-                .doDeleteUserOAuth()
-                // .then(() => {
-                //     // 탈퇴 사유 저장
-                // })
-                // .then(() => {
-                //     message.info("탈퇴 처리 완료 ㅠㅠ")
-                //     props.history.push("/");
-                // })
-                .catch((error) => {
-                    alert(error)
-                    console.log(error);
-                });
+            // *** Auth Provider로 가입한 경우의 탈퇴 처리 ***
+            // props.firebase
+            //     .doDeleteUserOAuth()
+            //     .then(() => {
+            //         // 탈퇴 사유 저장
+            //     })
+            //     .then(() => {
+            //         message.info("탈퇴 처리 완료 ㅠㅠ")
+            //         props.history.push("/");
+            //     })
+            //     .catch((error) => {
+            //         alert(error)
+            //         console.log(error);
+            //     });
         }
     };
 

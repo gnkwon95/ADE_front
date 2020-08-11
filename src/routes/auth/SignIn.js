@@ -1,23 +1,22 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Card, Typography, Button } from "antd";
 import { Link } from 'react-router-dom'
 import { withAuthorization } from '../../session'
 import { MailOutlined } from "@ant-design/icons";
 import "./SignIn.css";
 
-import * as SignInMethods from '../../components/signIn'
-
+import * as SignInMethods from "../../components/signIn";
 
 const { Title } = Typography;
 
 const SignIn = () => {
-  const [toggle, setToggle] = useState(false)
+  const [toggle, setToggle] = useState(false);
 
   const toggleClick = () => {
-    setToggle(!toggle)
-  }
+    setToggle(!toggle);
+  };
 
-  return(
+  return (
     <Card title={false} bordered={false} className="login-card">
       <div className="signin-texts">
         <Title level={2} className="signin-title">
@@ -36,12 +35,12 @@ const SignIn = () => {
       {toggle && <SignInMethods.SignInEmail />}
       계정이 없으세요?{" "}
       <Link to="/signup" className="signin-option">
-          회원가입 
+        회원가입
       </Link>
     </Card>
-  )
-}
+  );
+};
 
-const condition = authUer => authUer == null;
+const condition = (authUer) => authUer == null;
 
 export default withAuthorization(condition)(SignIn);

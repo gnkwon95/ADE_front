@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import axios from "axios";
 
 import Review from "./Review";
 import { StyledDetails } from "./styles";
@@ -43,6 +44,17 @@ const dummyData = {
 };
 
 const MentorDetails = () => {
+  const getComments = async () => {
+    try {
+      const data = await axios.get("http://15.164.251.155:8000/comments/");
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    getComments();
+  }, []);
   return (
     <StyledDetails>
       <h1>지원직무</h1>
