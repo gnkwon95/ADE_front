@@ -34,6 +34,7 @@ class Chat extends React.Component {
         } catch(e){
             console.log(e);
         }
+
     };
 
     resetState = () => {
@@ -48,14 +49,19 @@ class Chat extends React.Component {
   render() {
     return (
       <div>
-        <h5> Chat </h5>
         <Tabs defaultActiveKey="10" tabPosition='left' style={{ height: 500 }}>
 
              { this.state.connections.map( (connection, i) => (
              <>
-                <TabPane tab={`${connection.mentor}`} key={connection.mentor}>
-                  <ChatBlock connection = {connection} />
-                </TabPane>
+                {connection.mentor_uid == this.props.firebase.getCurrentUser().uid
+                ? <TabPane tab={`${connection.mentee_id}`} key={i}>
+                      <ChatBlock connection = {connection} is_mentor = {true} />
+                    </TabPane>
+                : <TabPane tab={`${connection.mentor_id}`} key={i}>
+                      <ChatBlock connection = {connection} is_mentor= {false} />
+                    </TabPane>
+                }
+
                </>
               )) }
         </Tabs>

@@ -5,6 +5,37 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import axios from "axios";
 import {withAuthorization, AuthUserContext, withAuthentication } from "../../session";
+import {Card, Col, Row, Button, Layout} from 'antd';
+
+
+//import ChatLayout from "./ChatBox";
+import makeStyles from "@material-ui/core/styles/makeStyles";
+const {Content, Sider} = Layout;
+
+const ChatLayout = makeStyles(theme => ({
+  container: {
+    bottom: 0
+    // position: "fixed" // remove this so we can apply flex design
+  },
+  bubbleContainer: {
+    width: "100%",
+    display: "flex" //new added flex so we can put div at left and right side
+    //check style.css for left and right classnaeme based on your data
+  },
+  bubble: {
+    border: "0.5px solid black",
+    borderRadius: "10px",
+    margin: "5px",
+    padding: "10px",
+    display: "inline-block"
+  }
+}));
+
+/*
+.chatbox {
+    padding: 8px 8px 0 8px;
+    background: rgb(190, 200, 200);
+}*/
 
 class ChatBlock extends React.Component {
     constructor(props){
@@ -18,7 +49,8 @@ class ChatBlock extends React.Component {
             chats: [],
             content: '',
             readError: null,
-            writeError: null
+            writeError: null,
+            is_mentor: this.props.is_mentor
         }
          this.handleChange = this.handleChange.bind(this);
         this.handleSubmit=this.handleSubmit.bind(this);
@@ -46,6 +78,7 @@ class ChatBlock extends React.Component {
         })
     }
 
+
     async handleSubmit(event){ //reference to chat, and push with unique key. If error, there is error.
         console.log(event);
         event.preventDefault();
@@ -64,29 +97,56 @@ class ChatBlock extends React.Component {
         }
     }
 
-    render() {
-        return (
-              <div>
-                <div className="chats"> {/* see chats based on chat - map each to each chat block*/ }
 
-                    {this.state.chats.map(chat => {
-                        console.log(this.state.user.uid)
-                        return <p key={chat.timestamp}>
-                            { (chat.uid == this.state.user.uid )
-                            ? <h5> user: {chat.content} </h5>
-                            : <h5> other: {chat.content} </h5>
-                            }
-                        </p>
-                    })}
+ChatBox = ({pos, left_id, right_id, content}) => {
+    return (
+    <>
+        <div>
+            {pos == 'left'
+            ? <h5 style={{float:pos}}> {left_id} </h5>
+            : <h5 style={{float:pos}}> {right_id} </h5>
+            }
+            <br />
+            <Button type="text" shape="round" size="middle" style={{background: "orange",  float:pos}}> {content} </Button>
+        </div>
+        <br />
+       </>
+    )
+}
+    render() {
+
+        const left_id = this.state.is_mentor
+        ? this.state.mentee_id
+        : this.state.mentor_id
+
+        const right_id = this.state.is_mentor
+        ? this.state.mentor_id
+        : this.state.mentee_id
+
+        console.log(left_id)
+        return (
+        <div>
+              <div className="chats">
+                { this.state.chats.map( chat => {
+                    return <p key={chat.timestamp}>
+                        { (chat.uid == this.state.user.uid)
+                        ? <this.ChatBox  pos='right' left_id={left_id} right_id={right_id} content= {chat.content} />
+                        : <this.ChatBox  pos='left' left_id={left_id} right_id={right_id} content= {chat.content} />
+                        }
+                    </p>
+                })}
                 </div>
                 <form onSubmit = {this.handleSubmit}>  {/*form to update message, with button to send */}
-                    <input onChange={this.handleChange} value={this.state.content}></input> {/*use this.handleChange to change state (is message okay?) */}
-                     {this.state.error ? <p>{this.state.writeError}</p> : null}
-                     <button type="submit">보내기</button>
+                    <Layout>
+                    <Content>
+                        <input type="textarea" onChange={this.handleChange} value={this.state.content} style={{width: "100%", display:"flex" }}></input> {/*use this.handleChange to change state (is message okay?) */}
+                         {this.state.error ? <p>{this.state.writeError}</p> : null}
+                     </Content>
+                     <Sider>
+                         <button type="submit" style={{width:"100%"}}>보내기</button>
+                     </Sider>
+                     </Layout>
                  </form>
-                <div> {/*field available in email */}
-                    Login as user : {this.state.user.uid}
-                </div>
             </div>
         );
     }
