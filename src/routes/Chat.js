@@ -49,7 +49,6 @@ class Chat extends React.Component {
   render() {
     return (
       <div>
-        <h5> Chat </h5>
         <Tabs defaultActiveKey="10" tabPosition='left' style={{ height: 500 }}>
 
              { this.state.connections.map( (connection, i) => (
