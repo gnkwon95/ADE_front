@@ -34,17 +34,7 @@ class Chat extends React.Component {
         } catch(e){
             console.log(e);
         }
-/*
-        try{
-            const response = await axios.get(
-                'mypage/?user=' + this.props.firebase.getCurrentUser().uid
-            );
-            this.setState({
-                user: response.data
-            });
-            } catch(e){
-                console.log(e);
-            } */
+
     };
 
     resetState = () => {

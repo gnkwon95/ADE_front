@@ -5,6 +5,8 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import axios from "axios";
 import {withAuthorization, AuthUserContext, withAuthentication } from "../../session";
+import {Card, Col, Row} from 'antd';
+import "./chatbox.css"
 
 class ChatBlock extends React.Component {
     constructor(props){
@@ -47,6 +49,7 @@ class ChatBlock extends React.Component {
         })
     }
 
+
     async handleSubmit(event){ //reference to chat, and push with unique key. If error, there is error.
         console.log(event);
         event.preventDefault();
@@ -65,6 +68,16 @@ class ChatBlock extends React.Component {
         }
     }
 
+     Chatbox = ({chat}, {is_user}) => (
+        <>
+            <Card size="small" title={this.state.mentor_id} style={{width:300}}>
+                <p> {chat.content} </p>
+            </Card>
+        </>
+    )
+
+
+
     render() {
         return (
               <div>
@@ -74,8 +87,8 @@ class ChatBlock extends React.Component {
                         console.log(this.state.user.uid)
                         return <p key={chat.timestamp}>
                             { (chat.uid == this.state.user.uid )
-                            ? <h5> user: {chat.content} </h5>
-                            : <h5> other: {chat.content} </h5>
+                            ? <this.Chatbox chat={chat} is_user={true} />
+                            : <this.Chatbox chat={chat} is_user={false} />
                             }
                         </p>
                     })}
