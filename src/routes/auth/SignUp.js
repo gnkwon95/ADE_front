@@ -8,7 +8,7 @@ import "./SignIn.css";
 import "firebase/auth";
 import "firebase/firestore";
 
-import * as SignInMethods from '../../components/signIn'
+import * as SignInMethods from '../../components/signin'
 
 axios.defaults.baseURL = "http://15.164.251.155:8000/";
 

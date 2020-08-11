@@ -5,7 +5,7 @@ import { withAuthorization } from '../../session'
 import { MailOutlined } from "@ant-design/icons";
 import "./SignIn.css";
 
-import * as SignInMethods from "../../components/signIn";
+import * as SignInMethods from "../../components/signin";
 
 const { Title } = Typography;
 
