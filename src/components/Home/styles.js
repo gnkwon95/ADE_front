@@ -79,10 +79,11 @@ export const StyledMentorCard = styled.div`
       margin: 0;
       font-size: 0.8rem;
     }
-    div {
+    ul {
       display: flex;
+      padding: 0;
       flex-wrap: wrap;
-      span {
+      li {
         font-style: normal;
         font-weight: bold;
         font-size: 12px;
