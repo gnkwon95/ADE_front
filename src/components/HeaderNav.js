@@ -4,27 +4,23 @@ import { withFirebase } from "../firebase";
 import { AuthUserContext } from "../session";
 
 import "./HeaderNav.css";
-import { Layout, Avatar, Menu, Dropdown, Button, Tooltip, Space } from "antd";
+import { Layout, Avatar, Menu, Dropdown, Button, Tooltip, Space, Affix } from "antd";
 import { UserOutlined, MessageOutlined } from "@ant-design/icons";
-
-import Sticky from "react-sticky-el";
 
 const { Header } = Layout;
 
 const HeaderNav = () => (
-  <Sticky stickyStyle={{ zIndex: "10" }}>
+  <Affix offsetTop={0}>
     <Header id="header">
       <Link to="/" className="logo">
         <span>ADE</span>
       </Link>
       <div className="header-right">
         <Space size="middle"></Space>
-        <AuthUserContext.Consumer>
-          {(authUser) => (authUser ? <UserNav /> : <VisitorNav />)}
-        </AuthUserContext.Consumer>
+        <AuthUserContext.Consumer>{(authUser) => (authUser ? <UserNav /> : <VisitorNav />)}</AuthUserContext.Consumer>
       </div>
     </Header>
-  </Sticky>
+  </Affix>
 );
 
 const VisitorNav = () => (
@@ -50,12 +46,7 @@ const UserNav = () => (
         <Button id="chat-btn" shape="circle" icon={<MessageOutlined />} />
       </Link>
     </Tooltip>
-    <Dropdown
-      overlay={UserMenu}
-      onClick={(e) => e.preventDefault()}
-      placement="bottomRight"
-      arrow
-    >
+    <Dropdown overlay={UserMenu} onClick={(e) => e.preventDefault()} placement="bottomRight" arrow>
       <Avatar size="normal" icon={<UserOutlined />} />
     </Dropdown>
     {/* <SignOutButton/> */}
@@ -76,7 +67,7 @@ const UserMenu = withFirebase(({ firebase }) => (
     <Menu.Item>
       <Link to="/mypage">1대1 문의</Link>
     </Menu.Item>
-    <Menu.Item key="logout" danger href='/'>
+    <Menu.Item key="logout" danger href="/">
       로그아웃
     </Menu.Item>
   </Menu>

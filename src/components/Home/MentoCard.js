@@ -9,25 +9,12 @@ import HeartsAndStars from "../Etc/HeartAndStars";
 import { StyledMentorCard } from "./styles";
 
 const MentoCard = ({ data }) => {
-  const {
-    id,
-    title,
-    profile,
-    hearts,
-    stars,
-    info_paragraph,
-    prepared_companies,
-  } = data;
+  const { id, title, profile, hearts, stars, info_paragraph, prepared_companies } = data;
   return (
     <Link to="/mentor" style={{ color: "black" }}>
       <StyledMentorCard>
         <div className="Mentor_Avatar">
-          <Avatar
-            className="avatar_icon"
-            src={Sample}
-            size={60}
-            icon={<UserOutlined />}
-          />
+          <Avatar className="avatar_icon" src={Sample} size={60} icon={<UserOutlined />} />
 
           <h1>
             {title}
@@ -40,8 +27,8 @@ const MentoCard = ({ data }) => {
           <p>{info_paragraph}</p>
           <h3>함께 준비했던 회사: </h3>
           <div>
-            {prepared_companies.map((data) => (
-              <span key={id}>{data}</span>
+            {prepared_companies.map((data, index) => (
+              <span key={index}>{data}</span>
             ))}
           </div>
         </div>

@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { Row, Col, Dropdown, Button } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import styled from "styled-components";
+import faker from "faker";
+import shortid from "shortid";
 
 import MenuDrop from "../components/Home/MenuDrop";
 import MentoCard from "../components/Home/MentoCard";
@@ -57,64 +59,23 @@ const HomeMain = styled.div`
     margin-bottom: 5%;
     text-align: center;
   }
+  //
 `;
-const DummyData = [
-  {
-    id: 1,
-    title: "안녕 나는 멘토 1번이야!",
-    profile: "김 갓",
-    hearts: 99,
-    stars: 4.5,
-    info_paragraph:
-      "소개소개 저는 바보입니다 소개소개 하하하하으헤헤헤메롱메롱 히호횔호히횧아 내가 취업시켜줄게!!",
-    prepared_companies: ["라인", "네이버"],
+
+const DummyData = Array(5)
+  .fill()
+  .map(() => ({
+    id: shortid.generate(),
+    title: faker.lorem.sentence(),
+    profile: faker.name.findName(),
+    hearts: faker.random.number(99),
+    stars: faker.random.number(5),
+    info_paragraph: faker.lorem.paragraph(),
+    prepared_companies: Array(faker.random.number(5))
+      .fill()
+      .map(() => faker.random.word()),
     img_src: "",
-  },
-  {
-    id: 2,
-    title: "안녕 나는 멘토 2번이야!",
-    profile: "최 하",
-    hearts: 78,
-    stars: 4.2,
-    info_paragraph:
-      "나는 천재입니다 하하 소개소개 하하하하으헤헤헤메롱메롱 히호횔호히횧아 내가 취업시켜줄게!!",
-    prepared_companies: ["카카오", "키움증권", "네이버웹툰", "삼성생명"],
-    img_src: "",
-  },
-  {
-    id: 3,
-    title: "안녕 나는 멘토 3번이야!",
-    profile: "고길동",
-    hearts: 34,
-    stars: 3.5,
-    info_paragraph:
-      "가을이오면 눈부신 아침 햇살에 비추는 그대미소가 아름다워요~ 내가 취업시켜줄게!!",
-    prepared_companies: ["구글", "메롱증권", "롯데", "산와머니", "롯데캐피탈"],
-    img_src: "",
-  },
-  {
-    id: 4,
-    title: "안녕 나는 멘토 4번이야!",
-    profile: "도우너",
-    hearts: 39,
-    stars: 2.5,
-    info_paragraph:
-      "그대 오직 그대만이 내 첫사랑 내 끝사랑 지금부터 내가 취업시켜줄게!!",
-    prepared_companies: ["네이버", "삼성전자", "삼성SDI"],
-    img_src: "",
-  },
-  {
-    id: 5,
-    title: "안녕 나는 멘토 5번이야!",
-    profile: "둘 리",
-    hearts: 77,
-    stars: 2.5,
-    info_paragraph:
-      "외로운 둘리는 귀여운 아기공룡 호잇호잇 둘리는 초능력 내 친구 내가 취업시켜줄게!!",
-    prepared_companies: ["고길동집"],
-    img_src: "",
-  },
-];
+  }));
 
 const Home = () => {
   const [dropdownState, setDropdownState] = useState("최근 등록 순으로 정렬");
@@ -133,14 +94,7 @@ const Home = () => {
         <Col xs={24} md={12}>
           <HomeMain>
             <h2>Find your advisor!</h2>
-            <Dropdown
-              overlay={
-                <MenuDrop
-                  dropdownState={dropdownState}
-                  setDropdownState={setDropdownState}
-                />
-              }
-            >
+            <Dropdown overlay={<MenuDrop dropdownState={dropdownState} setDropdownState={setDropdownState} />}>
               <Button>
                 {dropdownState}
                 <DownOutlined />

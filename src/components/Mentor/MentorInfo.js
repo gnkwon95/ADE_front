@@ -26,6 +26,9 @@ const MentorInfo = () => {
       if (window.screen.width > 900) {
         setPadding(100 + window.scrollY);
       } else {
+        window.removeEventListener("scroll", () => {
+          setPadding(100 + window.scrollY);
+        });
         setPadding(10);
       }
     });
@@ -42,10 +45,8 @@ const MentorInfo = () => {
           <img src={quotes} alt="quotes" />
           <p>
             여러분과 저는 다르지 않다고 생각합니다.
-            <br /> 똑같이 힘든 취업 과정을 겪고 다만 조금 먼저 이겨낸
-            사람으로써, 그 과정이 얼마나 힘든지 알기에 어떠한 도움이라도
-            되어드리고 싶습니다. 제가 실패했던 이유, 그리고 결국 성공을 일궈낼
-            수 있엇던 이유, 가감없이 전부 말씀드리겠습니다.
+            <br /> 똑같이 힘든 취업 과정을 겪고 다만 조금 먼저 이겨낸 사람으로써, 그 과정이 얼마나 힘든지 알기에 어떠한 도움이라도 되어드리고 싶습니다. 제가 실패했던 이유, 그리고 결국 성공을 일궈낼 수
+            있엇던 이유, 가감없이 전부 말씀드리겠습니다.
           </p>
         </header>
 
@@ -53,10 +54,7 @@ const MentorInfo = () => {
         <StyledPaginaion defaultCurrent={1} total={50} />
       </div>
 
-      <div
-        className="withCompanyLogo"
-        style={{ paddingTop: `${padding}px`, transition: "all 0.1s" }}
-      >
+      <div className="withCompanyLogo" style={{ paddingTop: `${padding}px`, transition: "all 0.1s" }}>
         <div>
           <Link to="#">멘토소개</Link>{" "}
           <Link to="#review">

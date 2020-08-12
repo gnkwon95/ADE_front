@@ -4,7 +4,7 @@ import axios from "axios";
 import Review from "./Review";
 import { StyledDetails } from "./styles";
 
-const dummyData = {
+const dummyData_Review = {
   review: {
     contents: [
       {
@@ -93,7 +93,7 @@ const MentorDetails = () => {
         </p>
       </div>
 
-      <Review id="review" review={dummyData.review} />
+      <Review id="review" review={dummyData_Review.review} />
     </StyledDetails>
   );
 };

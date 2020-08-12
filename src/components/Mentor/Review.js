@@ -5,6 +5,7 @@ import ReviewStars from "../Etc/ReviewStars";
 import ReviewBox from "../Etc/ReviewBox";
 
 const Review = ({ review }) => {
+
   return (
     <div>
       <h1 style={{ display: "inline" }}>상담 후기</h1>
