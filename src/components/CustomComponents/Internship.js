@@ -22,16 +22,15 @@ const Internship = ({ control, WorkExperience, setWorkExperience }) => {
     <Form.Item labelCol={{ span: 24 }} label="주요 경력 및 인턴 경험">
       {WorkExperience.map((v, index) => (
         <>
-          <div style={{ marginTop: 20 }}>
+          <div style={{ marginTop: 20 }} key={index}>
             <h3>회사명:</h3>{" "}
-            <Controller
+            <Input
               onChange={(e) => {
-                setCompanyInfo((prev) => ({ ...prev, companyName: e.target.value }));
+                const value = e.target.value;
+                setCompanyInfo((prev) => ({ ...prev, companyName: value }));
                 WorkExperience[index] = companyInfo;
                 console.log(companyInfo);
               }}
-              as={Input}
-              name="internship_company"
               control={control}
               defaultValue=""
               style={{ width: "60%" }}

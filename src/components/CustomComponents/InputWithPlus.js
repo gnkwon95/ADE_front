@@ -10,6 +10,7 @@ const InputWithPlus = ({ control, items, setItems, label, placeholder }) => {
       <Form.Item labelCol={{ span: 24 }} label={label}>
         {items.map((v, index) => (
           <Input
+            key={index}
             onChange={(e) => {
               items[index] = e.target.value;
             }}
