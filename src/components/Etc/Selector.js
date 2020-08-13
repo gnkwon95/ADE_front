@@ -5,7 +5,7 @@ import { Select } from "antd";
 export const SelectYear = ({ control, name }) => {
   return (
     <Controller
-      name={name}
+      name={name ? name : null}
       as={Select}
       options={[
         { value: "2020", label: "2020" },
