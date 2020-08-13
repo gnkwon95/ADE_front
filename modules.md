@@ -1,4 +1,3 @@
-react-chat-ui
 faker
 shortid
-moment
+moment - React 시간 설정 툴
