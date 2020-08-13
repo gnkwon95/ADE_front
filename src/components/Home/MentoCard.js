@@ -1,38 +1,42 @@
 import React from "react";
-import { Avatar } from "antd";
-import { UserOutlined } from "@ant-design/icons";
-import Sample from "../../imageSamples/Sample.PNG";
-
 import { Link } from "react-router-dom";
-
-import HeartsAndStars from "../Etc/HeartAndStars";
-import { StyledMentorCard } from "./styles";
+import { Avatar, Tag, Divider, Card, Button } from "antd";
 
 const MentoCard = ({ data }) => {
-  const { title, profile, hearts, stars, info_paragraph, prepared_companies } = data;
+  const { years, profile, in_list, info_paragraph, prepared_companies } = data;
+  const prepare = prepared_companies.length
+  
   return (
-    <Link to="/mentor" style={{ color: "black" }}>
-      <StyledMentorCard>
-        <div className="Mentor_Avatar">
-          <Avatar className="avatar_icon" src={Sample} size={60} icon={<UserOutlined />} />
-
-          <h1>
-            {title}
-            <br />
-            <span>{profile} 멘토</span>
-          </h1>
-        </div>
-        <HeartsAndStars hearts={hearts} stars={stars} />
-        <div className="Mentor_company">
-          <p>{info_paragraph}</p>
-          <h3>함께 준비했던 회사: </h3>
-          <ul>
-            {prepared_companies.map((data, index) => (
-              <li key={index}>{data}</li>
-            ))}
-          </ul>
-        </div>
-      </StyledMentorCard>
+    <Link to="/mentor">
+      <Card hoverable>
+        <Card.Grid hoverable={false} style={{ width: '100px' }}>
+          <Avatar size={50} src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+        </Card.Grid>
+        <Card.Grid hoverable={false} style={{ width: '50%' }}>
+          <span>000회사 | ㅁㅁㅁ직무 </span><Tag color="#108ee9">{years}년차</Tag>
+          <br />
+          <span>{profile} 멘토</span>
+        </Card.Grid>
+        <Card.Grid hoverable={false} style={{ width: '200px' }}>
+          <Button type="primary">컨텍 리스트에 추가</Button>
+          <div>{in_list}명에게 추가됨</div>
+        </Card.Grid>
+        <Card.Grid hoverable={false} style={{ width: "100%" }}>
+          {info_paragraph}
+        </Card.Grid>
+        
+        {prepare ? 
+          <Card.Grid hoverable={false} style={{ width: "100%" }}>
+            함께 합격했던 회사: 
+              {prepared_companies.map((data, index) => (
+                <Tag>{data}</Tag>
+              ))}
+          </Card.Grid>
+          :
+          null
+        }
+      </Card>
+      <Divider />
     </Link>
   );
 };

@@ -1,66 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { Row, Col, Dropdown, Button } from "antd";
-import { DownOutlined } from "@ant-design/icons";
-import styled from "styled-components";
 import faker from "faker";
 import shortid from "shortid";
-
-import MenuDrop from "../components/Home/MenuDrop";
-import MentoCard from "../components/Home/MentoCard";
-import Filter from "../components/Home/Filter";
-
+import { Button, Breadcrumb } from 'antd';
+import * as Comps from '../components/Home'
 import "./Home.css";
 
-const StyledBtn = styled(Button)`
-  position: absolute;
-  background: #c4c4c4;
-  width: 226px;
-  height: 62px;
-  border-radius: 10%;
-  font-weight: bolder;
-  font-size: 1.4rem;
-  top: 80%;
-  left: 80%;
-  :hover {
-    background: #c4c4c4;
-    color: black;
-  }
-  @media only screen and (max-width: 600px) {
-    display: none;
-  }
-`;
-const StyledServiceImage = styled.div`
-  min-height: 420px;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  background: #b5b5b5;
-  @media only screen and (max-width: 600px) {
-    min-height: 300px;
-  }
-`;
-
-const HomeMain = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  h2 {
-    text-align: center;
-    margin: 58px;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 24px;
-    line-height: 28px;
-  }
-  button {
-    margin-bottom: 5%;
-    text-align: center;
-  }
-  //
-`;
 
 const DummyData = Array(5)
   .fill()
@@ -68,8 +12,8 @@ const DummyData = Array(5)
     id: shortid.generate(),
     title: faker.lorem.sentence(),
     profile: faker.name.findName(),
-    hearts: faker.random.number(99),
-    stars: faker.random.number(5),
+    in_list: faker.random.number(99),
+    years: faker.random.number(10),
     info_paragraph: faker.lorem.paragraph(),
     prepared_companies: Array(faker.random.number(5))
       .fill()
@@ -77,38 +21,41 @@ const DummyData = Array(5)
     img_src: "",
   }));
 
+
+
 const Home = () => {
-  const [dropdownState, setDropdownState] = useState("최근 등록 순으로 정렬");
+
   return (
-    <>
-      <Row style={{ background: "#b5b5b5" }}>
-        <Col md={24}>
-          <StyledServiceImage className="Service_Intro_images"></StyledServiceImage>
-          <StyledBtn>
-            <Link to="/">&gt; 자세히 알아보기</Link>
-          </StyledBtn>
-        </Col>
-      </Row>
-      <Row gutter={0}>
-        <Col xs={24} md={6}></Col>
-        <Col xs={24} md={12}>
-          <HomeMain>
-            <h2>Find your advisor!</h2>
-            <Dropdown overlay={<MenuDrop dropdownState={dropdownState} setDropdownState={setDropdownState} />}>
-              <Button>
-                {dropdownState}
-                <DownOutlined />
-              </Button>
-            </Dropdown>
-          </HomeMain>
-          <Filter />
-          {DummyData.map((data) => (
-            <MentoCard key={data.id} data={data} />
-          ))}
-        </Col>
-        <Col xs={24} md={6}></Col>
-      </Row>
-    </>
+    <div className="home">
+      <Comps.Banner />
+      <Comps.Searchbox />
+      <div className="home-mentorcard-container">
+        <div className="home-mentorcard-filter">
+          <Comps.Filter />
+        </div>
+        <div className="home-mentorcard-board">
+          <div className="home-mentorcard-sort">
+            <br />
+            <Breadcrumb separator="">
+              <Breadcrumb.Item>정렬</Breadcrumb.Item>
+              <Breadcrumb.Separator>:</Breadcrumb.Separator>
+              <Breadcrumb.Item>최신순</Breadcrumb.Item>
+              <Breadcrumb.Separator>|</Breadcrumb.Separator>
+              <Breadcrumb.Item>별점순</Breadcrumb.Item>
+              <Breadcrumb.Separator>|</Breadcrumb.Separator>
+              <Breadcrumb.Item>리뷰 많은 순</Breadcrumb.Item>
+            </Breadcrumb> 
+          </div>
+          <div className="home-mentorcard-cards">
+            <h2>10명이 검색되었습니다.</h2>
+            {DummyData.map((data) => (
+              <Comps.MentoCard key={data.id} data={data} />
+            ))}
+          </div>
+        </div>
+        <div style={{ width:"300px" }}></div>
+      </div>
+    </div>
   );
 };
 
