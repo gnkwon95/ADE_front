@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import faker from "faker";
 import shortid from "shortid";
-import { Button, Breadcrumb } from 'antd';
+import { BackTop, Breadcrumb } from 'antd';
+import { UpCircleTwoTone } from '@ant-design/icons'
 import * as Comps from '../components/Home'
 import "./Home.css";
 
@@ -21,7 +22,14 @@ const DummyData = Array(5)
     img_src: "",
   }));
 
-
+  const style = {
+    height: 40,
+    width: 40,
+    lineHeight: '40px',
+    borderRadius: 4,
+    backgroundColor: '#1088e9',
+    color: '#fff',
+  };
 
 const Home = () => {
 
@@ -55,6 +63,9 @@ const Home = () => {
         </div>
         <div style={{ width:"300px" }}></div>
       </div>
+      <BackTop>
+        <UpCircleTwoTone twoToneColor="orange" style={{ fontSize: '32px' }} />
+      </BackTop>
     </div>
   );
 };
