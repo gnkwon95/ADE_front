@@ -1,83 +1,59 @@
-import React, { useCallback, useState } from "react";
-import { SelectYear, SelectMonth } from "../Etc/Selector";
-import { Controller } from "react-hook-form";
-import { Form, Input } from "antd";
-const Internship = ({ control, WorkExperience, setWorkExperience }) => {
-  const [companyInfo, setCompanyInfo] = useState({
-    companyName: null,
-    work_period_from: {
-      year: null,
-      month: null,
-    },
-    work_period_to: {
-      year: null,
-      month: null,
-    },
-  });
-  const onClickPlus = useCallback(() => {
-    setWorkExperience((prev) => prev.concat([prev[-1] + 1]));
-  }, [setWorkExperience]);
+import React from "react";
+import { Form, Button, Input } from "antd";
+import { DatePicker } from 'antd'
+import moment from 'moment';
+import { MinusCircleOutlined,PlusOutlined } from '@ant-design/icons'
 
+const monthFormat = 'YYYY/MM';
+
+const { RangePicker} = DatePicker
+
+const Internship = ({ name,label,placeholder }) => {
   return (
-    <Form.Item labelCol={{ span: 24 }} label="주요 경력 및 인턴 경험">
-      {WorkExperience.map((v, index) => (
-        <>
-          <div style={{ marginTop: 20 }} key={index}>
-            <h3>회사명:</h3>{" "}
-            <Input
-              onChange={(e) => {
-                const value = e.target.value;
-                setCompanyInfo((prev) => ({ ...prev, companyName: value }));
-                WorkExperience[index] = companyInfo;
-                console.log(companyInfo);
-              }}
-              control={control}
-              defaultValue=""
-              style={{ width: "60%" }}
+    <>
+    <Form.List name={name ? name : ""}>
+      {(fields, { add, remove }) => {
+        return (
+          <>
+          {fields[0] ? null : <label>{label}</label>}
+          {fields.map((field , index) => (
+          <div key={field.key}>
+            <Form.Item labelCol={{ span: 24 }} label={index === 0 ? label : ""} key={field.key}>
+            <Input placeholder={placeholder ? placeholder : "회사명"} /> 
+            <br />
+              <RangePicker
+              defaultValue={[moment('2015/01', monthFormat), moment('2015/01', monthFormat)]}
+              format={monthFormat}
             />
-          </div>
-          <h3 style={{ marginRight: 20 }}>기간:</h3>
-          <div style={{ display: "flex", alignItems: "center", marginTop: 10, flexWrap: "wrap" }}>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <SelectYear name="passed_year" control={control} />
-                <span style={{ margin: `0 1%` }}>년</span>
-              </div>
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <SelectMonth
-                  onChange={(e) => {
-                    setCompanyInfo((prev) => ({
-                      ...prev,
-                      work_period_from: {
-                        ...prev.work_period_from,
-                        month: e.target.value,
-                      },
-                    }));
-                    console.log("22323");
+            {fields.length > 1 ? (
+              <MinusCircleOutlined
+                className="dynamic-delete-button"
+                style={{ margin: '0 8px' }}
+                onClick={() => {
+                  remove(field.name);
+                }}
+              />
+            ) : null}
+          </Form.Item>
+         </div>
+            ))}
+             <Form.Item>
+                <Button
+                  type="dashed"
+                  onClick={() => {
+                    add();
                   }}
-                  name="passed_month"
-                  control={control}
-                />
-                <span style={{ margin: `0 1%` }}>월</span>
-              </div>
-            </div>
+                  style={{ width: '60%' }}
+                >
+                  <PlusOutlined /> 추가 하기
+                </Button>
+              </Form.Item>
+          </>
+        )
+      }}
 
-            <span>~</span>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <SelectYear name="passed_year" control={control} />
-                <span style={{ margin: `0 1%` }}>년</span>
-              </div>
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <SelectMonth name="passed_month" control={control} />
-                <span style={{ margin: `0 1%` }}>월</span>
-              </div>
-            </div>
-          </div>
-        </>
-      ))}
-      <h4 onClick={onClickPlus}>+ 추가하기</h4>
-    </Form.Item>
+    </Form.List>
+    </>
   );
 };
 
