@@ -1,13 +1,10 @@
 import React, { useState, useCallback } from "react";
-import { Form, Input, Button, Select, Row, Col } from "antd";
+import { Form, Input, Button, Row, Col } from "antd";
 import styled from "styled-components";
-import { useForm, Controller } from "react-hook-form";
 import Company from "../components/Register/Company";
-import Univ from "../components/Register/Univ";
 import Spec from "../components/Register/Spec";
 import PR from "../components/Register/PR";
 import AccountInfo from "../components/Register/AccountInfo";
-const { Option } = Select;
 
 const RegisterPage = styled.div`
   font-weight: 1000;
@@ -39,25 +36,54 @@ const RegisterPage = styled.div`
     color: blue;
     cursor: pointer;
   }
+  @media only screen and (max-width: 900px) {
+    input {
+      width: 100%;
+    }
+  }
 `;
 
 const Register = () => {
-  const [abilities, setAbilities] = useState([0]);
-  const [Extracurricular, setExtracurricular] = useState([0]);
-  const [WorkExperience, setWorkExperience] = useState([0]);
-  const { handleSubmit, control } = useForm();
   const [isOverlapped, setIsOverlapped] = useState(null);
   const onSubmit = (data) =>
     console.log({
       ...data,
-      abilities,
-      Extracurricular,
-      WorkExperience,
     });
-
   const onOverlapCheck = useCallback(() => {
     setIsOverlapped((prev) => !prev);
   }, []);
+  const parseDate = (date) => {
+    const newDate = new Date(date);
+    return newDate.toISOString().slice(0, 7);
+  };
+  const onFinish = useCallback((values) => {
+    console.log(values);
+    console.log("Success:", {
+      nickname: values.nickname,
+      current_company: {
+        companyName: values.current_company,
+        passed_date: values.passed_date ? parseDate(values.passed_date._d) : null,
+      },
+      current_job: values.current_job,
+      university: values.university,
+      AppliedCompanies: values.prepared_companies,
+      phone_number: values.phone_number,
+      PR: values.PR,
+      account_email: values.account_email,
+      account_num: values.account_num,
+      WorkExperience: values.WorkExperience.map((work) => ({
+        work_experience_company_name: work.company_name,
+        work_from: work.worked_to_from[0] ? parseDate(work.worked_to_from[0]._d) : null,
+        work_to: work.worked_to_from[1] ? parseDate(work.worked_to_from[1]._d) : null,
+      })),
+      ExtraCurricular: values.ExtraCurricular,
+      bank: values.bank,
+    });
+  }, []);
+
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
   return (
     <RegisterPage>
       <div className="logo_below_in_mentor_register">멘토 등록</div>
@@ -68,30 +94,20 @@ const Register = () => {
           <div>
             <h1>기본 정보</h1>
           </div>
-          <Form onFinish={handleSubmit(onSubmit)} labelCol={{ span: 24 }}>
-            <Form.Item label="닉네임" rules={[{ required: true, message: "닉네임을 적어주세요!" }]}>
-              <Controller as={Input} name="nickname" control={control} defaultValue="" style={{ width: "60%" }} />
-              <Button type="primary" onClick={onOverlapCheck} style={{ marginLeft: "3%", width: "100px" }}>
-                중복 체크
-              </Button>
-              {isOverlapped ? <div>닉네임이 중복되었습니다.</div> : <div>사용 가능한 닉네임입니다.</div>}
+          <Form name="basic" layout="vertical" initialValues={{ remember: true }} onFinish={onFinish} onFinishFailed={onFinishFailed}>
+            <Form.Item label="닉네임" name="nickname" rules={[{ required: true, message: "닉네임을 적어주세요!" }]}>
+              <Input />
             </Form.Item>
-            <Company control={control} />
-            <Univ control={control} />
-            <Spec
-              WorkExperience={WorkExperience}
-              setWorkExperience={setWorkExperience}
-              Extracurricular={Extracurricular}
-              setExtracurricular={setExtracurricular}
-              abilities={abilities}
-              setAbilities={setAbilities}
-              control={control}
-            />
-            <PR control={control} />
-            <AccountInfo control={control} />
-            <Button type="primary" htmlType="submit">
-              제출하기
-            </Button>
+            <Button type="primary">중복 확인</Button>
+            <Company />
+            <Spec />
+            <PR />
+            <AccountInfo />
+            <Form.Item>
+              <Button type="primary" htmlType="submit">
+                Submit
+              </Button>
+            </Form.Item>
           </Form>
         </Col>
         <Col sm={24} md={6}></Col>

@@ -1,35 +1,33 @@
 import React from "react";
 import { Form, Input, Button } from "antd";
-import { Controller } from "react-hook-form";
 
-const AccountInfo = ({ control }) => {
+const AccountInfo = () => {
   return (
     <>
       <h1>정산 정보</h1>
-      <Form.Item rules={[{ required: true, message: "필수 정보입니다. 실명을 적어주세요!" }]} labelCol={{ span: 24 }} label="실명">
-        <Controller required style={{ width: "200px" }} placeholder="홍길동" as={Input} name="real_name" control={control} defaultValue="" />
+      <Form.Item label="실명" name="real_name" rules={[{ required: true, message: "닉네임을 적어주세요!" }]}>
+        <Input />
       </Form.Item>
-      <Form.Item labelCol={{ span: 24 }} label="휴대전화">
-        <Controller required type="tel" style={{ flexGrow: 3 }} as={Input} name="phone_number" control={control} defaultValue="" />
-        <Button type="primary" style={{ flexGrow: 1 }}>
-          인증번호 발송
+      <Form.Item label="휴대전화" name="phone_number">
+        <Input />
+        <Button type="primary">인증 번호 발송</Button>
+      </Form.Item>
+      <Form.Item label="인증번호" name="idenify_number">
+        <Input size="small" style={{ width: "60%" }} />
+        <Button size="small" style={{ fontSize: "12px" }} type="primary">
+          인증
         </Button>
-        <div style={{ display: "flex", alignItems: "center", marginTop: `10px` }}>
-          <h3 style={{ display: "block", marginRight: 10 }}>인증번호:</h3> <Input style={{ width: `150px` }} />
-          <Button type="primary" style={{ marginLeft: "3%" }}>
-            확인
-          </Button>
-        </div>
       </Form.Item>
-      <Form.Item rules={[{ required: true, message: "계좌정보를 적어주세요!" }]} labelCol={{ span: 24 }} label="정산 받을 계좌">
-        <div style={{ display: "flex", flexWrap: "wrap" }}>
-          <div style={{ flexGrow: 1 }}>
-            <h3>은행: </h3> <Controller required as={Input} name="bank" control={control} defaultValue="" />
-          </div>
-          <div style={{ flexGrow: 3 }}>
-            <h3>계좌번호: </h3> <Controller required as={Input} name="bank_account" control={control} defaultValue="" />
-          </div>
-        </div>
+      <Form.Item label="은행" name="bank" rules={[{ required: true, message: "은행 이름을 적어주세요!" }]}>
+        <Input />
+      </Form.Item>
+      <Form.Item label="계좌번호" name="account_num" rules={[{ required: true, message: "계좌번호를 적어주세요!" }]}>
+        <Input />
+      </Form.Item>
+      <label>이메일주소</label>
+      <h5>연락 받으실 이메일 주소를 적어주세요. 미가입 시 인증해주신 회사 메일로 자동 입력됩니다.</h5>
+      <Form.Item name="account_email">
+        <Input type="email" />
       </Form.Item>
     </>
   );
