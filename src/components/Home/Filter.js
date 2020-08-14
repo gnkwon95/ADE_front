@@ -16,7 +16,7 @@ const Filter = () => {
     <Affix offsetTop={180}>
       <div className="mentorcard-filter">
         <h2><strong>검색 필터</strong></h2>
-        <Divider orientation="left"><strong>지역</strong></Divider>
+        <Divider><strong>지역</strong></Divider>
         <Select
           mode="multiple"
           style={{ width: '90%' }}
@@ -27,7 +27,7 @@ const Filter = () => {
             <Option key={data}>{data}</Option>
           ))}
         </Select>
-        <Divider orientation="left"><strong>직무</strong></Divider>
+        <Divider><strong>직무</strong></Divider>
         <Select
           mode="multiple"
           style={{ width: '90%' }}
@@ -38,7 +38,7 @@ const Filter = () => {
             <Option key={data}>{data}</Option>
           ))}
         </Select>
-        <Divider orientation="left"><strong>전공</strong></Divider>
+        <Divider><strong>전공</strong></Divider>
         <Select
           mode="multiple"
           style={{ width: '90%' }}
@@ -49,7 +49,7 @@ const Filter = () => {
             <Option key={data}>{data}</Option>
           ))}
         </Select>
-        <Divider orientation="left"><strong>학력</strong></Divider>
+        <Divider><strong>학력</strong></Divider>
         <Checkbox.Group options={education} onChange={onChange} />
       </div>
     </Affix>

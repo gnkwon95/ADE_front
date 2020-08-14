@@ -24,7 +24,7 @@ const MentoCard = ({ data }) => {
             <span>{profile} 멘토</span>
           </Col>
           <Col flex="120px">
-            <Button type="primary" size="small">ConTag에 추가</Button>
+            <Button type="primary" shape="round" size="small">컨택리스트에 추가</Button>
             <div>{in_list}명에게 추가됨</div>
           </Col>
         </Row>
