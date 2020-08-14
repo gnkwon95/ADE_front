@@ -43,7 +43,7 @@ const Home = () => {
         </div>
         <div className="home-mentorcard-board">
           <div className="home-mentorcard-sort">
-            <br />
+            <br /> <br />
             <Breadcrumb separator="">
               <Breadcrumb.Item>정렬</Breadcrumb.Item>
               <Breadcrumb.Separator>:</Breadcrumb.Separator>
@@ -61,7 +61,7 @@ const Home = () => {
             ))}
           </div>
         </div>
-        <div style={{ width:"300px" }}></div>
+        <div style={{ width:"15%" }}></div>
       </div>
       <BackTop>
         <UpCircleTwoTone twoToneColor="orange" style={{ fontSize: '32px' }} />
