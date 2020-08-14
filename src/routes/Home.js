@@ -47,11 +47,11 @@ const Home = () => {
             <Breadcrumb separator="">
               <Breadcrumb.Item>정렬</Breadcrumb.Item>
               <Breadcrumb.Separator>:</Breadcrumb.Separator>
-              <Breadcrumb.Item>최신순</Breadcrumb.Item>
+              <Breadcrumb.Item href="">최신순</Breadcrumb.Item>
               <Breadcrumb.Separator>|</Breadcrumb.Separator>
-              <Breadcrumb.Item>별점순</Breadcrumb.Item>
+              <Breadcrumb.Item href="">별점순</Breadcrumb.Item>
               <Breadcrumb.Separator>|</Breadcrumb.Separator>
-              <Breadcrumb.Item>리뷰 많은 순</Breadcrumb.Item>
+              <Breadcrumb.Item href="">리뷰 많은 순</Breadcrumb.Item>
             </Breadcrumb> 
           </div>
           <div className="home-mentorcard-cards">
