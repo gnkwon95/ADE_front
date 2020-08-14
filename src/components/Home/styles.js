@@ -1,41 +1,4 @@
 import styled from "styled-components";
-import { Select } from "antd";
-
-export const StyledFilter = styled.div`
-  text-align: right;
-  span:hover {
-    cursor: pointer;
-  }
-  position: relative;
-`;
-
-export const StyledSelect = styled(Select)`
-  width: 80%;
-  text-align: center;
-  margin-right: auto;
-  margin-left: 10%;
-  border: 1px solid black;
-`;
-export const StyledFilterSelector = styled.div`
-  position: absolute;
-  width: 223px;
-  height: 360px;
-  border: 1px solid grey;
-  background-color: white;
-  z-index: 5000;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 20px;
-  margin-right: auto;
-  right: 0%;
-  p {
-    margin-right: auto;
-    margin-left: 10%;
-    font-weight: 900;
-    margin-top: 20px;
-  }
-`;
 
 export const StyledMentorCard = styled.div`
   font-family: Roboto;
@@ -43,7 +6,6 @@ export const StyledMentorCard = styled.div`
   flex-direction: column;
   padding: 3% 10%;
   margin: 20px;
-  border-bottom: 2px solid #b5b5b5;
   font-weight: bold;
   flex-wrap: wrap;
   a {
@@ -97,12 +59,12 @@ export const StyledMentorCard = styled.div`
         text-align: center;
         vertical-align: middle;
       }
-      span:nth-child(2) {
+      span:nth-child(1) {
         margin-left: 10px;
       }
     }
   }
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 800px) {
     margin-left: 0;
     margin-right: 0;
     padding: 3% 3%;

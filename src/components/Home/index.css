@@ -1,0 +1,54 @@
+.home-banner {
+    display: block;
+    position: relative;
+    height: 40vh;
+    max-height:500px;
+    background-color: rgb(234, 230, 243);
+    background-image: url(../../imageSamples/BannerSample.svg);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+.home-banner-text {
+    position: absolute;
+    width: 30vw;
+    top: 30px;
+    right: 50px;
+}
+.home-banner-button {
+    position: absolute;
+    bottom: 8%;
+    right: 3.5%;
+    padding: 7px 20px;
+    background-color:  white;
+    color: black;
+    font-weight: bold;
+    border: 0px;
+    opacity: 0.7;
+    border-radius:20px;
+}
+.home-banner-button:hover {
+    opacity: 0.9;
+}
+
+.mentorcard-filter{
+    background-color: white;
+    width: 250px;
+    border: 1px solid lightgray;
+    border-radius:20px;
+    padding: 20px;
+}
+
+.searchbox{
+    background-color: white;
+    border-bottom: 1px solid lightgray;
+    padding: 10px;
+}
+.searchbox-header{
+    font-size: 20px;
+    margin-left: 10%;
+    margin-right: 20px;
+}
+.searchbox-input{
+    padding-top: 10px;
+    margin-left: 10%;
+}
