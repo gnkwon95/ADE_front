@@ -21,11 +21,11 @@ function Searchbox() {
                 </div>
                 <div className="searchbox-container">
                     <input
-                        className="search-input" 
+                        className="searchbox-container-input" 
                         type="text"
                         placeholder="원하시는 회사 또는 직무로 검색해보세요"
                     />
-                    <button className="search-button" type="submit">검색</button>
+                    <button className="searchbox-container-button" type="submit">검색</button>
                 </div>
             </div>
         </Affix>

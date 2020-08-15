@@ -20,7 +20,6 @@ const { Content, Footer } = Layout;
 const App = () => (
   <BrowserRouter>
     <Layout className="layout">
-      <AdBar />
       <HeaderNav />
       <Route exact path="/" component={Home} />
       <Route exact path="/mentor" component={Mentor} />

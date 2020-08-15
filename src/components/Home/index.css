@@ -43,11 +43,12 @@
     background-color: white;
     border-bottom: 1px solid lightgray;
     padding: 15px;
-    text-align: center;
+    margin-left: 15%;
 }
 .searchbox-header{
     font-size: 20px;
-    margin-right: 20px;
+    margin-left: 15px;
+    margin-bottom: 10px;
 }
 
 .searchbox-container{
@@ -56,15 +57,13 @@
     height: 40px;
     border: 1px solid lightgray;
     border-radius: 30px;
-    margin-top: 10px;
-    margin-left: 15%;
 }
-.search-input{
+.searchbox-container-input{
     flex: 1 1 100%;
-    margin-left: 30px;
+    margin-left: 15px;
     border:none;
 }
-.search-button{
+.searchbox-container-button{
     border-radius: 30px;
     background-color: rgb(11, 40, 58);
     color: white;
