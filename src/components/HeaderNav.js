@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { withFirebase } from "../firebase";
 import { AuthUserContext } from "../session";
+import axios from "axios";
 
 import "./HeaderNav.css";
 import { Layout, Avatar, Menu, Dropdown, Button, Tooltip, Space, Affix } from "antd";
@@ -36,22 +37,39 @@ const VisitorNav = () => (
   </Space>
 );
 
-const UserNav = () => (
-  <Space size="middle">
-    <Link to="/mentor">
-      <Button shape="round">멘토 프로필</Button>
-    </Link>
-    <Tooltip title="채팅하기">
-      <Link to="/chat">
-        <Button id="chat-btn" shape="circle" icon={<MessageOutlined />} />
+const UserNav = () => {
+  const [mentorStatus, setMentorStatus] = useState(false);
+  const is_mentor = async () => {
+    const fetchData = await axios.get("http://15.164.251.155:8000/mypage/");
+    const userDatas = fetchData.data;
+    const CurrentUser = userDatas.find((userData) => userData.email === "user1@mail.com");
+    setMentorStatus(CurrentUser.is_mentor);
+  };
+  is_mentor();
+
+  return (
+    <Space size="middle">
+      <Link to="/mentor">
+        {mentorStatus ? (
+          <Button shape="round">멘토 프로필</Button>
+        ) : (
+          <Button color="grey" shape="round">
+            <Link to="/register">멘토 등록</Link>
+          </Button>
+        )}
       </Link>
-    </Tooltip>
-    <Dropdown overlay={UserMenu} onClick={(e) => e.preventDefault()} placement="bottomRight" arrow>
-      <Avatar size="normal" icon={<UserOutlined />} />
-    </Dropdown>
-    {/* <SignOutButton/> */}
-  </Space>
-);
+      <Tooltip title="채팅하기">
+        <Link to="/chat">
+          <Button id="chat-btn" shape="circle" icon={<MessageOutlined />} />
+        </Link>
+      </Tooltip>
+      <Dropdown overlay={UserMenu} onClick={(e) => e.preventDefault()} placement="bottomRight" arrow>
+        <Avatar size="normal" icon={<UserOutlined />} />
+      </Dropdown>
+      {/* <SignOutButton/> */}
+    </Space>
+  );
+};
 
 // const OutButton = ({ firebase }) => ( <Button onClick={firebase.doSignOut}>로그아웃</Button>);
 // const SignOutButton = withFirebase(OutButton);
