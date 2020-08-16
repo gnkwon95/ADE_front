@@ -76,7 +76,7 @@ const Home = () => {
           <Comps.Filter />
         </div>
         <div className="home-mentorcard-board">
-          <div className="home-mentorcard-sort" style={{ marginTop:"20px", marginBottom:"20px" }}>
+          <div className="home-mentorcard-sort" style={{ marginTop:"30px", marginBottom:"10px" }}>
               <span key="recent">최신순</span> <Divider type="vertical"/>
               <span key="rating">별점순</span> <Divider type="vertical"/>
               <span key="reviews">리뷰 많은순</span>
