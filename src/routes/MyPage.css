@@ -1,3 +1,20 @@
 .mypage-title {
     margin-top: 52px;
 }
+.card-single-text {
+    text-align: center;
+    margin: auto;
+    /* line-height: 100px; */
+  }
+  
+  .ant-card-body.card-text {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+  }
+  
+  .ant-card {
+    /* min-height: 200px; */
+    width: 100%;
+    min-width: 300px;
+  }

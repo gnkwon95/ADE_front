@@ -37,7 +37,7 @@ const Home = () => {
     <div className="home">
       <Comps.Banner />
       <Comps.Searchbox />
-      <div className="home-mentorcard-container">
+      <div className="home-mentorcard-container" style={{maxWidth: "1280px", margin: "0 auto"}}>
         <div className="home-mentorcard-filter">
           <Comps.Filter />
         </div>
