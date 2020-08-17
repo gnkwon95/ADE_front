@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Input, Button, Drawer } from "antd";
+import { Form, Input, Button, Drawer, message } from "antd";
 import { withFirebase } from "../../firebase";
 import { LockOutlined } from "@ant-design/icons";
 
@@ -10,15 +10,17 @@ const ChangePwForm = (props) => {
     // console.log("Received values of form: ", values);
     const prev = values.prevpw;
     const password = values.password;
-    props.firebase
-      .doPasswordUpdate(prev, password)
-      .then(() => {
-        alert("변경되었습니다 알림");
-      })
-      .catch((error) => {
-        alert("error!");
-        console.log(error);
-      });
+
+    const changePassword = async () => {
+      try {
+        await props.firebase.doPasswordUpdate(prev, password)
+        await message.success("변경됐습니다.")
+      } catch (e) {
+        message.error("비밀번호 변경에 실패했습니다.")
+        console.log(e)
+      }
+    }
+    changePassword();
   };
 
   return (
