@@ -21,9 +21,9 @@ const App = () => (
   <BrowserRouter>
     <Layout className="layout">
       <HeaderNav />
-      <Route exact path="/" component={Home} />
       <Route exact path="/mentor" component={Mentor} />
-      <Content style={{ margin: "0 50px" }}>
+      <Route exact path="/" component={Home} />
+      <Content style={{ margin: "0 auto", maxWidth: "1280px" }}>
         <Route exact path="/signin" component={SignIn} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/forgotpw" component={ForgotPw} />
