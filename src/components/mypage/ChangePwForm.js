@@ -7,7 +7,7 @@ const ChangePwForm = (props) => {
   const [visible, setVisible] = useState(false);
 
   const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+    // console.log("Received values of form: ", values);
     const prev = values.prevpw;
     const password = values.password;
     props.firebase
@@ -46,6 +46,7 @@ const ChangePwForm = (props) => {
               type="primary"
               htmlType="submit"
               onClick={()=>setVisible(false)}
+              form="changePwForm"
             >
               변경하기
             </Button>
@@ -56,6 +57,7 @@ const ChangePwForm = (props) => {
           name="normal_changepw"
           onFinish={onFinish}
           layout="vertical"
+          id="changePwForm"
         >
           <Form.Item
             name="prevpw"

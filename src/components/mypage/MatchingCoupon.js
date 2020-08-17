@@ -2,7 +2,7 @@ import React from "react";
 import { Card, Button } from "antd";
 import { CreditCardOutlined } from "@ant-design/icons";
 
-const MatchingCoupon = () => {
+const MatchingCoupon = (props) => {
   return (
     <Card
       title="보유 매칭권 수"
@@ -16,7 +16,7 @@ const MatchingCoupon = () => {
       <div className="card-single-text">
         <span className="card-text">
           <span style={{ fontSize: 20, color: "#000", fontWeight: 500 }}>
-            1
+            {props.credit}
           </span>{" "}
           장
         </span>
