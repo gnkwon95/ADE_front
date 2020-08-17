@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import { Card, Button, Drawer, Form, Input, Spin, Alert } from "antd";
+import { Card, Button, Drawer, Form, Input, Spin, Alert, message } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 
 const NickName = (props) => {
@@ -55,8 +55,10 @@ const NickName = (props) => {
         );
 
         await fetchName()
+        await message.success('닉네임이 변경됐습니다.')
       } catch (e) {
         console.log(e);
+        message.error('닉네임이 변경에 실패했습니다.')
       }
     };
 
