@@ -24,6 +24,8 @@ const SignUp = (props) => {
     const email = values.email
     const password = values.password
 
+    //console.log(props.firebase.getCurrentUser().uid);
+
     props.firebase
       .doCreateUserWithEmailAndPassword(email, password)
       // .then(authUser => {
@@ -42,12 +44,15 @@ const SignUp = (props) => {
       .then(() => {
         axios
           .post("mypage/", {
-            user_uid: this.props.firebase.getCurrentUser().uid,
+            user_uid: props.firebase.getCurrentUser().uid,
             email: values.email,
             user_id: values.username,
             credit: 0,
             credit_used: 0,
           })
+             .then(function (response) {
+                console.log(response);
+              })
           .catch((error) => {
             console.log("django error");
             console.log(error);
