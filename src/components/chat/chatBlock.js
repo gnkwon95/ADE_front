@@ -113,6 +113,37 @@ ChatBox = ({pos, left_id, right_id, content}) => {
        </>
     )
 }
+able = ()=>{
+    if(this.state.content===""){
+      return  (<div className="fixed" style={{position:"sticky",bottom:"0px"}}>
+        <form onSubmit = {this.handleSubmit} >  {/*form to update message, with button to send */}
+            <Layout>
+            <Content>
+                <input type="textarea" className="text" onChange={this.handleChange} value={this.state.content} style={{width:"100%",height:40,borderRadius:"100px",outline:"none" ,border:"1px solid gray",paddingLeft:"20px"}}></input> {/*use this.handleChange to change state (is message okay?) */}
+                 {this.state.error ? <p>{this.state.writeError}</p> : null}
+             </Content>
+             <Sider style={{background:"none",width:"30px",maxWidth:"30px",minWidth:"20px"}}>
+                 <button type="submit" className="send_btn" style={{width:"100%",height:"100%"}} disabled>보내기</button>
+             </Sider>
+             </Layout>
+         </form>
+         </div>)
+    }else{
+      return ( <div className="fixed" style={{position:"sticky",bottom:"0px"}}>
+        <form onSubmit = {this.handleSubmit} >  {/*form to update message, with button to send */}
+            <Layout>
+            <Content>
+                <input type="textarea" className="text" onChange={this.handleChange} value={this.state.content} style={{width:"100%",height:40,borderRadius:"100px",outline:"none" ,border:"1px solid gray",paddingLeft:"20px"}}></input> {/*use this.handleChange to change state (is message okay?) */}
+                 {this.state.error ? <p>{this.state.writeError}</p> : null}
+             </Content>
+             <Sider style={{background:"none",width:"30px",maxWidth:"30px",minWidth:"20px"}}>
+                 <button type="submit" className="send_btn" style={{width:"100%",height:"100%"}} >보내기</button>
+             </Sider>
+             </Layout>
+         </form>
+         </div>)
+    }
+}
     render() {
 
         const left_id = this.state.is_mentor
@@ -125,7 +156,7 @@ ChatBox = ({pos, left_id, right_id, content}) => {
 
         console.log(left_id)
         return (
-        <div>
+       
               <div className="chats">
                 { this.state.chats.map( chat => {
                     return <p key={chat.timestamp}>
@@ -135,19 +166,9 @@ ChatBox = ({pos, left_id, right_id, content}) => {
                         }
                     </p>
                 })}
+          {this.able()}
                 </div>
-                <form onSubmit = {this.handleSubmit}>  {/*form to update message, with button to send */}
-                    <Layout>
-                    <Content>
-                        <input type="textarea" onChange={this.handleChange} value={this.state.content} style={{width: "100%", display:"flex" }}></input> {/*use this.handleChange to change state (is message okay?) */}
-                         {this.state.error ? <p>{this.state.writeError}</p> : null}
-                     </Content>
-                     <Sider>
-                         <button type="submit" style={{width:"100%"}}>보내기</button>
-                     </Sider>
-                     </Layout>
-                 </form>
-            </div>
+             
         );
     }
 }

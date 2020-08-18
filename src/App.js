@@ -24,12 +24,13 @@ const App = () => (
       <HeaderNav />
       <Route exact path="/" component={Home} />
       <Route exact path="/mentor" component={Mentor} />
+      <Route exact path="/chat" component={Chat} />
       <Content style={{ margin: "0 50px" }}>
         <Route exact path="/signin" component={SignIn} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/forgotpw" component={ForgotPw} />
         <Route exact path="/mypage" component={MyPage} />
-        <Route exact path="/chat" component={Chat} />
+        
         <Route exact path="/register" component={Register} />
         <Route exact path="/delete-account" component={DeleteAccount} />
       </Content>

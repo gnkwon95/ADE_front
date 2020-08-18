@@ -1,0 +1,73 @@
+.ant-tabs-content-holder {
+  overflow-y: auto;
+  border: 1px solid black;
+}
+.ant-tabs-tab-btn {
+  width: 100%;
+}
+.gray {
+  background: #ededed;
+}
+.ant-tabs-nav {
+  width: 28%;
+  border: 1px solid black;
+}
+
+.mento_profile {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 22%;
+  font-family: "Roboto", sans-serif;
+  border: 1px solid black;
+  height: 100%;
+}
+.frame {
+  height: 83vh;
+}
+.chat_profile_block {
+  display: flex;
+  width: 100%;
+
+  height: 100%;
+  border: 1px solid black;
+}
+
+@media screen and (max-width: 1537px) {
+  .chat_profile_block {
+    height: 77vh;
+  }
+  .frame {
+    height: 77vh;
+  }
+}
+.tab_box {
+  display: flex;
+  width: 100%;
+  height: 74px;
+  border-radius: 14px 0 0 14px;
+}
+.tab_img_box {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  margin-left: 10px;
+  width: 30%;
+}
+.tab_img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin: 0 auto 0 auto;
+}
+::-webkit-scrollbar {
+  width: 4px;
+  background: none;
+}
+::-webkit-scrollbar-thumb {
+  background: gray;
+  opacity: 0.4;
+}
+::-webkit-scrollbar-track {
+  background: none;
+}
