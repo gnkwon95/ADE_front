@@ -18,7 +18,6 @@ const MentoCard = ({ data }) => {
   const tagColor = years < 3 ? "#87d068"
                   : years < 7 ? "#2db7f5"
                   : "#108ee9"
-  console.log(logo)
   
   return (
     <Link to="/mentor">
