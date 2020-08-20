@@ -56,7 +56,7 @@ const VisitorNav = () => (
 const UserNav = () => {
   const [mentorStatus, setMentorStatus] = useState(false);
   const is_mentor = async () => {
-    const fetchData = await axios.get("http://15.164.251.155:8000/mypage/");
+    const fetchData = await axios.get("http://15.164.251.155/mypage/");
     const userDatas = fetchData.data;
     const CurrentUser = userDatas.find(
       (userData) => userData.email === "user1@mail.com"

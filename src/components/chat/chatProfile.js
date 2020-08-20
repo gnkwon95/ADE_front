@@ -43,7 +43,7 @@ const MentoProfile= styled.div`
   display:block;
   width: 22%;
   font-family: "Roboto", sans-serif;
-  border: 1px solid black;
+  border-left: 1px solid #eeeeee;
   overflow-y:auto;
  
 `;
@@ -59,6 +59,7 @@ const MPTOP = styled.div`
    font-size: 23px;
    line-height: 32px;
    color: #000000;
+   margin-top:20px;
   }
   .company{
     font-size: 18px;

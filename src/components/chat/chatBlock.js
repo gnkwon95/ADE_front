@@ -59,7 +59,7 @@ class ChatBlock extends React.Component {
     async componentDidMount() {
         this.setState({ readError: null});
         try{
-              this.props.firebase.getDB().ref("chats").child("UBLojFqhwVZ752MYk47RXL18jD73").child("FtyN99N55NRhuglRDEjiea6mE3p1").on("value", snapshot => {
+              this.props.firebase.getDB().ref("chats").child(this.state.mentor).child(this.state.mentee).on("value", snapshot => {
                 let chats = [];
                 snapshot.forEach((snap) => {
                     chats.push(snap.val());
@@ -72,13 +72,12 @@ class ChatBlock extends React.Component {
     }
 
     handleChange(event){ // get value from input field, set state variable
-        console.log(event)
+       
         this.setState({
             content: event.target.value
         })
     }
-
-
+   
     async handleSubmit(event){ //reference to chat, and push with unique key. If error, there is error.
         console.log(event);
         event.preventDefault();
@@ -86,7 +85,7 @@ class ChatBlock extends React.Component {
         try{
             console.log(this.state.mentor);
             console.log(this.state.mentee);
-            await this.props.firebase.getDB().ref("chats").child("UBLojFqhwVZ752MYk47RXL18jD73").child("FtyN99N55NRhuglRDEjiea6mE3p1").push({
+            await this.props.firebase.getDB().ref("chats").child(this.state.mentor).child(this.state.mentee).push({
                 content: this.state.content,
                 timestamp: Date.now(),
                 uid: this.state.user.uid
@@ -99,15 +98,19 @@ class ChatBlock extends React.Component {
 
 
 ChatBox = ({pos, left_id, right_id, content}) => {
+    
     return (
     <>
-        <div>
-            {pos == 'left'
+        <div style={{display:"block"}}>
+            {pos === 'left'
             ? <h5 style={{float:pos}}> {left_id} </h5>
             : <h5 style={{float:pos}}> {right_id} </h5>
             }
             <br />
-            <Button type="text" shape="round" size="middle" style={{background: "orange",  float:pos}}> {content} </Button>
+            {/* pos == 'left'? <span style={{postion:"relative",background: "pink",float:pos,padding:"0 10px 0 10px",borderRadius:"100px"}}> {content} </span>: 
+            <span style={{postion:"relative",background: "orange",  float:pos,padding:"0 10px 0 10px",borderRadius:"100px"}}> {content} </span> */}
+           {pos === 'left'? <Button  type="text" shape="round" size="middle" style={{background: "pink",  float:pos,cursor:"default"}}><span style={{width:"100%"}}>{content}</span></Button>: 
+            <Button type="text" shape="round" size="middle" style={{background: "orange",  float:pos,cursor:"default"}}> <span style={{width:"100%"}}>{content}</span> </Button>}
         </div>
         <br />
        </>
@@ -118,13 +121,15 @@ able = ()=>{
       return  (<div className="fixed" style={{position:"sticky",bottom:"0px"}}>
         <form onSubmit = {this.handleSubmit} >  {/*form to update message, with button to send */}
             <Layout>
+                <div style={{display:"flex",width:"100%"}}>
             <Content>
-                <input type="textarea" className="text" onChange={this.handleChange} value={this.state.content} style={{width:"100%",height:40,borderRadius:"100px",outline:"none" ,border:"1px solid gray",paddingLeft:"20px"}}></input> {/*use this.handleChange to change state (is message okay?) */}
+                <input type="textarea" className="text" onChange={this.handleChange} value={this.state.content} style={{width:"100%",height:38,borderRadius:"100px 0 0 100px",outline:"none" ,border:"1px solid gray",borderRight:"none",paddingLeft:"20px"}}></input> {/*use this.handleChange to change state (is message okay?) */}
                  {this.state.error ? <p>{this.state.writeError}</p> : null}
              </Content>
-             <Sider style={{background:"none",width:"30px",maxWidth:"30px",minWidth:"20px"}}>
-                 <button type="submit" className="send_btn" style={{width:"100%",height:"100%"}} disabled>보내기</button>
-             </Sider>
+                 <div style={{width:"10%",height:38,background:"white",borderRadius:"0 100px 100px 0",border:"1px solid gray",borderLeft:"none"}}>
+                 <button type="submit" className="send_btn" style={{width:"100%",height:"100%",borderRadius:"100px",background:"#0b283a",color:"gray",border:"none"}} disabled>전송</button>
+                 </div>
+                 </div>
              </Layout>
          </form>
          </div>)
@@ -132,14 +137,16 @@ able = ()=>{
       return ( <div className="fixed" style={{position:"sticky",bottom:"0px"}}>
         <form onSubmit = {this.handleSubmit} >  {/*form to update message, with button to send */}
             <Layout>
+            <div style={{display:"flex", width:"100%"}}>
             <Content>
-                <input type="textarea" className="text" onChange={this.handleChange} value={this.state.content} style={{width:"100%",height:40,borderRadius:"100px",outline:"none" ,border:"1px solid gray",paddingLeft:"20px"}}></input> {/*use this.handleChange to change state (is message okay?) */}
+                <input type="textarea" className="text" onChange={this.handleChange} value={this.state.content} style={{width:"100%",height:38,borderRadius:"100px 0 0 100px",outline:"none" ,border:"1px solid gray",borderRight:"none",paddingLeft:"20px"}}></input> {/*use this.handleChange to change state (is message okay?) */}
                  {this.state.error ? <p>{this.state.writeError}</p> : null}
              </Content>
-             <Sider style={{background:"none",width:"30px",maxWidth:"30px",minWidth:"20px"}}>
-                 <button type="submit" className="send_btn" style={{width:"100%",height:"100%"}} >보내기</button>
-             </Sider>
-             </Layout>
+             <div style={{width:"10%",height:38,background:"white",borderRadius:"0 100px 100px 0",border:"1px solid gray",borderLeft:"none"}}>
+                 <button type="submit" className="send_btn" style={{width:"100%",height:"100%",borderRadius:" 100px",background:"#0b283a",color:"white",border:"none"}} >전송</button>
+              </div>
+             </div>
+            </Layout>
          </form>
          </div>)
     }
@@ -154,19 +161,22 @@ able = ()=>{
         ? this.state.mentor_id
         : this.state.mentee_id
 
-        console.log(left_id)
+        
         return (
        
               <div className="chats">
-                { this.state.chats.map( chat => {
+               
+                { this.state.chats.map( (chat,index) => {
+                 
                     return <p key={chat.timestamp}>
-                        { (chat.uid == this.state.user.uid)
-                        ? <this.ChatBox  pos='right' left_id={left_id} right_id={right_id} content= {chat.content} />
+                        { (chat.uid === this.state.user.uid)
+                        ? <this.ChatBox   pos='right' left_id={left_id} right_id={right_id} content= {chat.content} />
                         : <this.ChatBox  pos='left' left_id={left_id} right_id={right_id} content= {chat.content} />
                         }
                     </p>
                 })}
-          {this.able()}
+        
+         {this.able()}
                 </div>
              
         );
