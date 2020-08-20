@@ -10,7 +10,7 @@ import "firebase/firestore";
 
 import * as SignInMethods from '../../components/signin'
 
-axios.defaults.baseURL = "http://15.164.251.155:8000/";
+axios.defaults.baseURL = "http://15.164.251.155:";
 
 const SignUp = (props) => {
   const [toggle, setToggle] = useState(false)
@@ -49,6 +49,11 @@ const SignUp = (props) => {
             user_id: values.username,
             credit: 0,
             credit_used: 0,
+          },
+          {
+            headers: {
+                Authorization: 'Bearer ' + props.firebase.getCurrentUser().uid
+            }
           })
              .then(function (response) {
                 console.log(response);
