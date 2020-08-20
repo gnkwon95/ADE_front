@@ -42,7 +42,7 @@ const SignUp = (props) => {
       .then(() => {
         axios
           .post("mypage/", {
-            user_uid: this.props.firebase.getCurrentUser().uid,
+            user_uid: props.firebase.getCurrentUser().uid,
             email: values.email,
             user_id: values.username,
             credit: 0,

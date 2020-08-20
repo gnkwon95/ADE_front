@@ -6,6 +6,7 @@ import * as firebase from "firebase/app";
 import 'firebase/auth';
 import 'firebase/firestore';
 import ChatBlock from "../components/chat/chatBlock";
+import ChatProfile from "../components/chat/chatProfile";
 import axios from "axios";
 import styled from "styled-components";
 import {Layout, Menu} from 'antd';
@@ -13,13 +14,21 @@ import { Tabs, Typography, Radio } from "antd";
 
 const {TabPane} = Tabs;
 const {Content, Sider} = Layout;
+
+axios.defaults.baseURL ='http://15.164.251.155:'
 class Chat extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      connections: [ ],
-      booleans:false
-    };
+      connections: [],
+      booleans:false,
+      testing: [{img:"https://pbs.twimg.com/profile_images/788558965718208512/ObqcIBUu.jpg",name:"김정현",company:"현대자동차",position:"마케팅 매니저",reply:"5"},
+{img:"https://img.kr.news.samsung.com/kr/wp-content/uploads/2019/10/1017-pr-samsung-thumb.jpg",name:"박정환",company:"삼성전자",position:"엔지니어",reply:"6"},
+{img:"https://t1.kakaocdn.net/kakaocorp/corp_thumbnail/Kakao.png",name:"김나현",company:"카카오",position:"소프트 엔지니어",reply:"7"},
+{img:"https://i.pinimg.com/originals/ec/98/10/ec9810ba62e3d757fa0ac601f906769f.jpg",name:"이정수",company:"LG",position:"마케팅 매니저",reply:"9"},
+{img:"https://m.kt.com/images/common/kt_ci.png",name:"오현정",company:"KT",position:"마케팅 매니저",reply:"20"},
+{img:"https://lh3.googleusercontent.com/proxy/KM-YuNHPg0JTCC_U1flhQEGTTHX7sAB_uI10q5hwxNd9u_o55pealhyUMzn8giAF5mk00C44bRrknrhBN8hCbX3wm2FoO31sscXBAzDWjz-Jbzy1WNnO9sIJeyKSDv3ENss8Qv4-uuF7eLjMOiixH-1VRb1vL9wOGpSv9gabaZq-COAorR1G84ja0qH86xOVJ5k2hR2PNLdYKr4NAl2X9l7F5BLok-8P6SVKj-ACa26RHDVd_WcDUIU--pZenysCGPMnwle_hXzCzyfzGaxY4OiX1cDdHtyWUGaOJl_75Zta4g",name:"박주환",company:"SK",position:"마케팅 매니저",reply:"10"}]
+    }
   }
 
      getConnections = async() => {
@@ -27,7 +36,8 @@ class Chat extends React.Component {
          const response  = await axios.get(
                'connections/?user=' + this.props.firebase.getCurrentUser().uid
             ).then (
-            console.log(this.props.firebase.getCurrentUser().uid)
+            console.log(this.props.firebase.getCurrentUser().uid),
+            console.log(response)
             );
             this.setState({
                 connections: response.data,
@@ -44,7 +54,7 @@ class Chat extends React.Component {
 
     componentDidMount(){
         this.resetState();
-        console.log(this.state.connections,"커넥션")
+        console.log(this.props)
     };
     changes =()=>{
      this.setState({
@@ -69,63 +79,44 @@ class Chat extends React.Component {
              <>
                 {connection.mentor_uid == this.props.firebase.getCurrentUser().uid
                 ? 
-                   <TabPane  tab={`${connection.mentee_id}`} key={i}>
+                   <TabPane  tab={<div  onClick={this.changes} className={`tab_box ${this.state.booleans?"gray":""}`}>
+                   <div className="tab_img_box"><img className="tab_img" src="https://pbs.twimg.com/profile_images/788558965718208512/ObqcIBUu.jpg" /></div>
+                   <ProfileInfo>
+                     <span className="tab_name" >{connection.mentee_id} <span className="tab_company">현대자동차</span></span>
+                     <span className="position">마케팅 매니저</span>
+                     <span className="last_reply">마지막 답장:&nbsp;5분전</span>
+                   </ProfileInfo>
+                 </div>} key={i}>
                       <ChatBlock connection = {connection} is_mentor = {true} />
                     </TabPane>
-                : <TabPane  tab={`${connection.mentor_id}`} key={i}>
+                : <TabPane  tab={<div  onClick={this.changes} className={`tab_box ${this.state.booleans?"gray":""}`}>
+                <div className="tab_img_box"><img className="tab_img" src="https://pbs.twimg.com/profile_images/788558965718208512/ObqcIBUu.jpg" /></div>
+                <ProfileInfo>
+                  <span className="tab_name" >{connection.mentee_id} <span className="tab_company">현대자동차</span></span>
+                  <span className="position">마케팅 매니저</span>
+                  <span className="last_reply">마지막 답장:&nbsp;5분전</span>
+                </ProfileInfo>
+              </div>} key={i}>
                       <ChatBlock  connection = {connection} is_mentor= {false} />
                     </TabPane>
                 }
 
                </>
               )) }
-              <TabPane key="14" tab={<div  onClick={this.changes} className={`tab_box ${this.state.booleans?"gray":""}`}>
-                <div className="tab_img_box"><img className="tab_img" src="https://pbs.twimg.com/profile_images/788558965718208512/ObqcIBUu.jpg" /></div>
-                <ProfileInfo>
-                  <span className="tab_name" >아무개 <span className="tab_company">현대자동차</span></span>
-                  <span className="position">마케팅 매니저</span>
-                  <span className="last_reply">마지막 답장:&nbsp;5분전</span>
-                </ProfileInfo>
-              </div>}>YOLO</TabPane>
-              <TabPane tab="tab4" key="15">
-                   hi
-              </TabPane>  
+           {/*this.state.testing.map((el,index)=>{
+             return(  <TabPane key={index} tab={<div  onClick={this.changes} className={`tab_box ${this.state.booleans?"gray":""}`}>
+             <div className="tab_img_box"><img className="tab_img" src={el.img} /></div>
+             <ProfileInfo>
+               <span className="tab_name" >{el.name} <span className="tab_company">{el.company}</span></span>
+               <span className="position">{el.position}</span>
+               <span className="last_reply">마지막 답장:&nbsp;{el.reply}분전</span>
+             </ProfileInfo>
+           </div>}>             
+             {index}
+           </TabPane>)
+           })*/}
         </Tabs>
-    
-             
-     <MentoProfile>
-       <MPTOP>
-         <span className="name">아무개</span>
-         <span className="company">현대자동차</span>
-         <span className="career">1년차</span>
-         </MPTOP>
-         <MPBOT>
-           <Pbold>지원 직무</Pbold>
-           <p>마케팅 매니저</p>
-           <Pbold>현재 직무</Pbold>
-           <p>동일</p>
-           <Pbold>학력</Pbold>
-           <p>서울대학교 컴퓨터공학과 전공</p>
-           <Pbold>합격한 회사</Pbold>
-           <ul className="ul_tag">
-             <li>SKTelecom 데이터 분석 직군</li>
-             <li>스파크랩벤쳐스 심사역</li>
-             <li>쏘카 데이터 분석 직군</li>
-           </ul>
-           <Pbold>주요 경력 및 인턴 경험</Pbold>
-           <ul className="ul_tag">
-             <li>쏘카 퍼포먼스 마케팅팀 인턴 (2019.07~2019.09)</li>
-           
-           </ul>
-           <Pbold>합격 당시 스펙</Pbold>
-           <ul className="ul_tag">
-             <li>TOEIC 900점</li>
-             <li>HSK 6급</li>
-             <li>정보처리 기능사 자격증</li>
-             <li>SK Sunny 대학생 자원봉사단</li>
-           </ul>
-         </MPBOT>
-     </MentoProfile>
+           <ChatProfile />
       </div>
       </div>
     );

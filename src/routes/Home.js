@@ -1,114 +1,99 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { Row, Col, Dropdown, Button } from "antd";
-import { DownOutlined } from "@ant-design/icons";
-import styled from "styled-components";
+import React, { useState, useEffect } from "react";
 import faker from "faker";
 import shortid from "shortid";
-
-import MenuDrop from "../components/Home/MenuDrop";
-import MentoCard from "../components/Home/MentoCard";
-import Filter from "../components/Home/Filter";
-
+import { BackTop, notification, Divider, Button, Menu } from 'antd';
+import { UpCircleTwoTone } from '@ant-design/icons'
+import * as Comps from '../components/Home'
 import "./Home.css";
+import axios from "axios";
 
-const StyledBtn = styled(Button)`
-  position: absolute;
-  background: #c4c4c4;
-  width: 226px;
-  height: 62px;
-  border-radius: 10%;
-  font-weight: bolder;
-  font-size: 1.4rem;
-  top: 80%;
-  left: 80%;
-  :hover {
-    background: #c4c4c4;
-    color: black;
-  }
-  @media only screen and (max-width: 600px) {
-    display: none;
-  }
-`;
-const StyledServiceImage = styled.div`
-  min-height: 420px;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  background: #b5b5b5;
-  @media only screen and (max-width: 600px) {
-    min-height: 300px;
-  }
-`;
-
-const HomeMain = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  h2 {
-    text-align: center;
-    margin: 58px;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 24px;
-    line-height: 28px;
-  }
-  button {
-    margin-bottom: 5%;
-    text-align: center;
-  }
-  //
-`;
+faker.locale = "ko";
 
 const DummyData = Array(5)
   .fill()
   .map(() => ({
-    id: shortid.generate(),
-    title: faker.lorem.sentence(),
-    profile: faker.name.findName(),
-    hearts: faker.random.number(99),
-    stars: faker.random.number(5),
-    info_paragraph: faker.lorem.paragraph(),
+    user: shortid.generate(),
+    current_company: faker.company.companyName(1),
+    current_job: faker.name.jobTitle(),
+    real_name: faker.name.findName(),
+    work_period_from: faker.random.number(15),
+    voter: faker.random.number(99),
+    PR: faker.lorem.paragraph(),
     prepared_companies: Array(faker.random.number(5))
       .fill()
       .map(() => faker.random.word()),
-    img_src: "",
+    logo: faker.image.avatar(),
   }));
 
+
 const Home = () => {
-  const [dropdownState, setDropdownState] = useState("최근 등록 순으로 정렬");
+
+  // *** Fetch 멘토 데이터 ***
+  // const [cards, setCards] = useState(null);
+  // const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState(null);
+  
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       setError(null);
+  //       setCards(null);
+  //       setLoading(true);
+  //       const response = await axios.get('http://15.164.251.155:8000/profiles/');
+  //       setCards(response.data);
+  //     } catch (e) {
+  //       setError(e);
+  //     }
+  //     setLoading(false);
+  //   };
+
+  //   fetchData();
+  // }, []);
+
+  // if (loading) return <div>로딩중..</div>;
+  // if (error) return <div>에러가 발생했습니다</div>;
+  // if (!cards) return null; 
+
+  // *** 알림 ***
+  const openNotification = placement => {
+    notification.open({
+      message: `ConTag으로 취업할 시 1만원 환급!`,
+      placement,
+    });
+  };
+
+  useEffect(() => {
+    openNotification('bottomLeft')
+  }, [])
+  
+  // *** 렌더링 ***
   return (
-    <>
-      <Row style={{ background: "#b5b5b5" }}>
-        <Col md={24}>
-          <StyledServiceImage className="Service_Intro_images"></StyledServiceImage>
-          <StyledBtn>
-            <Link to="/">&gt; 자세히 알아보기</Link>
-          </StyledBtn>
-        </Col>
-      </Row>
-      <Row gutter={0}>
-        <Col xs={24} md={6}></Col>
-        <Col xs={24} md={12}>
-          <HomeMain>
-            <h2>Find your advisor!</h2>
-            <Dropdown overlay={<MenuDrop dropdownState={dropdownState} setDropdownState={setDropdownState} />}>
-              <Button>
-                {dropdownState}
-                <DownOutlined />
-              </Button>
-            </Dropdown>
-          </HomeMain>
-          <Filter />
-          {DummyData.map((data) => (
-            <MentoCard key={data.id} data={data} />
-          ))}
-        </Col>
-        <Col xs={24} md={6}></Col>
-      </Row>
-    </>
+    <div className="home">
+      <Comps.Banner />
+      <Comps.Searchbox />
+      <div className="home-mentorcard-container" style={{maxWidth: "1280px", margin: "0 auto"}}>
+        <div className="home-mentorcard-filter">
+          <Comps.Filter />
+        </div>
+        <div className="home-mentorcard-board">
+          <div className="home-mentorcard-sort" style={{ marginTop:"30px", marginBottom:"10px" }}>
+              <span key="recent">최신순</span> <Divider type="vertical"/>
+              <span key="rating">별점순</span> <Divider type="vertical"/>
+              <span key="reviews">리뷰 많은순</span>
+          </div>
+          <div className="home-mentorcard-cards">
+          <h2>{DummyData.length}명의 멘토가 있습니다.</h2>
+            {DummyData.map(data => (
+              <Comps.MentoCard key={data.user} data={data} />
+            ))}
+          </div>
+        </div>
+        <div style={{ width:"15%" }}></div>
+      </div>
+      <BackTop>
+        <UpCircleTwoTone twoToneColor="orange" style={{ fontSize: '32px' }} />
+      </BackTop>
+    </div>
   );
 };
 

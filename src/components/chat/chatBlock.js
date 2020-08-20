@@ -59,7 +59,7 @@ class ChatBlock extends React.Component {
     async componentDidMount() {
         this.setState({ readError: null});
         try{
-              this.props.firebase.getDB().ref("chats").child(this.state.mentor).child(this.state.mentee).on("value", snapshot => {
+              this.props.firebase.getDB().ref("chats").child("UBLojFqhwVZ752MYk47RXL18jD73").child("FtyN99N55NRhuglRDEjiea6mE3p1").on("value", snapshot => {
                 let chats = [];
                 snapshot.forEach((snap) => {
                     chats.push(snap.val());
@@ -86,7 +86,7 @@ class ChatBlock extends React.Component {
         try{
             console.log(this.state.mentor);
             console.log(this.state.mentee);
-            await this.props.firebase.getDB().ref("chats").child(this.state.mentor).child(this.state.mentee).push({
+            await this.props.firebase.getDB().ref("chats").child("UBLojFqhwVZ752MYk47RXL18jD73").child("FtyN99N55NRhuglRDEjiea6mE3p1").push({
                 content: this.state.content,
                 timestamp: Date.now(),
                 uid: this.state.user.uid

@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, match } from "react-router-dom";
 import { Layout } from "antd";
 import HeaderNav from "./components/HeaderNav";
 import Home from "./routes/Home";
@@ -18,14 +18,14 @@ import Register from "./routes/Register";
 const { Content, Footer } = Layout;
 
 const App = () => (
+
   <BrowserRouter>
     <Layout className="layout">
-      <AdBar />
-      <HeaderNav />
-      <Route exact path="/" component={Home} />
+      <HeaderNav /> 
       <Route exact path="/mentor" component={Mentor} />
-      <Route exact path="/chat" component={Chat} />
-      <Content style={{ margin: "0 50px" }}>
+      <Route   exact path="/chat" component={Chat} />
+      <Route exact path="/" component={Home} />
+      <Content style={{ margin: "0 auto", maxWidth: "1280px" }}>
         <Route exact path="/signin" component={SignIn} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/forgotpw" component={ForgotPw} />
@@ -34,7 +34,7 @@ const App = () => (
         <Route exact path="/register" component={Register} />
         <Route exact path="/delete-account" component={DeleteAccount} />
       </Content>
-      <Footer style={{ textAlign: "right" }}>ADE ©2020</Footer>
+      <Footer style={{ textAlign: "right"}}>ADE ©2020</Footer>
     </Layout>
   </BrowserRouter>
 );

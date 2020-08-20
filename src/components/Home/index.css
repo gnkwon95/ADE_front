@@ -1,0 +1,74 @@
+.home-banner {
+    display: block;
+    position: relative;
+    height: 40vh;
+    max-height:500px;
+    background-color: rgb(234, 230, 243);
+    background-image: url(../../imageSamples/BannerSample.svg);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+.home-banner-text {
+    position: absolute;
+    width: 30vw;
+    top: 30px;
+    right: 50px;
+}
+.home-banner-button {
+    position: absolute;
+    bottom: 8%;
+    right: 3.5%;
+    padding: 7px 20px;
+    background-color:  white;
+    color: black;
+    font-weight: bold;
+    border: 0px;
+    opacity: 0.7;
+    border-radius:20px;
+}
+.home-banner-button:hover {
+    opacity: 0.9;
+}
+
+.mentorcard-filter{
+    background-color: white;
+    width: 250px;
+    border: 1px solid lightgray;
+    border-radius:20px;
+    padding: 20px;
+    text-align: center;
+}
+
+.searchbox{
+    background-color: white;
+    border-bottom: 1px solid lightgray;
+    padding: 15px;
+}
+.searchbox-header{
+    font-size: 20px;
+    margin-bottom: 10px;
+    margin-left: 15%;
+}
+
+.searchbox-container{
+    display: flex;
+    width: 70%;
+    height: 40px;
+    border: 1px solid lightgray;
+    border-radius: 30px;
+    margin-left: 15%;
+}
+.searchbox-container-input{
+    flex: 1 1 100%;
+    margin-left: 15px;
+    border:none;
+}
+.searchbox-container-button{
+    border-radius: 30px;
+    background-color: rgb(11, 40, 58);
+    color: white;
+    font-weight: bold;
+    border: none;
+    height: 40px;
+    width: 70px;
+}

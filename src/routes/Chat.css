@@ -23,7 +23,7 @@
   height: 100%;
 }
 .frame {
-  height: 83vh;
+  height: 86vh;
 }
 .chat_profile_block {
   display: flex;
@@ -35,10 +35,10 @@
 
 @media screen and (max-width: 1537px) {
   .chat_profile_block {
-    height: 77vh;
+    height: 83vh;
   }
   .frame {
-    height: 77vh;
+    height: 83vh;
   }
 }
 .tab_box {

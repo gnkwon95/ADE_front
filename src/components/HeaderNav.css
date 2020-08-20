@@ -2,6 +2,11 @@
   font-size: 32px;
   font-weight: 800;
   float: left;
+  color: #fff;
+}
+
+.logo:hover {
+  color: #fff;
 }
 
 .header-right {
@@ -10,4 +15,11 @@
 
 .ant-layout-header {
   box-shadow: 0 2px 8px #f0f1f2;
+  background-color: #262F47 !important;
+}
+
+@media all and (max-width:768px) {
+  .ant-layout-header {
+    padding: 0 24px !important;
+  }
 }
