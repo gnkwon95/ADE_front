@@ -30,6 +30,7 @@ const NickName = (props) => {
       setUsername(data.user_id); // 데이터는 response.data 안에 들어있습니다.
       props.setName(data.user_id); // 데이터는 response.data 안에 들어있습니다.
       props.setCredit(data.credit); // 데이터는 response.data 안에 들어있습니다.
+    //  props.setId(data.id); // 데이터는 response.data 안에 들어있습니다.
     } catch (e) {
       setError(e);
     }
@@ -49,10 +50,10 @@ const NickName = (props) => {
 
     const submitNickname = async () => {
       try {
-        await axios.post(
-          `http://15.164.251.155:8000/mypage/?user=${props.uid}`,
-          { user_uid: props.uid, email: props.mail, user_id: values.name }
-        );
+        console.log(props)
+        await axios.delete(
+          `http://15.164.251.155:8000/mypage/${props.id}`
+         );
 
         await fetchName()
         await message.success('닉네임이 변경됐습니다.')

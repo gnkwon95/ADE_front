@@ -12,7 +12,6 @@ const config = {
   messagingSenderId: process.env.REACT_APP_FIREBASE_SENDER_ID,
 };
 
-axios.defaults.baseURL ='http://15.164.251.155:8000/'
 
 class Firebase {
   constructor() {

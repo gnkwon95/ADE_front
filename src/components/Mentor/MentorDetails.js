@@ -46,7 +46,7 @@ const dummyData_Review = {
 const MentorDetails = () => {
   const getComments = async () => {
     try {
-      const data = await axios.get("http://15.164.251.155:8000/comments/");
+      const data = await axios.get("http://15.164.251.155/comments/");
       console.log(data);
     } catch (err) {
       console.log(err);

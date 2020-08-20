@@ -8,6 +8,7 @@ import { Pagination } from "antd";
 import quotes from "../../imageSamples/quotes.PNG";
 import heart from "../../imageSamples/heart.png";
 import MentorDetails from "./MentorDetails";
+import ChooseDateModal from "./ChooseDateModal";
 
 import { StyledMentorInfo } from "./styles";
 import styled from "styled-components";
@@ -73,7 +74,7 @@ const MentorInfo = () => {
           <h2>CompanyName</h2>
         </div>
         <div className="MentorPage_buttons">
-          <button>상담 신청하기</button>
+          <ChooseDateModal /> {/*멘토 정보 넘겨야함. mentor = this.props.mentor 추가*/}
           <button>
             <img src={heart} alt={`찜하기${heart}개`} /> 찜하기
           </button>

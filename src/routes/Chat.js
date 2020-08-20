@@ -13,6 +13,8 @@ import { Tabs, Typography, Radio } from "antd";
 
 const {TabPane} = Tabs;
 
+axios.defaults.baseURL ='http://15.164.251.155:'
+
 class Chat extends React.Component {
   constructor(props) {
     super(props);
