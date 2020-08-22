@@ -11,6 +11,9 @@ import {Card, Col, Row, Button, Layout} from 'antd';
 //import ChatLayout from "./ChatBox";
 //import makeStyles from "@material-ui/core/styles/makeStyles";
 const {Content, Sider} = Layout;
+const pattern = /^\s+|\s+$/g;
+
+
 /*
 const ChatLayout = makeStyles(theme => ({
   container: {
@@ -98,27 +101,31 @@ class ChatBlock extends React.Component {
 
 
 ChatBox = ({pos, left_id, right_id, content}) => {
-    
+ 
     return (
     <>
-        <div style={{display:"block"}}>
-            {pos === 'left'
+        <div style={{display:"block",marginBottom:"10px"}}>
+            {/* pos==='left'
             ? <h5 style={{float:pos}}> {left_id} </h5>
             : <h5 style={{float:pos}}> {right_id} </h5>
+             */}
+             {pos==="left"
+            ? <h5 style={{marginRight:'96.5%'}}> {left_id} </h5>
+            : <h5 style={{marginLeft:'97%'}}> {right_id} </h5>
             }
-            <br />
-            {/* pos == 'left'? <span style={{postion:"relative",background: "pink",float:pos,padding:"0 10px 0 10px",borderRadius:"100px"}}> {content} </span>: 
-            <span style={{postion:"relative",background: "orange",  float:pos,padding:"0 10px 0 10px",borderRadius:"100px"}}> {content} </span> */}
-           {pos === 'left'? <Button  type="text" shape="round" size="middle" style={{background: "pink",  float:pos,cursor:"default"}}><span style={{width:"100%"}}>{content}</span></Button>: 
-            <Button type="text" shape="round" size="middle" style={{background: "orange",  float:pos,cursor:"default"}}> <span style={{width:"100%"}}>{content}</span> </Button>}
+            
+            {pos === 'left'? <span style={{postion:"relative",background: "pink",float:pos,padding:"5px 25px 5px 25px",borderRadius:"40px",whiteSpace:"pre-line", wordBreak:"break-all"}}> {content} </span>: 
+            <span style={{postion:"relative",background: "orange",  float:pos,padding:"5px 25px 5px 25px",borderRadius:"40px",whiteSpace:"pre-line", wordBreak:"break-all"}}> {content} </span>}
+           {/* pos === 'left'? <Button  type="text" shape="round" size="middle" style={{background: "pink",  float:pos,cursor:"default"}}><span style={{width:"100%"}}>{content}</span></Button>: 
+            <Button type="text" shape="round" size="middle" style={{background: "orange",  float:pos,cursor:"default"}}> <span style={{width:"100%"}}>{content}</span> </Button> */}
         </div>
         <br />
        </>
     )
 }
 able = ()=>{
-    if(this.state.content===""){
-      return  (<div className="fixed" style={{position:"sticky",bottom:"0px"}}>
+    if(this.state.content.replace(pattern,'')===""){
+      return  (<div className="fixed" style={{position:"sticky",bottom:"0px",zIndex:"100"}}>
         <form onSubmit = {this.handleSubmit} >  {/*form to update message, with button to send */}
             <Layout>
                 <div style={{display:"flex",width:"100%"}}>
@@ -127,14 +134,14 @@ able = ()=>{
                  {this.state.error ? <p>{this.state.writeError}</p> : null}
              </Content>
                  <div style={{width:"10%",height:38,background:"white",borderRadius:"0 100px 100px 0",border:"1px solid gray",borderLeft:"none"}}>
-                 <button type="submit" className="send_btn" style={{width:"100%",height:"100%",borderRadius:"100px",background:"#0b283a",color:"gray",border:"none"}} disabled>전송</button>
+                 <button type="submit" className="send_btn" style={{width:"100%",height:"100%",borderRadius:"100px",background:"#0b283a",color:"gray",border:"none",outline:"none"}} disabled>전송</button>
                  </div>
                  </div>
              </Layout>
          </form>
          </div>)
     }else{
-      return ( <div className="fixed" style={{position:"sticky",bottom:"0px"}}>
+      return ( <div className="fixed" style={{position:"sticky",bottom:"0px",zIndex:"100"}}>
         <form onSubmit = {this.handleSubmit} >  {/*form to update message, with button to send */}
             <Layout>
             <div style={{display:"flex", width:"100%"}}>
@@ -143,7 +150,7 @@ able = ()=>{
                  {this.state.error ? <p>{this.state.writeError}</p> : null}
              </Content>
              <div style={{width:"10%",height:38,background:"white",borderRadius:"0 100px 100px 0",border:"1px solid gray",borderLeft:"none"}}>
-                 <button type="submit" className="send_btn" style={{width:"100%",height:"100%",borderRadius:" 100px",background:"#0b283a",color:"white",border:"none"}} >전송</button>
+                 <button type="submit" className="send_btn" style={{width:"100%",height:"100%",borderRadius:" 100px",background:"#0b283a",color:"white",border:"none",outline:"none"}} >전송</button>
               </div>
              </div>
             </Layout>
@@ -165,18 +172,18 @@ able = ()=>{
         return (
        
               <div className="chats">
-               
+               <div style={{height:"60%"}}>
                 { this.state.chats.map( (chat,index) => {
                  
-                    return <p key={chat.timestamp}>
+                    return <p style={{width:"100%"}} key={chat.timestamp}>
                         { (chat.uid === this.state.user.uid)
                         ? <this.ChatBox   pos='right' left_id={left_id} right_id={right_id} content= {chat.content} />
                         : <this.ChatBox  pos='left' left_id={left_id} right_id={right_id} content= {chat.content} />
                         }
                     </p>
                 })}
-        
-         {this.able()}
+        </div>
+        {this.able()}
                 </div>
              
         );
