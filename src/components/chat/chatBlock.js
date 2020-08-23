@@ -111,7 +111,7 @@ ChatBox = ({pos, left_id, right_id, content}) => {
              */}
              {pos==="left"
             ? <h5 style={{marginRight:'96.5%'}}> {left_id} </h5>
-            : <h5 style={{marginLeft:'97%'}}> {right_id} </h5>
+            : <h5 style={{}}> {right_id} </h5>
             }
             
             {pos === 'left'? <span style={{postion:"relative",background: "pink",float:pos,padding:"5px 25px 5px 25px",borderRadius:"40px",whiteSpace:"pre-line", wordBreak:"break-all"}}> {content} </span>: 
