@@ -11,7 +11,10 @@
 }
 
 .chatbox > .ant-card-body > p {
-  text-align:center;
+  text-align: center;
   vertical-align: middle;
   display: table-cell;
+}
+.ant-btn {
+  white-space: normal;
 }
