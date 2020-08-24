@@ -5,9 +5,13 @@ import { BackTop, notification, Divider, Button, Menu } from 'antd';
 import { UpCircleTwoTone } from '@ant-design/icons'
 import * as Comps from '../components/Home'
 import "./Home.css";
+import { AuthUserContext } from "../session";
 import axios from "axios";
 
 faker.locale = "ko";
+
+
+axios.defaults.baseURL ='http://15.164.251.155'
 
 const DummyData = Array(5)
   .fill()
@@ -26,8 +30,33 @@ const DummyData = Array(5)
   }));
 
 
+
+
 const Home = () => {
 
+
+    const UserLog = authUser => {
+        console.log(authUser)
+    /*
+        axios.post('/log', {
+            User: authUser.id, //this.props.firebase.getCurrentUser().uid ... 현재 유저 정보를 미리 저장해서 pass on 할수 없을까 ㅠ
+            User_id: authUser.user_id, //this.props.firebase.getCurrentUser().uid ... 현재 유저 정보를 미리 저장해서 pass on 할수 없을까 ㅠ
+            User_uid: authUser.user_uid,
+            Page: 'Home',
+            Detail: 'Load',
+        })
+        .then((response) => (console.log(response)))
+        .catch((error) => console.log(error))*/
+    }
+
+    const VisitorLog = authUser => {
+        axios.post('/log', {
+            Page: 'Home',
+            Detail: 'Load',
+        })
+        .then( (response) => (console.log(response)))
+        .catch((error)=>console.log(error))
+    }
   // *** Fetch 멘토 데이터 ***
   // const [cards, setCards] = useState(null);
   // const [loading, setLoading] = useState(false);
@@ -39,11 +68,12 @@ const Home = () => {
   //       setError(null);
   //       setCards(null);
   //       setLoading(true);
-  //       const response = await axios.get('http://15.164.251.155:8000/profiles/');
+  //       const response = await axios.get('http://15.164.251.155/profiles/');
   //       setCards(response.data);
   //     } catch (e) {
   //       setError(e);
   //     }
+
   //     setLoading(false);
   //   };
 
@@ -63,9 +93,22 @@ const Home = () => {
   };
 
   useEffect(() => {
-    openNotification('bottomLeft')
-  }, [])
-  
+    logHome();
+  }, []);
+
+  const [error, setError] = useState("");
+
+
+    const logHome = () => (
+        console.log('test2'),
+         <AuthUserContext.Consumer>
+            console.log('test')
+             {(authUser) => (authUser ? <UserLog authUser={authUser} /> : <VisitorLog authUser={authUser} />)}
+        </AuthUserContext.Consumer>
+    )
+
+
+
   // *** 렌더링 ***
   return (
     <div className="home">
