@@ -8,7 +8,6 @@ import MyPage from "./routes/MyPage";
 import Chat from "./routes/Chat";
 import DeleteAccount from "./routes/DeleteAccount";
 import "./App.less";
-import AdBar from "./components/AdBar";
 import SignIn from "./routes/auth/SignIn";
 import SignUp from "./routes/auth/SignUp";
 import ForgotPw from "./routes/auth/ForgotPw";
