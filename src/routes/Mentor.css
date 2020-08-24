@@ -1,0 +1,24 @@
+.mentorpage-header{
+  padding: 30px 50px;
+}
+
+.mentorpage-container{
+    display: flex;
+}
+
+.mentorpage-card{
+    padding-left: 50px;
+    flex: 0 0 400px;
+}
+.mentorpage-detail{
+  flex: 1;
+}
+
+button{
+  background-color: transparent;
+  padding: 10px;
+  border: none;
+}
+button:hover{
+  font-weight: bold;
+}
