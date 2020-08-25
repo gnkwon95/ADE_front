@@ -3,6 +3,7 @@ import React from "react";
 import * as firebase from "firebase/app";
 import 'firebase/auth';
 import 'firebase/firestore';
+import styled from "styled-components";
 import axios from "axios";
 import {withAuthorization, AuthUserContext, withAuthentication } from "../../session";
 import {Card, Col, Row, Button, Layout} from 'antd';
@@ -94,6 +95,7 @@ class ChatBlock extends React.Component {
                 uid: this.state.user.uid
             });
             this.setState({ content: ''});
+            
         } catch(error) {
             this.setState({ writeError: error.message});
         }
@@ -104,22 +106,23 @@ ChatBox = ({pos, left_id, right_id, content}) => {
  
     return (
     <>
-        <div style={{display:"block",marginBottom:"10px"}}>
+        <div style={{display:"flex",padding:"15px 0 15px 0"}}>
             {/* pos==='left'
             ? <h5 style={{float:pos}}> {left_id} </h5>
             : <h5 style={{float:pos}}> {right_id} </h5>
              */}
              {pos==="left"
-            ? <h5 style={{marginRight:'96.5%'}}> {left_id} </h5>
-            : <h5 style={{}}> {right_id} </h5>
+
+            ?<div style={{width:"80px",display:"flex",flexDirection:"column",alignItems:"center"}}><img style={{width:40 ,height:40,borderRadius:"50%",border:"1px solid gray"}} src="https://pbs.twimg.com/profile_images/788558965718208512/ObqcIBUu.jpg" /> <h5 style={{}}> {left_id} </h5></div>
+            : <div style={{width:"80px",display:"flex",flexDirection:"column",alignItems:"center"}}><img style={{width:40 ,height:40,borderRadius:"50%",border:"1px solid gray"}} src="https://lh3.googleusercontent.com/proxy/1-A_y9sNEoYPy4VE-OZzR3093JwfAp8u6quSRhh-Zl5ktHCwG38hWoB8IsZOZAjfz179O_Sr3TcPv-IPCleqFPXfP214c1S9orpCq3xvzAfTT9NASg9grBdkoPzQqcM2TvDUVZs2peYfOzX3SPOlyPJmuYxN1GHqKE7zY4Doi9w1" /> <h5 style={{}}> {right_id} </h5></div>
             }
             
-            {pos === 'left'? <span style={{postion:"relative",background: "pink",float:pos,padding:"5px 25px 5px 25px",borderRadius:"40px",whiteSpace:"pre-line", wordBreak:"break-all"}}> {content} </span>: 
-            <span style={{postion:"relative",background: "orange",  float:pos,padding:"5px 25px 5px 25px",borderRadius:"40px",whiteSpace:"pre-line", wordBreak:"break-all"}}> {content} </span>}
+            {pos === 'left'? <div style={{width:"85%",display:"flex",alignItems:"center"}}><span style={{postion:"relative",background:"#ceeddc",float:pos,padding:"5px 10px 5px 10px",borderRadius:"20px",whiteSpace:"pre-line", wordBreak:"break-all"}}> {content} </span></div>: 
+            <div style={{width:"85%",display:"flex",alignItems:"center"}} ><span style={{postion:"relative",  float:pos,padding:"5px 0px 5px 5px",whiteSpace:"pre-line", wordBreak:"break-all"}}> {content} </span></div>}
            {/* pos === 'left'? <Button  type="text" shape="round" size="middle" style={{background: "pink",  float:pos,cursor:"default"}}><span style={{width:"100%"}}>{content}</span></Button>: 
             <Button type="text" shape="round" size="middle" style={{background: "orange",  float:pos,cursor:"default"}}> <span style={{width:"100%"}}>{content}</span> </Button> */}
         </div>
-        <br />
+        
        </>
     )
 }
@@ -172,15 +175,15 @@ able = ()=>{
         return (
        
               <div className="chats">
-               <div style={{height:"60%"}}>
+               <div style={{height:"55%"}}>
                 { this.state.chats.map( (chat,index) => {
                  
-                    return <p style={{width:"100%"}} key={chat.timestamp}>
+                    return <ChatDiv key={chat.timestamp}>
                         { (chat.uid === this.state.user.uid)
-                        ? <this.ChatBox   pos='right' left_id={left_id} right_id={right_id} content= {chat.content} />
+                        ? <this.ChatBox  pos="right"  left_id={left_id} right_id={right_id} content= {chat.content} />
                         : <this.ChatBox  pos='left' left_id={left_id} right_id={right_id} content= {chat.content} />
                         }
-                    </p>
+                    </ChatDiv>
                 })}
         </div>
         {this.able()}
@@ -190,7 +193,17 @@ able = ()=>{
     }
 }
 
-
+const ChatDiv = styled.div`
+   display:inline-block;
+   width:100%;
+   word-Break:break-all;
+   margin-Bottom:20px;
+  
+   
+   :hover{
+    box-shadow: 0 0 11px rgba(33,33,33,.2); 
+   }
+`;
 const condition = authUser => authUser != null;
 
 
