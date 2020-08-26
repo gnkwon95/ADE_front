@@ -53,19 +53,42 @@ class ChatBlock extends React.Component {
             content: '',
             readError: null,
             writeError: null,
-            is_mentor: this.props.is_mentor
+            prev_uid: "",
+            tmp: {content: "", timestamp: 0, uid: "", repeat: false}
         }
          this.handleChange = this.handleChange.bind(this);
         this.handleSubmit=this.handleSubmit.bind(this);
     }
 
     async componentDidMount() {
+        console.log(this.state.tmp);
         this.setState({ readError: null});
         try{
               this.props.firebase.getDB().ref("chats").child(this.state.mentor).child(this.state.mentee).on("value", snapshot => {
                 let chats = [];
                 snapshot.forEach((snap) => {
-                    chats.push(snap.val());
+                    if (snap.val().uid == this.state.prev_uid) {
+                       this.setState({
+                            tmp:{
+                                content: snap.val().content,
+                                timestamp: snap.val().timestamp,
+                                uid: snap.val().uid,
+                                repeat: true
+                            }
+                         })
+                    }else{
+                        this.setState({
+                            tmp: {
+                                content: snap.val().content,
+                                timestamp: snap.val().timestamp,
+                                uid: snap.val().uid,
+                                repeat: false
+                            }
+                        })
+                        this.setState({prev_uid :snap.val().uid})
+                    }
+                    chats.push(this.state.tmp);
+                    console.log(this.state.tmp);
                 });
                 this.setState({chats});
              });
