@@ -114,7 +114,7 @@ ChatBox = ({pos, left_id, right_id, content}) => {
              {pos==="left"
 
             ?<div style={{width:"80px",display:"flex",flexDirection:"column",alignItems:"center"}}><img style={{width:40 ,height:40,borderRadius:"50%",border:"1px solid gray"}} src="https://pbs.twimg.com/profile_images/788558965718208512/ObqcIBUu.jpg" /> <h5 style={{}}> {left_id} </h5></div>
-            : <div style={{width:"80px",display:"flex",flexDirection:"column",alignItems:"center"}}><img style={{width:40 ,height:40,borderRadius:"50%",border:"1px solid gray"}} src="https://lh3.googleusercontent.com/proxy/1-A_y9sNEoYPy4VE-OZzR3093JwfAp8u6quSRhh-Zl5ktHCwG38hWoB8IsZOZAjfz179O_Sr3TcPv-IPCleqFPXfP214c1S9orpCq3xvzAfTT9NASg9grBdkoPzQqcM2TvDUVZs2peYfOzX3SPOlyPJmuYxN1GHqKE7zY4Doi9w1" /> <h5 style={{}}> {right_id} </h5></div>
+            : <div style={{width:"80px",display:"flex",flexDirection:"column",alignItems:"center"}}><img style={{width:40 ,height:40,borderRadius:"50%" }} src="https://lh3.googleusercontent.com/proxy/svNjgUbcdKgVxd-GarllzhHGf_Zdf-B8E1T2pzboU1WJ5_-YWwtluzQ8i2a9kb37TKG1bkQN1WJUyzD7q_VWGEhj8rvRTYidFB0xrYg39wln5oxO5f3VcdzMDPn-mgYTJrOLIsyH2QXB-X78_VCeo6qdqqoKjTA9oFbgAhMB1Rs" /> <h5 style={{}}> {right_id} </h5></div>
             }
             
             {pos === 'left'? <div style={{width:"85%",display:"flex",alignItems:"center"}}><span style={{postion:"relative",background:"#ceeddc",float:pos,padding:"5px 10px 5px 10px",borderRadius:"20px",whiteSpace:"pre-line", wordBreak:"break-all"}}> {content} </span></div>: 

@@ -31,7 +31,7 @@ const VisitorLog = (page, detail) => {
 }
 
 
-const Log = (page, detail) => {
+export const Log = (page, detail) => {
     const context = useContext(AuthUserContext)
 
     if(context === null){
