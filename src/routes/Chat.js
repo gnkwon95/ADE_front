@@ -51,7 +51,7 @@ class Chat extends React.Component {
 
     componentDidMount(){
         this.resetState();
-        
+        console.log(this.state.connections)
       
     };
     changes =()=>{
@@ -90,7 +90,7 @@ class Chat extends React.Component {
                 : <TabPane  tab={<div  onClick={this.changes} className={`tab_box ${this.state.booleans?"gray":""}`}>
                 <div className="tab_img_box"><img className="tab_img" src="https://pbs.twimg.com/profile_images/788558965718208512/ObqcIBUu.jpg" /></div>
                 <ProfileInfo>
-                  <span className="tab_name" >{connection.mentee_id} <span className="tab_company">현대자동차</span></span>
+                  <span className="tab_name" >{connection.mentor_id} <span className="tab_company">현대자동차</span></span>
                   <span className="position">마케팅 매니저</span>
                   <span className="last_reply">마지막 답장:&nbsp;5분전</span>
                 </ProfileInfo>
