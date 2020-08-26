@@ -44,7 +44,7 @@ function ChangeProfile() {
         console.log("user: ", authUser)
     }
 
-    function checkNickname = (e) => {
+    const checkNickname = (e) => {
         console.log(e.target);
     }
 
@@ -324,12 +324,7 @@ function ChangeProfile() {
                     <span style={{ lineHeight:"30px" }}>은행: </span>
                     <Form.Item name="bank" style={{ display: 'inline-block' }} >
                         <Select  style={{ width: 120 }} >
-                        {/* {banks.map(item => (
-                            <Option key={item} value={item}>
-                                {item}
-                            </Option>
-                        ))} */}
-                        {bankSelect}
+                            {bankSelect}
                         </Select>
                     </Form.Item>
                     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
