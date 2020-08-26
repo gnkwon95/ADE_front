@@ -11,10 +11,6 @@ const yearSelect = [];
 const monthSelect = [];
 const bankSelect = [];
 
-const config = {
-    rules: [{ required: true, message: '내용을 입력해주세요' }]
-}
-
 const banks = [ 
     'KB국민', '카카오뱅크', '농협', '신한', 'IBK기업', 
     '하나은행', '우리', '국민', 'SC제일', '대구', 
@@ -23,7 +19,19 @@ const banks = [
     '씨티', '케이뱅크', '도이치', 'BOA', 'BNP', 
     '중국공상', 'HSBC', 'JP모간', '산림조합', '저축은행' 
 ];
+for (let i = 2020; i >= 1990; i--) {
+    yearSelect.push(<Option key={i}>{i}</Option>);
+}
+for (let i = 1; i <= 12; i++) {
+    monthSelect.push(<Option key={i}>{i}</Option>);
+}
+for (let i = 0; i < 25; i++) {
+    bankSelect.push(<Option key={i}>{banks[i]}</Option>);
+}
 
+const config = {
+    rules: [{ required: true, message: '내용을 입력해주세요' }]
+}
 
 function ChangeProfile() {
     const context = useContext(AuthUserContext)
@@ -43,16 +51,8 @@ function ChangeProfile() {
     const onFinish = values => {
         console.log('Received values of form:', values);
     };
+
     
-    for (let i = 2020; i >= 1990; i--) {
-        yearSelect.push(<Option key={i}>{i}</Option>);
-    }
-    for (let i = 1; i <= 12; i++) {
-        monthSelect.push(<Option key={i}>{i}</Option>);
-    }
-    for (let i = 0; i < 25; i++) {
-        bankSelect.push(<Option key={i}>{banks[i]}</Option>);
-    }
 
     return (
         <div style={{ padding:"100px 12%" }}>
@@ -323,7 +323,12 @@ function ChangeProfile() {
                     <span style={{ lineHeight:"30px" }}>은행: </span>
                     <Form.Item name="bank" style={{ display: 'inline-block' }} >
                         <Select  style={{ width: 120 }} >
-                            {bankSelect}
+                        {/* {banks.map(item => (
+                            <Option key={item} value={item}>
+                                {item}
+                            </Option>
+                        ))} */}
+                        {bankSelect}
                         </Select>
                     </Form.Item>
                     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
