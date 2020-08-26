@@ -44,8 +44,8 @@ function ChangeProfile() {
         console.log("user: ", authUser)
     }
 
-    function onChange(date, dateString) {
-        console.log(date, dateString);
+    function checkNickname = (e) => {
+        console.log(e.target);
     }
 
     const onFinish = values => {
@@ -67,7 +67,8 @@ function ChangeProfile() {
                     &nbsp; &nbsp;
                     <Button
                         type="primary"
-                        shape="round" 
+                        shape="round"
+                        onClick={checkNickname}
                     >
                         중복체크
                     </Button>
