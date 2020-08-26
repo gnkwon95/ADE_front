@@ -1,14 +1,9 @@
 .mentorpage-header{
-  padding: 30px 50px;
+  padding: 30px 100px;
 }
 
 .mentorpage-container{
     display: flex;
-}
-
-.mentorpage-card{
-    padding-left: 50px;
-    flex: 0 0 400px;
 }
 .mentorpage-detail{
   flex: 1;

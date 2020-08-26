@@ -1,8 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Button, Divider, BackTop } from 'antd'
 import { UpCircleTwoTone } from '@ant-design/icons'
-import { AuthUserContext } from "../session";
-import * as Comps from "../components/mentor"
+import { AuthUserContext } from "../../session";
+import * as Comps from "../../components/mentor"
 import "./Mentor.css";
 
 const Mentor = () => {
@@ -15,7 +15,7 @@ const Mentor = () => {
       <div>
         <div className="mentorpage-header">
           <h1 style={{ fontWeight:"bold" }}>
-            <span style={{ color:"#48c9b0" }}>{authUser.user_id}</span>님, 환영합니다:)
+            <span style={{ color:"#5AB485" }}>{authUser.user_id}</span>님, 환영합니다:)
           </h1>
           <button
             id="profile"

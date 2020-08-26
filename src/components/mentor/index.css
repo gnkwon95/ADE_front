@@ -1,12 +1,17 @@
 .mentor-businesscard{
     background-color: white;
-    width: 300px;
+    width: 375px;
     border: 1px solid lightgray;
     border-radius:20px;
-    padding: 30px;
+    padding: 40px;
+    margin: 0px 50px 0px 100px;
 }
 
-h1{
+.description-container{
+    margin-top: 30px;
+}
+.description-container-header{
+    margin-bottom: 10px;
     font-weight: bold;
-    color:blue
+    font-size: 25px;
 }

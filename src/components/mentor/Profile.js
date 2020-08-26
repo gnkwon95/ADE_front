@@ -1,24 +1,49 @@
-import React from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import Description from './Description'
+import axios from 'axios'
+import { AuthUserContext } from '../../session'
+
+const list = [
+    "first",
+    "second",
+    "third",
+]
 
 function Profile() {
+
+    const context = useContext(AuthUserContext)
+    // Axios states
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+  
+    const fetchData = async () => {
+        try {
+          // 요청이 시작 할 때에는 error 와 를 초기화하고
+          setError(null);
+          // loading 상태를 true 로 바꿉니다.
+          setLoading(true);
+          const response = await axios.get(
+            'http://15.164.251.155/profiles/?user='
+          );
+            console.log(response)
+        } catch (e) {
+          setError(e);
+          console.log(e)
+        }
+        setLoading(false);
+      };
+    
+      useEffect(() => {
+        fetchData();
+      }, []);
+
     return (
         <div>
-            <br />
-            <h1 className="sample">드리는 말</h1>
-            <div>여러분과 저는 다르지 않다고 생각합니다. 똑같은 과정을 겪은 사람으로써, 도움을 드리고 싶습니다.</div>
-            <br />
-            <h1>학력</h1>
-            <div>경영학 학사</div>
-            <br />
-            <h1>면접 응시 회사</h1>
-            <div>1234</div>
-            <br />
-            <h1>주요 경력 및 인턴 경험</h1>
-            <div>ㅇㅇㅇ</div>
-            <br />
-            <h1>합격 당시 스펙</h1>
-            <div>ㅇㅇㅇ</div>
-            <br />
+            <Description label="드리는 말" data="여러분과 저는 다르지 않다고 생각합니다." />
+            <Description label="학력" data="경영학 학사" />
+            <Description label="면접 응시 회사" data={list} type="list" />
+            <Description label="주요 경력 및 인턴 경험" data={list} type="list" />
+            <Description label="합격 당시 스펙" data={list} type="list" />
             <h1>후기</h1>
             <div>후기들</div>
         </div>

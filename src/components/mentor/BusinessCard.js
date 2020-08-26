@@ -45,7 +45,8 @@ function BusinessCard() {
           shape="round" 
           size="large"
           href="/mentor-edit"
-          style={{ color:"black", lineHeight:"25px", width:"190px", fontSize:"20px" }}
+          block
+          style={{ color:"black", lineHeight:"25px", fontSize:"20px" }}
         >
           정보 수정
        </Button>
