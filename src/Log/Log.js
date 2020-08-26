@@ -31,14 +31,13 @@ const VisitorLog = (page, detail) => {
 }
 
 
-const Log = (page, detail) => {
-    const context = useContext(AuthUserContext)
-
+export const Log = (page, detail) => {
+ //   const context = useContext(AuthUserContext)
+    console.log('logger')
+/*
     if(context === null){
-        VisitorLog(null)
+        VisitorLog(page, detail)
      } else {
-        UserLog(context)
-     }
+        UserLog(context, page, detail)
+     } */
 }
-
-export default Log;

@@ -6,6 +6,7 @@ import NickName from "../components/mypage/NickName";
 import ContagList from "../components/mypage/ContagList";
 import MatchingCoupon from "../components/mypage/MatchingCoupon";
 import ChangePwForm from "../components/mypage/ChangePwForm";
+import { Log } from "../Log/Log"
 
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 
@@ -19,6 +20,8 @@ const MyPage = (props) => {
   const [name, setName] = useState("");
   const [credit, setCredit] = useState("");
 
+  console.log('mypage test')
+   //Log('MyPage', 'Load')
   return (
     <AuthUserContext.Consumer>
       {(authUser) => (
