@@ -23,15 +23,13 @@ const steps = [
 ];
 
 const Register = () => {
-  // Steps
-  const [currentStep, setCurrentStep] = useState(0);
-  const [fields, setFields] = useState({
+  const formTemplate = {
     user: "",
     nickname: "",
     education_univ: "",
     education_major: "",
-    education_level: "",
-    education_status: "",
+    education_level: "학사",
+    education_status: "수료",
     current_company: "",
     logo: "",
     current_job: "",
@@ -45,10 +43,14 @@ const Register = () => {
     bank: "",
     account_num: number,
     account_email: "",
-    AppliedCompanies: [],
-    WorkExperience: [],
-    Extracurricular: [],
-  });
+    AppliedCompanies: [""],
+    WorkExperience: [""],
+    Extracurricular: [""],
+    Certificate: [""],
+  };
+  // Steps
+  const [currentStep, setCurrentStep] = useState(0);
+  const [fields, setFields] = useState(formTemplate);
 
   return (
     <div className="register">
@@ -64,6 +66,7 @@ const Register = () => {
           fields={fields}
           setFields={setFields}
           setStep={setCurrentStep}
+          formTemplate={formTemplate}
         />
       </div>
     </div>

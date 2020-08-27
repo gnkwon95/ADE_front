@@ -9,25 +9,11 @@ const InputWithPlus = ({ name, label, placeholder }) => {
         {(fields, { add, remove }) => {
           return (
             <div>
-              <Form.Item
-                // validateTrigger={["onChange", "onBlur"]}
-                required={true}
-                rules={[
-                  {
-                    required: true,
-                    whitespace: true,
-                    message: "필수 필드입니다.",
-                  },
-                ]}
-                style={{ marginBottom: "8px" }}
-              >
-                <Input placeholder={placeholder} />
-              </Form.Item>
               {fields.map((field, index) => (
-                <Form.Item required={false} key={field.key + 1}>
+                <Form.Item required={true} key={field.key}>
                   <Form.Item
                     {...field}
-                    // validateTrigger={["onChange", "onBlur"]}
+                    validateTrigger={["onChange", "onBlur"]}
                     rules={[
                       {
                         required: true,
@@ -39,7 +25,7 @@ const InputWithPlus = ({ name, label, placeholder }) => {
                   >
                     <Input placeholder={placeholder} style={{ width: "95%" }} />
                   </Form.Item>
-                  {fields.length > 0 ? (
+                  {fields.length > 1 ? (
                     <MinusCircleOutlined
                       className="dynamic-delete-button"
                       style={{ margin: "0 8px" }}
@@ -56,7 +42,8 @@ const InputWithPlus = ({ name, label, placeholder }) => {
                   onClick={() => {
                     add();
                   }}
-                  style={{ float: "left" }}
+                  style={{ float: "left", padding: 0 }}
+                  htmlType="button"
                 >
                   <PlusOutlined width="100%" /> 추가하기
                 </Button>

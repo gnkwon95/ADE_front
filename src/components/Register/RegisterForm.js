@@ -26,6 +26,7 @@ const RegisterForm = (props) => {
           setStep={props.setStep}
           fields={props.fields}
           setFields={props.setFields}
+          formTemplate={props.formTemplate}
         />
       ) : props.currentStep === 1 ? (
         <PR
@@ -33,6 +34,7 @@ const RegisterForm = (props) => {
           setStep={props.setStep}
           fields={props.fields}
           setFields={props.setFields}
+          formTemplate={props.formTemplate}
         />
       ) : (
         <Form
