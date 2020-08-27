@@ -1,0 +1,9 @@
+@media screen and (min-width: 768px) {
+  .register {
+    width: 700px;
+  }
+}
+
+.ant-steps {
+  margin: 32px 0;
+}

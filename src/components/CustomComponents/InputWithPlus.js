@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, Input, Button } from "antd";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 
@@ -9,25 +9,37 @@ const InputWithPlus = ({ name, label, placeholder }) => {
         {(fields, { add, remove }) => {
           return (
             <div>
-              {fields[0] ? null : <label>{label}</label>}
-              <br />
+              <Form.Item
+                // validateTrigger={["onChange", "onBlur"]}
+                required={true}
+                rules={[
+                  {
+                    required: true,
+                    whitespace: true,
+                    message: "필수 필드입니다.",
+                  },
+                ]}
+                style={{ marginBottom: "8px" }}
+              >
+                <Input placeholder={placeholder} />
+              </Form.Item>
               {fields.map((field, index) => (
-                <Form.Item label={index === 0 ? label : ""} required={false} key={field.key}>
+                <Form.Item required={false} key={field.key + 1}>
                   <Form.Item
                     {...field}
-                    validateTrigger={["onChange", "onBlur"]}
+                    // validateTrigger={["onChange", "onBlur"]}
                     rules={[
                       {
                         required: true,
                         whitespace: true,
-                        message: "이 곳을 채워주시거나 옆 -버튼을 눌러 제거해주세요.",
+                        message: "필수 필드입니다.",
                       },
                     ]}
                     noStyle
                   >
-                    <Input placeholder={placeholder} />
+                    <Input placeholder={placeholder} style={{ width: "95%" }} />
                   </Form.Item>
-                  {fields.length > 1 ? (
+                  {fields.length > 0 ? (
                     <MinusCircleOutlined
                       className="dynamic-delete-button"
                       style={{ margin: "0 8px" }}
@@ -40,11 +52,11 @@ const InputWithPlus = ({ name, label, placeholder }) => {
               ))}
               <Form.Item>
                 <Button
-                  type="dashed"
+                  type="link"
                   onClick={() => {
                     add();
                   }}
-                  block
+                  style={{ float: "left" }}
                 >
                   <PlusOutlined width="100%" /> 추가하기
                 </Button>

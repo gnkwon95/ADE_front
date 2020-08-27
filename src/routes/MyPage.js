@@ -9,10 +9,6 @@ import ChangePwForm from "../components/mypage/ChangePwForm";
 
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 
-function callback(key) {
-  console.log(key);
-}
-
 const MyPage = (props) => {
   const { Title } = Typography;
 
@@ -30,14 +26,24 @@ const MyPage = (props) => {
           <Title level={4} className="mypage-title">
             {name}님 안녕하세요 :)
           </Title>
-          <MatchingCoupon credit={credit}/>
-          <NickName uid={authUser.uid} setName={setName} mail={authUser.email} setCredit={setCredit}/>
+          <MatchingCoupon credit={credit} />
+          <NickName
+            uid={authUser.uid}
+            setName={setName}
+            mail={authUser.email}
+            setCredit={setCredit}
+          />
           <ContagList />
           <ChangePwForm />
-          <Button type="link" href="/delete-account" style={{float: "right", padding: "0"}} danger>
-          <ExclamationCircleOutlined />탈퇴하기
+          <Button
+            type="link"
+            href="/delete-account"
+            style={{ float: "right", padding: "0" }}
+            danger
+          >
+            <ExclamationCircleOutlined />
+            탈퇴하기
           </Button>
-          {console.log(authUser.uid)}
         </Space>
       )}
     </AuthUserContext.Consumer>
