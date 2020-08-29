@@ -8,7 +8,8 @@ import "./Home.css";
 import { AuthUserContext } from "../session";
 import axios from "axios";
 import { auth } from "firebase";
-import  { Log }  from "../Log/Log";
+
+import {Log} from "../Log/Log";
 
 faker.locale = "ko";
 
