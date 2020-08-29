@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Divider, BackTop } from 'antd'
 import { UpCircleTwoTone } from '@ant-design/icons'
 import { AuthUserContext } from "../../session";
-import * as Comps from "../../components/mentor"
+import * as Comps from "../../components/Mentor"
 import "./Mentor.css";
 
 const Mentor = () => {
