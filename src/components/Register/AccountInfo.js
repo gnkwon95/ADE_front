@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Form,
   Input,
@@ -13,6 +13,19 @@ import {
 const AccountInfo = (props) => {
   const { Title } = Typography;
   const { Option } = Select;
+  const [form] = Form.useForm();
+
+  const fields = props.fields;
+  const currentStep = props.currentStep;
+  const setStep = props.setStep;
+
+  const onLoad = () => {
+    form.setFieldsValue(fields);
+  };
+
+  useEffect(() => {
+    onLoad();
+  }, []);
 
   const banks = [
     "KB국민",
@@ -58,26 +71,28 @@ const AccountInfo = (props) => {
   return (
     <>
       <Title level={4}> 입금 받을 계좌</Title>
-
-      <Form.Item name="companyInfo" style={{ marginBottom: 0 }}>
+      <Form.Item name="bankInfo" style={{ marginBottom: 0 }}>
         <Row gutter={8}>
           <Col span={6}>
-            <Select
-              showSearch
-              defaultValue="KB국민"
-              style={{ width: 150 }}
-              onChange={handleChange}
-              filterOption={(input, option) =>
-                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-              }
-            >
-              {bankComps}
-            </Select>
+            <Form.Item name="bank" style={{ marginBottom: 0 }}>
+              <Select
+                showSearch
+                defaultValue="KB국민"
+                style={{ width: 150 }}
+                onChange={handleChange}
+                filterOption={(input, option) =>
+                  option.children.toLowerCase().indexOf(input.toLowerCase()) >=
+                  0
+                }
+              >
+                {bankComps}
+              </Select>
+            </Form.Item>
           </Col>
           <Col span={6}>
             <Form.Item
               label="예금주"
-              name="real_name"
+              name="card_user_name"
               rules={[{ required: true, message: "닉네임을 적어주세요!" }]}
             >
               <Input />
@@ -101,6 +116,28 @@ const AccountInfo = (props) => {
       </div>
       <Form.Item name="account_email">
         <Input type="email" />
+      </Form.Item>
+      <Button type="link" htmlType="button" onClick={props.onFill}>
+        Fill form
+      </Button>
+      <Button type="link" htmlType="button" onClick={props.onEmpty}>
+        Empty form
+      </Button>
+      <Form.Item name="stepButton" style={{ marginBottom: 0 }}>
+        <Button
+          style={{ margin: "0 8px", float: "left" }}
+          onClick={() => setStep(currentStep - 1)}
+        >
+          이전
+        </Button>
+        <Button
+          type="primary"
+          htmlType="submit"
+          form="bankForm"
+          style={{ float: "right" }}
+        >
+          제출하기
+        </Button>
       </Form.Item>
     </>
   );

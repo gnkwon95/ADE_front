@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Form,
   Input,
@@ -12,16 +12,51 @@ import {
 } from "antd";
 import InputWithPlus from "../CustomComponents/InputWithPlus";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import moment from "moment";
 import axios from "axios";
 
 const { RangePicker } = DatePicker;
+const { Title } = Typography;
+const { Option } = Select;
 
 const Company = (props) => {
   // SETUP
-  const { Title } = Typography;
-  const { Option } = Select;
   const [form] = Form.useForm();
+  const [nickname, setNickname] = useState("");
+  const validateStatus = [
+    { status: "warning", msg: "닉네임 중복 확인이 필요합니다." },
+    { status: "validating", msg: "확인중입니다." },
+    { status: "success", msg: "사용 가능한 닉네임입니다." },
+    { status: "error", msg: "사용 불가능한 닉네임입니다." },
+  ];
+
+  const onNicknameChange = (e) => {
+    props.setValStatus(0);
+    props.setIsNicknameValidated(false);
+    setNickname(e.target.value);
+  };
+
+  const checkNickname = async () => {
+    try {
+      props.setValStatus(1);
+      const response = await axios.get(
+        `http://15.164.251.155/profile_full/?nickname=${nickname}`
+      );
+      if (response.data.length === 0) {
+        props.setValStatus(2);
+        props.setIsNicknameValidated(true);
+      } else {
+        props.setValStatus(3);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const fields = props.fields;
+
+  const onLoad = () => {
+    form.setFieldsValue(fields);
+  };
 
   useEffect(() => {
     onLoad();
@@ -32,100 +67,28 @@ const Company = (props) => {
 
   // DATE FORMATTING
   const monthFormat = "YYYY-MM";
-  const formatMonth = (month) => {
-    let str = moment(month).format("MM");
-    return (str *= 1);
-  };
-  const formatYear = (year) => {
-    let str = moment(year).format("YYYY");
-    return (str *= 1);
-  };
-
-  // SUBMIT FORM DATAS TO Register.js when user clicks '다음' btn
-  const onFinish = (values) => {
-    console.log("Success: ", values);
-    const workStartYear = formatYear(values.work_start);
-    const workStartMonth = formatMonth(values.work_start);
-    const workFromYear = formatYear();
-    const workFromMonth = formatYear();
-    const workToYear = formatYear();
-    const workToMonth = formatYear();
-
-    props.setFields({
-      ...props.fields,
-      ...values,
-      work_start_year: workStartYear,
-      work_start_month: workStartMonth,
-    });
-
-    props.setStep(props.currentStep + 1);
-
-    console.log(props.fields);
-
-    // const submitForm = async () => {
-    //   try {
-    //     await axios.push(`http://15.164.251.155/mypage`)
-    //   }
-    // };
-  };
-
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
-
-  // FILL DUMMY DATA: THIS IS FOR DEVELOPMENT (NOT FOR SALE)
-  const onFill = () => {
-    form.setFieldsValue({
-      nickname: "백승호",
-      current_company: "몰로코",
-      applied_job: "마케팅 매니저",
-      work_start: moment("2020-01"),
-      current_job: "오징어 판매원",
-      education_univ: "강남대학교",
-      education_major: "오징어 판매업",
-      education_level: "석사",
-      education_status: "중퇴",
-      AppliedCompanies: ["네이버", "삼성", "몰로코"],
-      Certificate: ["토익 500점", "환장하기 900점", "라면 6봉지 한 입 컷"],
-      Extracurricular: [
-        "오징어 타고 남극해까지 챌린지 성공",
-        "오징어 갓으로 라면 그릇 만들기 공모전 우승",
-        "누가 오징어 같이 생겼나 대회 심사",
-      ],
-      WorkExperience: [
-        {
-          company_name: "네이버",
-          worked_to_from: [moment("2020-01"), moment("2020-12")],
-        },
-      ],
-    });
-  };
-
-  const onEmpty = () => {
-    form.setFieldsValue(props.formTemplate);
-  };
-
-  const onLoad = () => {
-    form.setFieldsValue(props.fields);
-  };
 
   return (
-    <Form
-      id="companyForm"
-      name="companyForm"
-      initialValues={{ remember: true }}
-      onSubmit={(e) => {
-        e.preventDefault();
-      }}
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-      form={form}
-    >
+    <>
       <Title level={4}>닉네임</Title>
       <Form.Item name="mentorNickname" style={{ marginBottom: 0 }}>
         <Form.Item
           name="nickname"
-          rules={[{ required: true, message: "닉네임을 적어주세요!" }]}
+          rules={[
+            {
+              required: true,
+              message: "닉네임을 입력해주세요.",
+              validator: (_, value) =>
+                props.isNicknameValidated
+                  ? Promise.resolve()
+                  : Promise.reject("닉네임 중복 확인이 필요합니다."),
+            },
+          ]}
+          validateTrigger={checkNickname}
+          hasFeedback
+          validateStatus={validateStatus[props.valStatus].status}
+          help={validateStatus[props.valStatus].msg}
+          onChange={onNicknameChange}
           style={{
             display: "inline-block",
             width: "calc(50% - 8px)",
@@ -134,7 +97,7 @@ const Company = (props) => {
         >
           <Input placeholder="닉네임을 입력해주세요." />
         </Form.Item>
-        <Button type="primary" htmlType="button">
+        <Button type="primary" htmlType="button" onClick={checkNickname}>
           중복 확인
         </Button>
       </Form.Item>
@@ -313,23 +276,23 @@ const Company = (props) => {
         // label="대외활동"
         placeholder="ex) SK Sunny 대학생 자원봉사단, ㅇㅇ 공모전 대상 수상"
       />
-      <Button type="link" htmlType="button" onClick={onFill}>
+      <Button type="link" htmlType="button" onClick={props.onFill}>
         Fill form
       </Button>
-      <Button type="link" htmlType="button" onClick={onEmpty}>
+      <Button type="link" htmlType="button" onClick={props.onEmpty}>
         Empty form
       </Button>
       <Form.Item name="stepButton" style={{ marginBottom: 0 }}>
         <Button
           type="primary"
           style={{ float: "right" }}
-          htmlType="submit"
-          // form="companyForm"
+          htmlType="button"
+          onClick={props.onNext}
         >
           다음
         </Button>
       </Form.Item>
-    </Form>
+    </>
   );
 };
 

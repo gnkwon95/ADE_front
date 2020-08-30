@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { Button, Steps } from "antd";
+import { Steps } from "antd";
 import RegisterForm from "../components/Register/RegisterForm";
 import "./Register.css";
 import { number } from "prop-types";
+import { withAuthorization, AuthUserContext } from "../session";
+import useStateWithCallback from "use-state-with-callback";
 
 // STEPS
 const { Step } = Steps;
@@ -22,7 +24,7 @@ const steps = [
   },
 ];
 
-const Register = () => {
+const Register = (props) => {
   const formTemplate = {
     user: "",
     nickname: "",
@@ -49,28 +51,39 @@ const Register = () => {
     Certificate: [""],
   };
   // Steps
-  const [currentStep, setCurrentStep] = useState(0);
-  const [fields, setFields] = useState(formTemplate);
+  const [currentStep, setCurrentStep] = useStateWithCallback(0, (currentStep) =>
+    console.log("curret step: ", currentStep)
+  );
+  const [fields, setFields] = useStateWithCallback(formTemplate, (fields) => {
+    console.log(fields);
+  });
 
   return (
-    <div className="register">
-      <Steps current={currentStep}>
-        {steps.map((item) => (
-          <Step key={item.title} title={item.title} />
-        ))}
-      </Steps>
-      <div className="steps-content">
-        <RegisterForm
-          currentStep={currentStep}
-          steps={steps}
-          fields={fields}
-          setFields={setFields}
-          setStep={setCurrentStep}
-          formTemplate={formTemplate}
-        />
-      </div>
-    </div>
+    <AuthUserContext.Consumer>
+      {(authUser) => (
+        <div className="register">
+          <Steps current={currentStep}>
+            {steps.map((item) => (
+              <Step key={item.title} title={item.title} />
+            ))}
+          </Steps>
+          <div className="steps-content">
+            <RegisterForm
+              currentStep={currentStep}
+              steps={steps}
+              fields={fields}
+              setFields={setFields}
+              setStep={setCurrentStep}
+              formTemplate={formTemplate}
+              authUser={authUser}
+            />
+          </div>
+        </div>
+      )}
+    </AuthUserContext.Consumer>
   );
 };
 
-export default Register;
+const condition = (authUser) => authUser != null;
+
+export default withAuthorization(condition)(Register);

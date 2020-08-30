@@ -9,7 +9,7 @@ import ChangePwForm from "../components/mypage/ChangePwForm";
 
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 
-const MyPage = (props) => {
+const MyPage = () => {
   const { Title } = Typography;
 
   const [name, setName] = useState("");

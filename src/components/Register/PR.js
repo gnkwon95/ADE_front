@@ -5,44 +5,20 @@ const PR = (props) => {
   const { Title } = Typography;
   const [form] = Form.useForm();
 
+  const currentStep = props.currentStep;
+  const setStep = props.setStep;
+  const fields = props.fields;
+
   useEffect(() => {
     onLoad();
   }, []);
 
-  const onFinish = (values) => {
-    console.log("Success: ", values);
-  };
-
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
-
-  const onFill = () => {
-    form.setFieldsValue({
-      intro:
-        "본 항목은 메인페이지의 멘토님 카드에 노출되는 한 마디로, 클릭을 유도할 수 있도록 짧지만 강렬하게 작성하실 수록 좋습니다.",
-      PR:
-        "본 항목은 메인페이지의 멘토님 카드에 노출되는 한 마디로, 클릭을 유도할 수 있도록 짧지만 강렬하게 작성하실 수록 좋습니다.",
-    });
-  };
-
-  const onEmpty = () => {
-    form.setFieldsValue(props.formTemplate);
-  };
-
   const onLoad = () => {
-    form.setFieldsValue(props.fields);
+    form.setFieldsValue(fields);
   };
 
   return (
-    <Form
-      id="prForm"
-      name="prForm"
-      initialValues={{ remember: true }}
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-      form={form}
-    >
+    <>
       <Title level={4}>한 마디 소개</Title>
       <Form.Item
         label="본 항목은 메인페이지의 멘토님 카드에 노출되는 한 마디로, 클릭을 유도할
@@ -61,31 +37,30 @@ const PR = (props) => {
       >
         <Input.TextArea rows={8} />
       </Form.Item>
-      <Button type="link" htmlType="button" onClick={onFill}>
+      <Button type="link" htmlType="button" onClick={props.onFill}>
         Fill form
       </Button>
-      <Button type="link" htmlType="button" onClick={onEmpty}>
+      <Button type="link" htmlType="button" onClick={props.onEmpty}>
         Empty form
       </Button>
       <Form.Item name="stepButton" style={{ marginBottom: 0 }}>
         <Button
           style={{ margin: "0 8px", float: "left" }}
-          onClick={() => props.setStep(props.currentStep - 1)}
+          onClick={() => setStep(currentStep - 1)}
           htmlType="button"
         >
           이전
         </Button>
         <Button
           type="primary"
-          onClick={() => props.setStep(props.currentStep + 1)}
+          onClick={props.onNext}
           style={{ float: "right" }}
-          htmlType="submit"
-          form="prForm"
+          htmlType="button"
         >
           다음
         </Button>
       </Form.Item>
-    </Form>
+    </>
   );
 };
 
