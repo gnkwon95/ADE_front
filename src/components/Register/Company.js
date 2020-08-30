@@ -9,6 +9,7 @@ import {
   Space,
   Row,
   Col,
+  message,
 } from "antd";
 import InputWithPlus from "../CustomComponents/InputWithPlus";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
@@ -42,7 +43,7 @@ const Company = (props) => {
       const response = await axios.get(
         `http://15.164.251.155/profile_full/?nickname=${nickname}`
       );
-      if (response.data.length === 0) {
+      if (response.data.length === 0 && nickname !== "") {
         props.setValStatus(3);
         props.setIsNicknameValidated(true);
       } else {
@@ -50,6 +51,9 @@ const Company = (props) => {
       }
     } catch (e) {
       console.log(e);
+      message.error(
+        "알 수 없는 에러가 발생했습니다. 잠시 후에 다시 시도해주세요."
+      );
     }
   };
 
