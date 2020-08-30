@@ -23,6 +23,7 @@ const Company = (props) => {
   const [form] = Form.useForm();
   const [nickname, setNickname] = useState("");
   const validateStatus = [
+    { status: "", msg: "닉네임을 입력해 주세요." },
     { status: "warning", msg: "닉네임 중복 확인이 필요합니다." },
     { status: "validating", msg: "확인중입니다." },
     { status: "success", msg: "사용 가능한 닉네임입니다." },
@@ -30,22 +31,22 @@ const Company = (props) => {
   ];
 
   const onNicknameChange = (e) => {
-    props.setValStatus(0);
+    props.setValStatus(1);
     props.setIsNicknameValidated(false);
     setNickname(e.target.value);
   };
 
   const checkNickname = async () => {
     try {
-      props.setValStatus(1);
+      props.setValStatus(2);
       const response = await axios.get(
         `http://15.164.251.155/profile_full/?nickname=${nickname}`
       );
       if (response.data.length === 0) {
-        props.setValStatus(2);
+        props.setValStatus(3);
         props.setIsNicknameValidated(true);
       } else {
-        props.setValStatus(3);
+        props.setValStatus(4);
       }
     } catch (e) {
       console.log(e);
