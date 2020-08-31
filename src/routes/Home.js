@@ -103,7 +103,6 @@ const Home = () => {
             ))}
           </div>
         </div>
-        <div style={{ width:"15%" }}></div>
       </div>
       <BackTop>
         <UpCircleTwoTone twoToneColor="orange" style={{ fontSize: '32px' }} />
