@@ -2,9 +2,9 @@
   display: flex;
 }
 .home-mentorcard-filter{
-  padding-top: 20px;
-  padding-left: 50px;
-  flex: 0 0 350px;
+  padding-top: 30px;
+  padding-right: 50px;
+  flex: 0 0;
 }
 .home-mentorcard-board{
   flex: 1;

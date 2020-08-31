@@ -38,7 +38,7 @@ const SignInGoogle = props => {
         className="social-login-button"
         size="large"
         icon={<GoogleOutlined />}
-      >구글 아이디로 {props.purpose}하기</Button>
+      >구글로 {props.purpose}하기</Button>
     </form>
   );
 }

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Divider, BackTop } from 'antd'
 import { UpCircleTwoTone } from '@ant-design/icons'
 import { AuthUserContext } from "../../session";
-import * as Comps from "../../components/Mentor"
+import * as Comps from "../../components/mentor"
 import "./Mentor.css";
 
 const Mentor = () => {
@@ -14,8 +14,8 @@ const Mentor = () => {
   return (
     <AuthUserContext.Consumer>
       {authUser => authUser ?
-      <div>
-        <div className="mentorpage-header">
+      <div className="mentorpage">
+        <div style={{ padding:"20px" }}>
           <h1 style={{ fontWeight:"bold" }}>
             <span style={{ color:"#5AB485" }}>{authUser.user_id}</span>님, 환영합니다:)
           </h1>
