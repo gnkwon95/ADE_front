@@ -55,7 +55,7 @@ class ChatBlock extends React.Component {
             readError: null,
             writeError: null,
             prev_uid: "",
-            tmp: {content: "", timestamp: 0, uid: "", repeat: false}
+            repeat: []
         }
          this.handleChange = this.handleChange.bind(this);
         this.handleSubmit=this.handleSubmit.bind(this);
@@ -67,31 +67,18 @@ class ChatBlock extends React.Component {
         try{
               this.props.firebase.getDB().ref("chats").child(this.state.mentor).child(this.state.mentee).on("value", snapshot => {
                 let chats = [];
+                let repeat = [];
+                let prev_uid = "";
                 snapshot.forEach((snap) => {
-                    if (snap.val().uid == this.state.prev_uid) {
-                       this.setState({
-                            tmp:{
-                                content: snap.val().content,
-                                timestamp: snap.val().timestamp,
-                                uid: snap.val().uid,
-                                repeat: true
-                            }
-                         })
-                    }else{
-                        this.setState({
-                            tmp: {
-                                content: snap.val().content,
-                                timestamp: snap.val().timestamp,
-                                uid: snap.val().uid,
-                                repeat: false
-                            }
-                        })
-                        this.setState({prev_uid :snap.val().uid})
+                        chats.push(snap.val());
+                        snap.val().uid == prev_uid
+                        ? repeat.push(true)
+                        : repeat.push(false)
+                        prev_uid = snap.val().uid
                     }
-                    chats.push(this.state.tmp);
-                    console.log(this.state.tmp);
-                });
+                );
                 this.setState({chats});
+                this.setState({repeat});
              });
          } catch (error) {
             this.setState({readError: error.message});
@@ -125,8 +112,8 @@ class ChatBlock extends React.Component {
     }
 
 
-ChatBox = ({pos, left_id, right_id, content}) => {
- 
+ChatBox = ({pos, left_id, right_id, content, repeat}) => {
+    console.log(repeat, content)
     return (
     <>
         <div style={{display:"flex",padding:"15px 0 15px 0"}}>
@@ -203,8 +190,8 @@ able = ()=>{
                  
                     return <ChatDiv key={chat.timestamp}>
                         { (chat.uid === this.state.user.uid)
-                        ? <this.ChatBox  pos="right"  left_id={left_id} right_id={right_id} content= {chat.content} />
-                        : <this.ChatBox  pos='left' left_id={left_id} right_id={right_id} content= {chat.content} />
+                        ? <this.ChatBox  pos="right"  left_id={left_id} right_id={right_id} content= {chat.content} repeat = {this.state.repeat[index]} />
+                        : <this.ChatBox  pos='left' left_id={left_id} right_id={right_id} content= {chat.content} repeat = {this.state.repeat[index]} />
                         }
                     </ChatDiv>
                 })}

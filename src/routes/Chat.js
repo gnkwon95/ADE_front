@@ -64,7 +64,7 @@ class Chat extends React.Component {
 
 
   render() {
-    Log('Chat', 'Load')
+ //   Log('Chat', 'Load')
     return (
       <div className="frame" style={{display:'block'}}>
         <div>
