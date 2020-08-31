@@ -11,6 +11,7 @@ import axios from "axios";
 import styled from "styled-components";
 import {Layout, Menu} from 'antd';
 import { Tabs, Typography, Radio } from "antd";
+import {Log} from "../Log/Log"
 
 const {TabPane} = Tabs;
 
@@ -21,8 +22,8 @@ class Chat extends React.Component {
     super(props);
     this.state = {
       connections: [],
-      booleans:false,
-      change:false
+
+      booleans:false
 
     }
   }
@@ -65,6 +66,7 @@ class Chat extends React.Component {
 
 
   render() {
+   
     return (
       <div className="frame" style={{display:'block'}}>
         <div>

@@ -13,6 +13,7 @@ const NickName = (props) => {
   const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [userId, setUserId] = useState("");
 
   const fetchName = async () => {
     try {
@@ -22,15 +23,15 @@ const NickName = (props) => {
       // loading 상태를 true 로 바꿉니다.
       setLoading(true);
       const response = await axios.get(
-        `http://15.164.251.155:8000/mypage/?user=${props.uid}`
+        `http://15.164.251.155/mypage/?user=${props.uid}`
       );
       const len = response.data.length;
       const data = response.data[len - 1];
 
+      setUserId(data.id);
       setUsername(data.user_id); // 데이터는 response.data 안에 들어있습니다.
       props.setName(data.user_id); // 데이터는 response.data 안에 들어있습니다.
       props.setCredit(data.credit); // 데이터는 response.data 안에 들어있습니다.
-    //  props.setId(data.id); // 데이터는 response.data 안에 들어있습니다.
     } catch (e) {
       setError(e);
     }
@@ -50,21 +51,22 @@ const NickName = (props) => {
 
     const submitNickname = async () => {
       try {
-        console.log(props)
-        await axios.delete(
-          `http://15.164.251.155:8000/mypage/${props.id}`
-         );
+        await axios.patch(`http://15.164.251.155/mypage/${userId}/`, {
+          // id: userId,
+          // user_uid: props.uid,
+          // email: props.mail,
+          user_id: values.name,
+        });
 
-        await fetchName()
-        await message.success('닉네임이 변경됐습니다.')
+        await fetchName();
+        await message.success("닉네임이 변경됐습니다.");
       } catch (e) {
         console.log(e);
-        message.error('닉네임이 변경에 실패했습니다.')
+        message.error("닉네임이 변경에 실패했습니다.");
       }
     };
 
     submitNickname();
-    
   };
 
   const onFinishFailed = (errorInfo) => {

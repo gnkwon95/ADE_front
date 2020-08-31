@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, Input, Button } from "antd";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 
@@ -9,10 +9,8 @@ const InputWithPlus = ({ name, label, placeholder }) => {
         {(fields, { add, remove }) => {
           return (
             <div>
-              {fields[0] ? null : <label>{label}</label>}
-              <br />
               {fields.map((field, index) => (
-                <Form.Item label={index === 0 ? label : ""} required={false} key={field.key}>
+                <Form.Item required={true} key={field.key}>
                   <Form.Item
                     {...field}
                     validateTrigger={["onChange", "onBlur"]}
@@ -20,12 +18,12 @@ const InputWithPlus = ({ name, label, placeholder }) => {
                       {
                         required: true,
                         whitespace: true,
-                        message: "이 곳을 채워주시거나 옆 -버튼을 눌러 제거해주세요.",
+                        message: "필수 필드입니다.",
                       },
                     ]}
                     noStyle
                   >
-                    <Input placeholder={placeholder} />
+                    <Input placeholder={placeholder} style={{ width: "95%" }} />
                   </Form.Item>
                   {fields.length > 1 ? (
                     <MinusCircleOutlined
@@ -40,11 +38,12 @@ const InputWithPlus = ({ name, label, placeholder }) => {
               ))}
               <Form.Item>
                 <Button
-                  type="dashed"
+                  type="link"
                   onClick={() => {
                     add();
                   }}
-                  block
+                  style={{ float: "left", padding: 0 }}
+                  htmlType="button"
                 >
                   <PlusOutlined width="100%" /> 추가하기
                 </Button>

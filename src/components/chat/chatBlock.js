@@ -15,10 +15,9 @@ const {Content, Sider} = Layout;
 const pattern = /^\s+|\s+$/g;
 const date = new Date();
 const year = date.getFullYear();
-const month = date.getMonth()+1<10?"0"+(date.getMonth()+1):date.getMonth()+1;
-const day = date.getDate();
-const today = String(year)+"-"+String(month)+"-"+String(day);
-
+const month= date.getMonth()<10?"0"+(date.getMonth()+1):date.getMonth+1;
+const day = date.getDay();
+const today = year+"-"+month+"-"+day
 /*
 const ChatLayout = makeStyles(theme => ({
   container: {
@@ -68,10 +67,6 @@ class ChatBlock extends React.Component {
     async componentDidMount() {
         this.setState({ readError: null});
         console.log(this.props)
-        console.log(this.props.connection.meeting_date)
-        console.log(today)
-        
-
       
         try{
               this.props.firebase.getDB().ref("chats").child(this.state.mentor).child(this.state.mentee).on("value", snapshot => {
@@ -119,7 +114,7 @@ class ChatBlock extends React.Component {
        
      }
      
-ChatBox = ({pos, left_id, right_id, content,repeat}) => {
+ChatBox = ({pos, left_id, right_id, content}) => {
  
     return (
     <>
@@ -130,8 +125,8 @@ ChatBox = ({pos, left_id, right_id, content,repeat}) => {
              */}
              {pos==="left"
 
-            ?<div style={{width:"80px",display:`${repeat===false?"none":"flex"}`,flexDirection:"column",alignItems:"center"}}><img style={{width:40 ,height:40,borderRadius:"50%",border:"1px solid gray"}} src="https://pbs.twimg.com/profile_images/788558965718208512/ObqcIBUu.jpg" /> <h5 style={{}}> {left_id} </h5></div>
-            : <div style={{width:"80px",display:`${repeat===false?"none":"flex"}`,flexDirection:"column",alignItems:"center"}}><img style={{width:40 ,height:40,borderRadius:"50%" }} src="https://lh3.googleusercontent.com/proxy/svNjgUbcdKgVxd-GarllzhHGf_Zdf-B8E1T2pzboU1WJ5_-YWwtluzQ8i2a9kb37TKG1bkQN1WJUyzD7q_VWGEhj8rvRTYidFB0xrYg39wln5oxO5f3VcdzMDPn-mgYTJrOLIsyH2QXB-X78_VCeo6qdqqoKjTA9oFbgAhMB1Rs" /> <h5 style={{}}> {right_id} </h5></div>
+            ?<div style={{width:"80px",display:"flex",flexDirection:"column",alignItems:"center"}}><img style={{width:40 ,height:40,borderRadius:"50%",border:"1px solid gray"}} src="https://pbs.twimg.com/profile_images/788558965718208512/ObqcIBUu.jpg" /> <h5 style={{}}> {left_id} </h5></div>
+            : <div style={{width:"80px",display:"flex",flexDirection:"column",alignItems:"center"}}><img style={{width:40 ,height:40,borderRadius:"50%" }} src="https://lh3.googleusercontent.com/proxy/svNjgUbcdKgVxd-GarllzhHGf_Zdf-B8E1T2pzboU1WJ5_-YWwtluzQ8i2a9kb37TKG1bkQN1WJUyzD7q_VWGEhj8rvRTYidFB0xrYg39wln5oxO5f3VcdzMDPn-mgYTJrOLIsyH2QXB-X78_VCeo6qdqqoKjTA9oFbgAhMB1Rs" /> <h5 style={{}}> {right_id} </h5></div>
             }
             
             {pos === 'left'? <div style={{width:"85%",display:"flex",alignItems:"center"}}><span style={{postion:"relative",background:"#ceeddc",float:pos,padding:"5px 10px 5px 10px",borderRadius:"20px",whiteSpace:"pre-line", wordBreak:"break-all"}}> {content} </span></div>: 
@@ -144,42 +139,39 @@ ChatBox = ({pos, left_id, right_id, content,repeat}) => {
     )
 }
 able = ()=>{
-    if(/* this.state.meeting_date!==today || */ this.state.content.replace(pattern,'')===""){
-       
-            return  (<div className="fixed" style={{position:"sticky",bottom:"0px",zIndex:"100"}}>
-            <form onSubmit = {this.handleSubmit} >  {/*form to update message, with button to send */}
-                <Layout>
-                    <div style={{display:"flex",width:"100%"}}>
-                <Content>
-                    <input type="textarea" className="text" onChange={this.handleChange} value={this.state.content} style={{width:"100%",height:38,borderRadius:"100px 0 0 100px",outline:"none" ,border:"1px solid gray",borderRight:"none",paddingLeft:"20px"}}></input> {/*use this.handleChange to change state (is message okay?) */}
-                     {this.state.error ? <p>{this.state.writeError}</p> : null}
-                 </Content>
-                     <div style={{width:"10%",height:38,background:"white",borderRadius:"0 100px 100px 0",border:"1px solid gray",borderLeft:"none"}}>
-                     <button type="submit" className="send_btn" style={{width:"100%",height:"100%",borderRadius:"100px",background:"#0b283a",color:"gray",border:"none",outline:"none"}} disabled>전송</button>
-                     </div>
-                     </div>
-                 </Layout>
-             </form>
-             </div>)}
-  
-        else{
-            return ( <div className="fixed" style={{position:"sticky",bottom:"0px",zIndex:"100"}}>
-              <form onSubmit = {this.handleSubmit} >  {/*form to update message, with button to send */}
-                  <Layout>
-                  <div style={{display:"flex", width:"100%"}}>
-                  <Content>
-                      <input type="textarea" className="text" onChange={this.handleChange} value={this.state.content} style={{width:"100%",height:38,borderRadius:"100px 0 0 100px",outline:"none" ,border:"1px solid gray",borderRight:"none",paddingLeft:"20px"}}></input> {/*use this.handleChange to change state (is message okay?) */}
-                       {this.state.error ? <p>{this.state.writeError}</p> : null}
-                   </Content>
-                   <div style={{width:"10%",height:38,background:"white",borderRadius:"0 100px 100px 0",border:"1px solid gray",borderLeft:"none"}}>
-                       <button type="submit" className="send_btn"  style={{width:"100%",height:"100%",borderRadius:" 100px",background:"#0b283a",color:"white",border:"none",outline:"none"}} >전송</button>
-                    </div>
-                   </div>
-                  </Layout>
-               </form>
-               </div>)
-        
-}
+    if(this.state.content.replace(pattern,'')===""){
+      return  (<div className="fixed" style={{position:"sticky",bottom:"0px",zIndex:"100"}}>
+        <form onSubmit = {this.handleSubmit} >  {/*form to update message, with button to send */}
+            <Layout>
+                <div style={{display:"flex",width:"100%"}}>
+            <Content>
+                <input type="textarea" className="text" onChange={this.handleChange} value={this.state.content} style={{width:"100%",height:38,borderRadius:"100px 0 0 100px",outline:"none" ,border:"1px solid gray",borderRight:"none",paddingLeft:"20px"}}></input> {/*use this.handleChange to change state (is message okay?) */}
+                 {this.state.error ? <p>{this.state.writeError}</p> : null}
+             </Content>
+                 <div style={{width:"10%",height:38,background:"white",borderRadius:"0 100px 100px 0",border:"1px solid gray",borderLeft:"none"}}>
+                 <button type="submit" className="send_btn" style={{width:"100%",height:"100%",borderRadius:"100px",background:"#0b283a",color:"gray",border:"none",outline:"none"}} disabled>전송</button>
+                 </div>
+                 </div>
+             </Layout>
+         </form>
+         </div>)
+    }else{
+      return ( <div className="fixed" style={{position:"sticky",bottom:"0px",zIndex:"100"}}>
+        <form onSubmit = {this.handleSubmit} >  {/*form to update message, with button to send */}
+            <Layout>
+            <div style={{display:"flex", width:"100%"}}>
+            <Content>
+                <input type="textarea" className="text" onChange={this.handleChange} value={this.state.content} style={{width:"100%",height:38,borderRadius:"100px 0 0 100px",outline:"none" ,border:"1px solid gray",borderRight:"none",paddingLeft:"20px"}}></input> {/*use this.handleChange to change state (is message okay?) */}
+                 {this.state.error ? <p>{this.state.writeError}</p> : null}
+             </Content>
+             <div style={{width:"10%",height:38,background:"white",borderRadius:"0 100px 100px 0",border:"1px solid gray",borderLeft:"none"}}>
+                 <button type="submit" className="send_btn"  style={{width:"100%",height:"100%",borderRadius:" 100px",background:"#0b283a",color:"white",border:"none",outline:"none"}} >전송</button>
+              </div>
+             </div>
+            </Layout>
+         </form>
+         </div>)
+    }
 }
     render() {
 
@@ -197,7 +189,7 @@ able = ()=>{
               <div className="chats" ref={el=>{this.messageEnd=el;}}>
                <div style={{}}>
                 { this.state.chats.map( (chat,index) => {
-                   console.log(chat)
+                 
                     return <ChatDiv key={chat.timestamp}>
                         { (chat.uid === this.state.user.uid)
                         ? <this.ChatBox  pos="right"  left_id={left_id} right_id={right_id} content= {chat.content} repeat = {chat.repeat} />

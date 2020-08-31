@@ -8,6 +8,7 @@ import "./Home.css";
 import { AuthUserContext } from "../session";
 import axios from "axios";
 import { auth } from "firebase";
+
 import {Log} from "../Log/Log";
 
 faker.locale = "ko";
@@ -32,42 +33,18 @@ const DummyData = Array(5)
   }));
 
 
-
+const Log2 = (page, detail) => {
+    console.log('test2')
+}
 
 const Home = () => {
-    const context = useContext(AuthUserContext)
+   // Log2('Home', 'Load')
+    console.log('test3')
 
     useEffect(() => {
-      if(context === null){
-        VisitorLog(null)
-      } else {
-        UserLog(context)
-      }
-    }, [context])
+        console.log('test4')
+    }, [])
 
-    const UserLog = authUser => {
-        console.log("user: ", authUser)
-    /*
-        axios.post('/log', {
-            User: authUser.id, //this.props.firebase.getCurrentUser().uid ... 현재 유저 정보를 미리 저장해서 pass on 할수 없을까 ㅠ
-            User_id: authUser.user_id, //this.props.firebase.getCurrentUser().uid ... 현재 유저 정보를 미리 저장해서 pass on 할수 없을까 ㅠ
-            User_uid: authUser.user_uid,
-            Page: 'Home',
-            Detail: 'Load',
-        })
-        .then((response) => (console.log(response)))
-        .catch((error) => console.log(error))*/
-    }
-
-    const VisitorLog = authUser => {
-        console.log("visitor: ", authUser)
-        // axios.post('/log', {
-        //     Page: 'Home',
-        //     Detail: 'Load',
-        // })
-        // .then( (response) => (console.log(response)))
-        // .catch((error)=>console.log(error))
-    }
   // *** Fetch 멘토 데이터 ***
   // const [cards, setCards] = useState(null);
   // const [loading, setLoading] = useState(false);
@@ -106,6 +83,7 @@ const Home = () => {
   // *** 렌더링 ***
   return (
     <div className="home">
+
       <Comps.Banner />
       <Comps.Searchbox />
       <div className="home-mentorcard-container" style={{maxWidth: "1280px", margin: "0 auto"}}>
@@ -125,7 +103,6 @@ const Home = () => {
             ))}
           </div>
         </div>
-        <div style={{ width:"15%" }}></div>
       </div>
       <BackTop>
         <UpCircleTwoTone twoToneColor="orange" style={{ fontSize: '32px' }} />

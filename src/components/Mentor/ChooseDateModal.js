@@ -2,6 +2,7 @@ import {Calendar, Modal, Button} from 'antd';
 import React from "react";
 import "./ChooseDateModal.css"
 import { StyledMentorInfo } from "./styles";
+import HandleOK from "./handleok";
 import { AuthUserContext, withAuthorization } from "../../session";
 
 import moment from 'moment';
@@ -9,6 +10,7 @@ import 'moment/locale/ko';
 import axios from "axios";
 
 axios.defaults.baseURL ='http://15.164.251.155:8000/'
+
 
 
 class ChooseDateModal extends React.Component {
@@ -73,7 +75,7 @@ class ChooseDateModal extends React.Component {
     handleOk = e => {
         console.log(e);
         console.log(this.state);
-         this.state.user.credit != 0
+         this.state.user.credit != 1
          ? (
          Modal.confirm().update({
             Title: '구매 확인',
@@ -125,10 +127,6 @@ class ChooseDateModal extends React.Component {
         );
     }
 
-    disabledDate = () => {
-        return moment() && moment()< moment().add(1, "month");
-    }
-
     render() {
       return (
       <>
@@ -141,11 +139,10 @@ class ChooseDateModal extends React.Component {
             visible = {this.state.visible}
             onOk={this.handleOk}
             onCancel={this.handleCancel}
-            width="375px"
          >
             <>
             <div className="site-calendar-demo-card" >
-            <Calendar fullscreen={false} style={{width:300}}
+            <Calendar fullscreen={false}
                 onSelect = {this.onSelect}
             />
 

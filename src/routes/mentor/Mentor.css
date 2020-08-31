@@ -1,0 +1,19 @@
+.mentorpage{
+  margin: 30px 100px;
+}
+
+.mentorpage-container{
+    display: flex;
+}
+.mentorpage-detail{
+  flex: 1;
+}
+
+button{
+  background-color: transparent;
+  padding: 10px;
+  border: none;
+}
+button:hover{
+  font-weight: bold;
+}

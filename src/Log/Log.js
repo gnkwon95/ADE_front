@@ -35,10 +35,8 @@ export const Log = (page, detail) => {
     const context = useContext(AuthUserContext)
 
     if(context === null){
-        VisitorLog(null)
+        VisitorLog(page, detail)
      } else {
-        UserLog(context)
+        UserLog(context, page, detail)
      }
 }
-
-export default Log;

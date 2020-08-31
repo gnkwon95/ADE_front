@@ -3,12 +3,12 @@ import { BrowserRouter, Route, match } from "react-router-dom";
 import { Layout } from "antd";
 import HeaderNav from "./components/HeaderNav";
 import Home from "./routes/Home";
-import Mentor from "./routes/Mentor";
+import Mentor from "./routes/mentor/Mentor";
+import ChangeProfile from "./routes/mentor/ChangeProfile";
 import MyPage from "./routes/MyPage";
 import Chat from "./routes/Chat";
 import DeleteAccount from "./routes/DeleteAccount";
 import "./App.less";
-import AdBar from "./components/AdBar";
 import SignIn from "./routes/auth/SignIn";
 import SignUp from "./routes/auth/SignUp";
 import ForgotPw from "./routes/auth/ForgotPw";
@@ -23,6 +23,7 @@ const App = () => (
     <Layout className="layout">
       <HeaderNav /> 
       <Route exact path="/mentor" component={Mentor} />
+      <Route exact path="/mentor-edit" component={ChangeProfile} />
       <Route   exact path="/chat" component={Chat} />
       <Route exact path="/" component={Home} />
       <Content style={{ margin: "0 auto", maxWidth: "1280px" }}>
