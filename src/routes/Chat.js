@@ -14,7 +14,6 @@ import { Tabs, Typography, Radio } from "antd";
 
 const {TabPane} = Tabs;
 
-
 axios.defaults.baseURL ='http://15.164.251.155:'
 
 class Chat extends React.Component {
@@ -22,7 +21,8 @@ class Chat extends React.Component {
     super(props);
     this.state = {
       connections: [],
-      booleans:false
+      booleans:false,
+      change:false
 
     }
   }
@@ -51,7 +51,8 @@ class Chat extends React.Component {
 
     componentDidMount(){
         this.resetState();
-        console.log(this.state.connections)
+        
+        
       
     };
     changes =()=>{
@@ -60,7 +61,7 @@ class Chat extends React.Component {
      })
    
     }
-     
+   
 
 
   render() {
@@ -73,7 +74,7 @@ class Chat extends React.Component {
     
         <Tabs defaultActiveKey="10" tabPosition='left' style={{width:'78%'}}>
 
-             { this.state.connections.map( (connection, i) => (
+        { this.state.connections.map( (connection, i) => (
              <>
                 {connection.mentor_uid === this.props.firebase.getCurrentUser().uid
                 ? 
@@ -92,7 +93,7 @@ class Chat extends React.Component {
                 <ProfileInfo>
                   <span className="tab_name" >{connection.mentor_id} <span className="tab_company">현대자동차</span></span>
                   <span className="position">마케팅 매니저</span>
-                  <span className="last_reply">마지막 답장:&nbsp;5분전</span>
+                  <span className="last_reply">마지막 답장:&nbsp;10분전</span>
                 </ProfileInfo>
               </div>} key={i}>
                       <ChatBlock  connection = {connection} is_mentor= {false} />
@@ -109,7 +110,18 @@ class Chat extends React.Component {
     );
   }
 }
-
+const Child = styled(ChatBlock)`
+   .ant-tabs-left > .ant-tabs-nav .ant-tabs-tab,
+.ant-tabs-right > .ant-tabs-nav .ant-tabs-tab,
+.ant-tabs-left > div > .ant-tabs-nav .ant-tabs-tab,
+.ant-tabs-right > div > .ant-tabs-nav .ant-tabs-tab 
+   {
+    padding: 2px 24px;
+    margin-bottom:0px;  
+  }
+   
+   
+`;
 
 const ProfileInfo= styled.div`
  display: flex;
