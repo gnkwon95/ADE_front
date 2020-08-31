@@ -13,7 +13,7 @@ const jobs = ['디자이너', '개발자', '마케터', '금융'];
 const Filter = () => {
 
   return (
-    <Affix offsetTop={180}>
+    <Affix offsetTop={200}>
       <div className="mentorcard-filter">
         <h2><strong>검색 필터</strong></h2>
         <Divider><strong>지역</strong></Divider>
