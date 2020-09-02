@@ -54,6 +54,7 @@ const VisitorNav = () => (
 );
 
 const UserNav = () => {
+    console.log("User log in")
   const [mentorStatus, setMentorStatus] = useState(false);
   const is_mentor = async () => {
     const fetchData = await axios.get("http://15.164.251.155/mypage/");

@@ -33,44 +33,43 @@ const DummyData = Array(5)
   }));
 
 
-const Log2 = (page, detail) => {
-    console.log('test2')
+const MentorData = () => {
+    console.log("calling mentor data")
+    const response = axios.get('http://15.164.251.155/profile_full/');
+    console.log(response);
 }
 
-const Home = () => {
-   // Log2('Home', 'Load')
-    console.log('test3')
 
-    useEffect(() => {
-        console.log('test4')
-    }, [])
+const Home = () => {
+  //  Log('Home', 'Load')
+
 
   // *** Fetch 멘토 데이터 ***
-  // const [cards, setCards] = useState(null);
-  // const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState(null);
+   const [cards, setCards] = useState(null);
+   const [loading, setLoading] = useState(false);
+   const [error, setError] = useState(null);
   
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       setError(null);
-  //       setCards(null);
-  //       setLoading(true);
-  //       const response = await axios.get('http://15.164.251.155/profiles/');
-  //       setCards(response.data);
-  //     } catch (e) {
-  //       setError(e);
-  //     }
+   useEffect(() => {
+     const fetchData = async () => {
+       try {
+         setError(null);
+         setCards(null);
+         setLoading(true);
+         const response = await axios.get('http://15.164.251.155/profile_full/');
+         console.log(response.data); //여기는 잘찍힘
+         setCards(response.data); //이걸 어떻게 하는지 모르겠음. this.setState({cards: response.data})같은 느낌으로 하고싶은데
+       } catch (e) {
+         setError(e);
+       }
+       setLoading(false);
+     };
+     fetchData();
+     console.log(cards);
+   }, []);
 
-  //     setLoading(false);
-  //   };
-
-  //   fetchData();
-  // }, []);
-
-  // if (loading) return <div>로딩중..</div>;
-  // if (error) return <div>에러가 발생했습니다</div>;
-  // if (!cards) return null; 
+   if (loading) return <div>로딩중..</div>;
+   if (error) return <div>에러가 발생했습니다</div>;
+   if (!cards) return null;
 
   // *** 알림 ***
   const openNotification = placement => {
