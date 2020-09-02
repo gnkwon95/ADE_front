@@ -66,7 +66,7 @@ class Chat extends React.Component {
 
 
   render() {
-   
+
     return (
       <div className="frame" style={{display:'block'}}>
         <div>
