@@ -1,9 +1,13 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React,{useEffect} from "react";
+import { Link,withRouter } from "react-router-dom";
 import { Avatar, Tag, Divider, Card, Button, Row, Col } from "antd";
 
-const MentoCard = ({ data }) => {
+const MentoCard = ({ data,link }) => {
+   useEffect(()=>{
+     console.log(data,link)
+   },[data, link])
   const {
+          user,
           current_company,
           current_job, 
           real_name,
@@ -17,11 +21,13 @@ const MentoCard = ({ data }) => {
   const years = work_period_from
   const tagColor = years < 3 ? "#87d068"
                   : years < 7 ? "#2db7f5"
-                  : "#108ee9"
-  
+                  : "#108ee9"    
+  /*    const LinkPush = (nickname)=>{
+         data.history.push(`/mentor/${nickname}`)
+    } */
   return (
-    <Link to="/mentor">
-      <Card hoverable>
+    <>
+      <Card hoverable onClick={()=> link(user)}>
         <Row style={{ padding:"10px" }}>
           <Col flex="70px">
             <Avatar shape="square" size={50} src={logo} />
@@ -59,8 +65,8 @@ const MentoCard = ({ data }) => {
         }
       </Card>
       <Divider />
-    </Link>
+    </>
   );
 };
 
-export default MentoCard;
+export default withRouter(MentoCard);

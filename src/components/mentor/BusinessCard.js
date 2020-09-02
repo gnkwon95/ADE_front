@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { Tag, Typography, Button, Space, Avatar } from 'antd'
 import { AuthUserContext } from "../../session";
+
 import faker from "faker";
 
 
@@ -16,7 +17,7 @@ const DummyData = {
   };
 
 
-function BusinessCard() {
+function BusinessCard(props) {
   const user = useContext(AuthUserContext)
 
   return (
@@ -48,7 +49,7 @@ function BusinessCard() {
           block
           style={{ color:"black", lineHeight:"25px", fontSize:"20px" }}
         >
-          정보 수정
+          {props.user?"정보 수정":"멘토 신청"}
        </Button>
     </div>
   )

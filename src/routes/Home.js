@@ -8,6 +8,7 @@ import "./Home.css";
 import { AuthUserContext } from "../session";
 import axios from "axios";
 import { auth } from "firebase";
+import {withRouter} from "react-router-dom";
 
 import {Log} from "../Log/Log";
 
@@ -37,49 +38,53 @@ const Log2 = (page, detail) => {
     console.log('test2')
 }
 
-const Home = () => {
+const Home = (props) => {
    // Log2('Home', 'Load')
     console.log('test3')
 
     useEffect(() => {
-        console.log('test4')
-    }, [])
+        console.log(DummyData)
+        console.log(props)
+    }, [props])
 
-  // *** Fetch 멘토 데이터 ***
-  // const [cards, setCards] = useState(null);
-  // const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState(null);
+  /*  *** Fetch 멘토 데이터 *** */
+ /*   const [cards, setCards] = useState(null);
+   const [loading, setLoading] = useState(false);
+   const [error, setError] = useState(null);
   
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       setError(null);
-  //       setCards(null);
-  //       setLoading(true);
-  //       const response = await axios.get('http://15.164.251.155/profiles/');
-  //       setCards(response.data);
-  //     } catch (e) {
-  //       setError(e);
-  //     }
+   useEffect(() => {
+     const fetchData = async () => {
+       try {
+       
+         setLoading(true);
+         const response = await axios.get('http://15.164.251.155/profiles');
+         setCards(response.data);
+         console.log(response);
+        
+       } catch (e) {
+         setError(e);
+       }
 
-  //     setLoading(false);
-  //   };
+       setLoading(false);
+     };
 
-  //   fetchData();
-  // }, []);
+     fetchData();
+   }, [cards]);
 
-  // if (loading) return <div>로딩중..</div>;
-  // if (error) return <div>에러가 발생했습니다</div>;
-  // if (!cards) return null; 
+   if (loading) return <div>로딩중..</div>;
+   if (error) return <div>에러가 발생했습니다</div>;
+   if (!cards) return null;  */
 
-  // *** 알림 ***
+   /* *** 알림 *** */
   const openNotification = placement => {
     notification.open({
       message: `ConTag으로 취업할 시 1만원 환급!`,
       placement,
     });
   };
-
+   const click = (e)=>{
+      props.history.push(`/mentor/${e}`)
+   }
   // *** 렌더링 ***
   return (
     <div className="home">
@@ -99,7 +104,8 @@ const Home = () => {
           <div className="home-mentorcard-cards">
           <h2>{DummyData.length}명의 멘토가 있습니다.</h2>
             {DummyData.map(data => (
-              <Comps.MentoCard key={data.user} data={data} />
+              
+              <Comps.MentoCard link={click} key={data.user} data={data} />
             ))}
           </div>
         </div>
@@ -111,4 +117,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default withRouter(Home);
