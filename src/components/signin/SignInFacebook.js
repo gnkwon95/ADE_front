@@ -3,22 +3,49 @@ import { Button } from "antd";
 import { withRouter } from "react-router-dom";
 import { withFirebase } from '../../firebase'
 import { FacebookFilled } from '@ant-design/icons';
+import axios from "axios"
 
 const SignInFacebook = props => {
 
   const onSubmit = event => {
     props.firebase
       .doSignInWithFacebook()
-      // .then(socialAuthUser => {
-      //   // Create a user in your Firebase Realtime Database too
-      //   return props.firebase.user(socialAuthUser.user.uid).set({
-      //     username: socialAuthUser.additionalUserInfo.profile.name,
-      //     email: socialAuthUser.additionalUserInfo.profile.email,
-      //     roles: {},
-      //   });
-      // })
+      .then(()=> {
+        console.log("facebook login")
+      })
       .then(() => {
         props.history.push('/');
+      })
+      .then(()=>{
+        console.log(props.firebase.getCurrentUser().uid, props.firebase.getCurrentUser().email)
+      })
+      .then(() => {
+        axios.get("mypage/?user="+props.firebase.getCurrentUser().uid)
+        .then(function(response){
+            (response.data.length == 0 ) // if there is no existing user
+            ? (axios // create new user on db
+                  .post("mypage/", {
+                    user_uid: props.firebase.getCurrentUser().uid,
+                    email: props.firebase.getCurrentUser().email,
+                    user_id: "dummy",
+                    credit: 0,
+                    credit_used: 0,
+                  },
+                  {
+                    headers: {
+                        Authorization: 'Bearer ' + props.firebase.getCurrentUser().uid
+                    }
+                  })
+                     .then(function (response) {
+                        console.log(response);
+                      })
+                  .catch((error) => {
+                    console.log("django error");
+                    console.log(error);
+                  })
+          )
+          : console.log("existing user") // log existing user. Can change to printing error - existing user logged in.
+        })
       })
       .catch(error => {
         if (error.code === 'auth/account-exists-with-different-credential') {

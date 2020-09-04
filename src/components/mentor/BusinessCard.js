@@ -1,8 +1,9 @@
 import React, { useContext } from 'react'
 import { Tag, Typography, Button, Space, Avatar } from 'antd'
 import { AuthUserContext } from "../../session";
-
+import {withRouter} from "react-router-dom";
 import faker from "faker";
+import ChooseDateModal from './ChooseDateModal';
 
 
 const DummyData = {
@@ -16,12 +17,17 @@ const DummyData = {
       .map(() => faker.random.word()),
   };
 
-
+ 
 function BusinessCard(props) {
-  const user = useContext(AuthUserContext)
-
+ 
+  console.log(props)
+  const linkTo =()=>{
+    if(props.users!==null){props.history.push(`/mentor-edit`)}
+  
+  }
   return (
     <div className="mentor-businesscard">
+
         <div style={{ textAlign:"center" }}>
           <Avatar shape="square" size={100} src={DummyData.logo} style={{ margin:"10px" }} />
           <h1 style={{ margin:"5px" }}>{DummyData.user_id}</h1>
@@ -41,18 +47,26 @@ function BusinessCard(props) {
         </div>
         <br />
         <br />
-        <Button
+    {props.users===null?  
+   
+
+  <ChooseDateModal info={props.users} />
+ : 
+   
+    <Button
           type="primary"
           shape="round" 
           size="large"
-          href="/mentor-edit"
+          
+          onClick={linkTo}
           block
           style={{ color:"black", lineHeight:"25px", fontSize:"20px" }}
         >
-          {props.user?"정보 수정":"멘토 신청"}
-       </Button>
+         정보 수정
+       </Button>}
+       
     </div>
   )
 }
 
-export default BusinessCard
+export default withRouter(BusinessCard)

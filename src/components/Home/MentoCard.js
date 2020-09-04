@@ -3,9 +3,9 @@ import { Link,withRouter } from "react-router-dom";
 import { Avatar, Tag, Divider, Card, Button, Row, Col } from "antd";
 
 const MentoCard = ({ data,link }) => {
-   useEffect(()=>{
-     console.log(data,link)
-   },[data, link])
+  
+    
+ 
   const {
           user,
           current_company,
@@ -24,7 +24,9 @@ const MentoCard = ({ data,link }) => {
                   : "#108ee9"    
   /*    const LinkPush = (nickname)=>{
          data.history.push(`/mentor/${nickname}`)
+         
     } */
+    
   return (
     <>
       <Card hoverable onClick={()=> link(user)}>

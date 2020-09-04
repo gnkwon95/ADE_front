@@ -15,12 +15,13 @@ const MyPage = (props) => {
 
   const [name, setName] = useState("");
   const [credit, setCredit] = useState("");
-
+  
   console.log('mypage test')
    //Log('MyPage', 'Load')
   return (
     <AuthUserContext.Consumer>
       {(authUser) => (
+        
         <Space
           size="large"
           direction="vertical"

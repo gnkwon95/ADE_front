@@ -1,24 +1,46 @@
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useContext } from "react";
 import { Button, Divider, BackTop } from 'antd'
 import { UpCircleTwoTone } from '@ant-design/icons'
 import { AuthUserContext } from "../../session";
 import * as Comps from "../../components/Mentor"
 import "./Mentor.css";
+import Axios from "axios";
 
 const Mentor = () => {
-
-  const [menu, setMenu] = useState("profile")
-
-
+  const user = useContext(AuthUserContext)
+  console.log(user)
+  const [menu, setMenu] = useState("profile");
+  const [error, setError] =useState(null);
+  const [loading, setLoading] = useState(false);
+  const [data,setData] = useState(null);
+useEffect(()=>{
+  const fetch= async()=>{
+    try {
+      setLoading(true)
+      const res = await Axios.get("http://15.164.251.155/profile_full/")
+    console.log(res.data)
+      setData(res.data);
+      
+    } catch (e) {
+      setError(e)
+      console.log('error')
+    }
+    console.log();
+    setLoading(false);
+  }
+  fetch();
+},[] )
+if (loading) return <div>로딩중..</div>;
+if (error) return <div>에러가 발생했습니다</div>;
 
   return (
     
     <AuthUserContext.Consumer>
-      {authUser => authUser ?
+      {authUser=> authUser ?
       <div className="mentorpage">
         <div style={{ padding:"20px" }}>
           <h1 style={{ fontWeight:"bold" }}>
-            <span style={{ color:"#5AB485" }}>{authUser.user_id}</span>님, 환영합니다:)
+            <span style={{ color:"#5AB485" }}>멘토</span>님, 환영합니다:)
           </h1>
           <button
             id="profile"
@@ -70,7 +92,7 @@ const Mentor = () => {
 
       <div className="mentorpage-container">
         <div className="mentorpage-card">
-          <Comps.BusinessCard user={authUser} />
+          <Comps.BusinessCard users={authUser} />
         </div>
         <div className="mentorpage-detail">
           { menu === "profile" ?

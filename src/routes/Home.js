@@ -33,49 +33,51 @@ const DummyData = Array(5)
     logo: faker.image.avatar(),
   }));
 
+  
+const MentorData = () => {
+    console.log("calling mentor data")
+    const response = axios.get('http://15.164.251.155/profile_full/');
 
-const Log2 = (page, detail) => {
-    console.log('test2')
 }
 
-const Home = (props) => {
-   // Log2('Home', 'Load')
-    console.log('test3')
 
-    useEffect(() => {
-        console.log(DummyData)
-        console.log(props)
-    }, [props])
+const Home = (props) => {
+  
+    
+
 
   /*  *** Fetch 멘토 데이터 *** */
- /*   const [cards, setCards] = useState(null);
+   const [cards, setCards] = useState(null);
    const [loading, setLoading] = useState(false);
    const [error, setError] = useState(null);
   
    useEffect(() => {
      const fetchData = async () => {
        try {
-       
+         setError(null);
+         setCards(null);
          setLoading(true);
-         const response = await axios.get('http://15.164.251.155/profiles');
-         setCards(response.data);
-         console.log(response);
-        
-       } catch (e) {
+         const response = await axios.get('http://15.164.251.155/profile_full/');
+      
+         setCards(response.data); //이걸 어떻게 하는지 모르겠음. this.setState({cards: response.data})같은 느낌으로 하고싶은데
+          
+        } catch (e) {
          setError(e);
        }
-
        setLoading(false);
+       
      };
-
      fetchData();
-   }, [cards]);
+     
+   },[]);
 
    if (loading) return <div>로딩중..</div>;
    if (error) return <div>에러가 발생했습니다</div>;
-   if (!cards) return null;  */
+   if (!cards) return null;
 
-   /* *** 알림 *** */
+
+  // *** 알림 ***
+
   const openNotification = placement => {
     notification.open({
       message: `ConTag으로 취업할 시 1만원 환급!`,
