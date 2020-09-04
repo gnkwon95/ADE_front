@@ -6,37 +6,46 @@ import * as Comps from "../../components/Mentor"
 import "./Mentor.css";
 import Axios from "axios";
 
-const Mentor = () => {
+const Mentor = (props) => {
   const user = useContext(AuthUserContext)
-  console.log(user)
   const [menu, setMenu] = useState("profile");
   const [error, setError] =useState(null);
   const [loading, setLoading] = useState(false);
   const [data,setData] = useState(null);
-useEffect(()=>{
-  const fetch= async()=>{
-    try {
-      setLoading(true)
-      const res = await Axios.get("http://15.164.251.155/profile_full/")
-    console.log(res.data)
+
+  console.log(data)
+   const ex =async ()=>{
+    if(data!==null){
+      const res = await Axios.get(`http://15.164.251.155/profile_full/?user=${user.user_uid}`)
       setData(res.data);
+      } 
+   }
+  useEffect(()=>{
+  const fetch= async()=>{
+
+    try {
+     
+      setLoading(true)
+      ex()
       
     } catch (e) {
       setError(e)
       console.log('error')
     }
-    console.log();
+   
     setLoading(false);
   }
   fetch();
-},[] )
+
+},[ex] )
 if (loading) return <div>로딩중..</div>;
 if (error) return <div>에러가 발생했습니다</div>;
+
 
   return (
     
     <AuthUserContext.Consumer>
-      {authUser=> authUser ?
+      {user=> user!==null ?
       <div className="mentorpage">
         <div style={{ padding:"20px" }}>
           <h1 style={{ fontWeight:"bold" }}>
@@ -92,7 +101,7 @@ if (error) return <div>에러가 발생했습니다</div>;
 
       <div className="mentorpage-container">
         <div className="mentorpage-card">
-          <Comps.BusinessCard users={authUser} />
+          <Comps.BusinessCard info={data} />
         </div>
         <div className="mentorpage-detail">
           { menu === "profile" ?

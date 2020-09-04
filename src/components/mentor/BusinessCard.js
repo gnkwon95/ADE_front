@@ -20,9 +20,9 @@ const DummyData = {
  
 function BusinessCard(props) {
  
-  console.log(props)
+  console.log(props.info)
   const linkTo =()=>{
-    if(props.users!==null){props.history.push(`/mentor-edit`)}
+    if(props.info!==null){props.history.push(`/mentor-edit`)}
   
   }
   return (
@@ -47,23 +47,23 @@ function BusinessCard(props) {
         </div>
         <br />
         <br />
-    {props.users===null?  
+    {props.info===null?  
    
-
-  <ChooseDateModal info={props.users} />
- : 
+   <Button
+   type="primary"
+   shape="round" 
+   size="large"
    
-    <Button
-          type="primary"
-          shape="round" 
-          size="large"
-          
-          onClick={linkTo}
-          block
-          style={{ color:"black", lineHeight:"25px", fontSize:"20px" }}
-        >
-         정보 수정
-       </Button>}
+   onClick={linkTo}
+   block
+   style={{ color:"black", lineHeight:"25px", fontSize:"20px" }}
+ >
+  정보 수정
+</Button> 
+:
+  <ChooseDateModal info={props.info} />
+ 
+}
        
     </div>
   )

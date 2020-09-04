@@ -11,25 +11,24 @@ const MentoCard = ({ data,link }) => {
           current_company,
           current_job, 
           real_name,
-          work_period_from,
+          work_start_year,
           voter,
           PR,
-          prepared_companies,
+          AppliedCompanies,
           logo,
+          nickname
         } = data;
-  const prepare = prepared_companies.length
-  const years = work_period_from
+  const prepare = AppliedCompanies.length
+  const years = new Date().getFullYear() - work_start_year
+  const redirect = "/mentor/" + nickname
   const tagColor = years < 3 ? "#87d068"
                   : years < 7 ? "#2db7f5"
-                  : "#108ee9"    
-  /*    const LinkPush = (nickname)=>{
-         data.history.push(`/mentor/${nickname}`)
-         
-    } */
-    
+
+                  : "#108ee9"
+  console.log(redirect)
   return (
-    <>
-      <Card hoverable onClick={()=> link(user)}>
+    <Link to={redirect}>
+      <Card hoverable>
         <Row style={{ padding:"10px" }}>
           <Col flex="70px">
             <Avatar shape="square" size={50} src={logo} />
@@ -58,8 +57,8 @@ const MentoCard = ({ data,link }) => {
         {prepare ? 
           <Row style={{ padding:"10px" }}>
             함께 합격했던 회사:&nbsp; &nbsp; 
-              {prepared_companies.map((data, index) => (
-                <Tag>{data}</Tag>
+              {AppliedCompanies.map((data, index) => (
+                <Tag>{data.company}</Tag>
               ))}
           </Row>
           :
@@ -67,7 +66,7 @@ const MentoCard = ({ data,link }) => {
         }
       </Card>
       <Divider />
-    </>
+    </Link>
   );
 };
 

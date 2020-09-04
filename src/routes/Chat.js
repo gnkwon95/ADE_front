@@ -23,7 +23,7 @@ class Chat extends React.Component {
     this.state = {
       connections: [],
 
-      booleans:false
+      booleans:null
 
     }
   }
@@ -39,7 +39,9 @@ class Chat extends React.Component {
             this.setState({
                 connections: response.data,
             });
-            
+            console.log( 
+              this.state.connections=response.data,
+          )
         } catch(e){
             console.log(e);
         }
@@ -52,16 +54,25 @@ class Chat extends React.Component {
 
     componentDidMount(){
         this.resetState();
-        
-        
-      
     };
     changes =()=>{
      this.setState({
-       booleans:true
+       
      })
    
     }
+
+    mentoData=(e)=>{
+      let a = e;
+      console.log(a);
+      const fetch =async()=>{
+            const res =  await axios.get(`http://15.164.251.155/profile_full/?user=${a}`);
+            this.setState({booleans:res})
+            console.log(this.state.booleans.data[0])
+      }
+      fetch();
+    }
+    
    
 
 
@@ -77,10 +88,11 @@ class Chat extends React.Component {
         <Tabs defaultActiveKey="10" tabPosition='left' style={{width:'78%'}}>
 
         { this.state.connections.map( (connection, i) => (
-             <>
+                
+              <>
                 {connection.mentor_uid === this.props.firebase.getCurrentUser().uid
                 ? 
-                   <TabPane  tab={<div  onClick={this.changes} className={`tab_box ${this.state.booleans?"gray":""}`}>
+                   <TabPane  tab={<div  onClick={()=>this.mentoData(connection.mentee_uid)} className={`tab_box ${this.state.booleans?"gray":""}`}>
                    <div className="tab_img_box"><img className="tab_img" src="https://pbs.twimg.com/profile_images/788558965718208512/ObqcIBUu.jpg" /></div>
                    <ProfileInfo>
                      <span className="tab_name" >{connection.mentee_id} <span className="tab_company">현대자동차</span></span>
@@ -90,7 +102,7 @@ class Chat extends React.Component {
                  </div>} key={i}>
                       <ChatBlock connection = {connection} is_mentor = {true} />
                     </TabPane>
-                : <TabPane  tab={<div  onClick={this.changes} className={`tab_box ${this.state.booleans?"gray":""}`}>
+                : <TabPane  tab={<div  onClick={()=>this.mentoData(connection.mentor_uid)} className={`tab_box ${this.state.booleans?"gray":""}`}>
                 <div className="tab_img_box"><img className="tab_img" src="https://pbs.twimg.com/profile_images/788558965718208512/ObqcIBUu.jpg" /></div>
                 <ProfileInfo>
                   <span className="tab_name" >{connection.mentor_id} <span className="tab_company">현대자동차</span></span>
@@ -106,7 +118,7 @@ class Chat extends React.Component {
               )) }
            
         </Tabs>
-           <ChatProfile />
+           <ChatProfile info={this.state.booleans}/>
       </div>
       </div>
     );

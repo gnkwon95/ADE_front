@@ -73,7 +73,7 @@ class ChatBlock extends React.Component {
         this.setState({ readError: null});
         console.log(this.state.meeting_date)
         console.log(today)
-      
+        console.log(this.props)
         try{
               this.props.firebase.getDB().ref("chats").child(this.state.mentor).child(this.state.mentee).on("value", snapshot => {
                 let chats = [];
@@ -91,7 +91,7 @@ class ChatBlock extends React.Component {
                 this.setState({chats});
                 this.setState({repeat});
                 this.scrollBottom();
-                console.log(repeat)
+               
 
              });
          } catch (error) {
@@ -135,22 +135,22 @@ class ChatBlock extends React.Component {
 
 
 ChatBox = ({pos, left_id, right_id, content, repeat}) => {
-     console.log(repeat)
+     
     return (
     <>
-        <div style={{display:"flex",padding:"15px 0 15px 0"}}>
+        <div style={{display:"flex",padding:"0px 0 0px 0"}}>
             {/* pos==='left'
             ? <h5 style={{float:pos}}> {left_id} </h5>
             : <h5 style={{float:pos}}> {right_id} </h5>
              */}
              {pos==="left"
 
-            ?repeat===false?<ChatUser><img style={{width:40 ,height:40,borderRadius:"50%",border:"1px solid gray"}} src="https://pbs.twimg.com/profile_images/788558965718208512/ObqcIBUu.jpg" /> <h5> {left_id} </h5></ChatUser>:<ChatUser></ChatUser>
-            :repeat===false? <ChatUser><img style={{width:40 ,height:40,borderRadius:"50%" }} src="https://lh3.googleusercontent.com/proxy/svNjgUbcdKgVxd-GarllzhHGf_Zdf-B8E1T2pzboU1WJ5_-YWwtluzQ8i2a9kb37TKG1bkQN1WJUyzD7q_VWGEhj8rvRTYidFB0xrYg39wln5oxO5f3VcdzMDPn-mgYTJrOLIsyH2QXB-X78_VCeo6qdqqoKjTA9oFbgAhMB1Rs" /> <h5> {right_id} </h5></ChatUser>:<ChatUser></ChatUser>
+            ?repeat===false?<ChatUser><img style={{width:40 ,height:40,borderRadius:"50%",border:"1px solid gray",marginTop:"5px"}} src="https://pbs.twimg.com/profile_images/788558965718208512/ObqcIBUu.jpg" /> <h5> {left_id} </h5></ChatUser>:<ChatUser></ChatUser>
+            :repeat===false? <ChatUser><img style={{width:40 ,height:40,borderRadius:"50%",marginTop:"5px" }} src="https://lh3.googleusercontent.com/proxy/svNjgUbcdKgVxd-GarllzhHGf_Zdf-B8E1T2pzboU1WJ5_-YWwtluzQ8i2a9kb37TKG1bkQN1WJUyzD7q_VWGEhj8rvRTYidFB0xrYg39wln5oxO5f3VcdzMDPn-mgYTJrOLIsyH2QXB-X78_VCeo6qdqqoKjTA9oFbgAhMB1Rs" /> <h5> {right_id} </h5></ChatUser>:<ChatUser></ChatUser>
             }
             
-            {pos === 'left'? <Message><span style={{postion:"relative",background:"#ceeddc",float:pos,padding:"5px 10px 5px 10px",borderRadius:"20px",whiteSpace:"pre-line", wordBreak:"break-all"}}> {content} </span></Message>: 
-            <Message ><span style={{postion:"relative",  float:pos,padding:"5px 0px 5px 5px",whiteSpace:"pre-line", wordBreak:"break-all"}}> {content} </span></Message>}
+            {pos === 'left'? <Message><span style={{postion:"relative",background:"#ceeddc",float:pos,padding:"3px 10px 3px 10px",borderRadius:"20px",whiteSpace:"pre-line", wordBreak:"break-all",margin:"5px 0 5px 0"}}> {content} </span></Message>: 
+            <Message ><span style={{postion:"relative",  float:pos,padding:"5px 0px 3px 3px",whiteSpace:"pre-line", wordBreak:"break-all",marginBottom:"5px"}}> {content} </span></Message>}
            {/* pos === 'left'? <Button  type="text" shape="round" size="middle" style={{background: "pink",  float:pos,cursor:"default"}}><span style={{width:"100%"}}>{content}</span></Button>: 
             <Button type="text" shape="round" size="middle" style={{background: "orange",  float:pos,cursor:"default"}}> <span style={{width:"100%"}}>{content}</span> </Button> */}
         </div>
@@ -231,7 +231,7 @@ const ChatDiv = styled.div`
    display:inline-block;
    width:100%;
    word-Break:break-all;
-   margin-Bottom:20px;
+   margin-Bottom:5px;
   
    
    :hover{
@@ -243,11 +243,15 @@ width:80px;
 display:flex;
 flex-Direction:column;
 align-Items:center;
+padding-top:5px;
+padding-bottom:2px;
+
 `;
 const Message = styled.div`
 width:85%;
 display:flex;
-align-Items:center;
+align-Items:flex-end;
+
 
 `;
 const SubBtn = styled.button`
