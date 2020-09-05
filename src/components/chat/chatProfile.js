@@ -1,41 +1,90 @@
 import React from "react";
 import styled from "styled-components";
 
-const ChatProfile = ()=>{
+const ChatProfile = (props)=>{
+  const getDate = new Date();
+  const nowYear = getDate.getFullYear();
+  const copyData = props.info !==null?props.info.data[0]:null;
+  console.log(props.info)
+const empty =()=>{
+   if(props.info===null){
+     return (
+      <MentoProfile>
+      <MPTOP>
+        <span className="name">아무개</span>
+        <span className="company">현대자동차</span>
+        <span className="career">1년차</span>
+        </MPTOP>
+        <MPBOT>
+          <Pbold>지원 직무</Pbold>
+          <p>마케팅 매니저</p>
+          <Pbold>현재 직무</Pbold>
+          <p>동일</p>
+          <Pbold>학력</Pbold>
+          <p>서울대학교 컴퓨터공학과 전공</p>
+          <Pbold>합격한 회사</Pbold>
+          <ul className="ul_tag">
+            <li>SKTelecom 데이터 분석 직군</li>
+            <li>스파크랩벤쳐스 심사역</li>
+            <li>쏘카 데이터 분석 직군</li>
+          </ul>
+          <Pbold>주요 경력 및 인턴 경험</Pbold>
+          <ul className="ul_tag">
+            <li>쏘카 퍼포먼스 마케팅팀 인턴 (2019.07~2019.09)</li>
+          
+          </ul>
+          <Pbold>합격 당시 스펙</Pbold>
+          <ul className="ul_tag">
+            <li>TOEIC 900점</li>
+            <li>HSK 6급</li>
+            <li>정보처리 기능사 자격증</li>
+            <li>SK Sunny 대학생 자원봉사단</li>
+          </ul>
+        </MPBOT>
+    </MentoProfile>
+     )
+   }else{
+     return (
+      <MentoProfile>
+      <MPTOP>
+        <span className="name">{copyData.education_level}</span>
+        <span className="company">{copyData.current_company}</span>
+        <span className="career">{nowYear-copyData.work_start_year}년차</span>
+        </MPTOP>
+        <MPBOT>
+          <Pbold>지원 직무</Pbold>
+          <p>마케팅 매니저</p>
+          <Pbold>현재 직무</Pbold>
+          <p>동일</p>
+          <Pbold>학력</Pbold>
+          <p>{copyData.education_univ}</p>
+          <Pbold>합격한 회사</Pbold>
+          <ul className="ul_tag">
+            <li>{copyData.applied_job}</li>
+          
+          </ul>
+          <Pbold>주요 경력 및 인턴 경험</Pbold>
+          <ul className="ul_tag">
+            <li>쏘카 퍼포먼스 마케팅팀 인턴 (2019.07~2019.09)</li>
+          
+          </ul>
+          <Pbold>합격 당시 스펙</Pbold>
+          <ul className="ul_tag">
+          {copyData.Certificate.map((el)=>{
+                return   <li>{el.certificate}</li>
+            } )}
+          </ul>
+        </MPBOT>
+    </MentoProfile>
+     )
+   }
+
+}
+
     return(
-        <MentoProfile>
-       <MPTOP>
-         <span className="name">아무개</span>
-         <span className="company">현대자동차</span>
-         <span className="career">1년차</span>
-         </MPTOP>
-         <MPBOT>
-           <Pbold>지원 직무</Pbold>
-           <p>마케팅 매니저</p>
-           <Pbold>현재 직무</Pbold>
-           <p>동일</p>
-           <Pbold>학력</Pbold>
-           <p>서울대학교 컴퓨터공학과 전공</p>
-           <Pbold>합격한 회사</Pbold>
-           <ul className="ul_tag">
-             <li>SKTelecom 데이터 분석 직군</li>
-             <li>스파크랩벤쳐스 심사역</li>
-             <li>쏘카 데이터 분석 직군</li>
-           </ul>
-           <Pbold>주요 경력 및 인턴 경험</Pbold>
-           <ul className="ul_tag">
-             <li>쏘카 퍼포먼스 마케팅팀 인턴 (2019.07~2019.09)</li>
-           
-           </ul>
-           <Pbold>합격 당시 스펙</Pbold>
-           <ul className="ul_tag">
-             <li>TOEIC 900점</li>
-             <li>HSK 6급</li>
-             <li>정보처리 기능사 자격증</li>
-             <li>SK Sunny 대학생 자원봉사단</li>
-           </ul>
-         </MPBOT>
-     </MentoProfile>
+       <>
+       {empty()}
+       </>
     )
 }
 const MentoProfile= styled.div`

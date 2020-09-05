@@ -3,7 +3,7 @@ import React from "react";
 import * as firebase from "firebase/app";
 import 'firebase/auth';
 import 'firebase/firestore';
-import styled from "styled-components";
+import styled,{css} from "styled-components";
 import axios from "axios";
 import {withAuthorization, AuthUserContext, withAuthentication } from "../../session";
 import {Card, Col, Row, Button, Layout} from 'antd';
@@ -13,8 +13,11 @@ import {Card, Col, Row, Button, Layout} from 'antd';
 //import makeStyles from "@material-ui/core/styles/makeStyles";
 const {Content, Sider} = Layout;
 const pattern = /^\s+|\s+$/g;
-
-
+const date = new Date();
+const year = date.getFullYear();
+const month= (date.getMonth()+1)<10?"0"+(date.getMonth()+1):date.getMonth()+1;
+const day = date.getDay()<10?"0"+date.getDay():date.getDay();
+const today = year+"-"+month+"-"+day
 /*
 const ChatLayout = makeStyles(theme => ({
   container: {
@@ -48,29 +51,37 @@ class ChatBlock extends React.Component {
             mentor: this.props.connection.mentor_uid,
             mentee: this.props.connection.mentee_uid,
             mentor_id: this.props.connection.mentor_id,
+            meeting_date:this.props.connection.meeting_date,
             mentee_id: this.props.connection.mentee_id,
             user: this.props.firebase.getCurrentUser(),
             chats: [],
             content: '',
             readError: null,
             writeError: null,
+
+            is_mentor: this.props.is_mentor,
+
             prev_uid: "",
             repeat: []
+
         }
          this.handleChange = this.handleChange.bind(this);
         this.handleSubmit=this.handleSubmit.bind(this);
     }
 
     async componentDidMount() {
-        console.log(this.state.tmp);
         this.setState({ readError: null});
+        console.log(this.state.meeting_date)
+        console.log(today)
+        console.log(this.props)
         try{
               this.props.firebase.getDB().ref("chats").child(this.state.mentor).child(this.state.mentee).on("value", snapshot => {
                 let chats = [];
                 let repeat = [];
                 let prev_uid = "";
                 snapshot.forEach((snap) => {
-                        chats.push(snap.val());
+
+             chats.push(snap.val());
                         snap.val().uid == prev_uid
                         ? repeat.push(true)
                         : repeat.push(false)
@@ -79,11 +90,15 @@ class ChatBlock extends React.Component {
                 );
                 this.setState({chats});
                 this.setState({repeat});
+                this.scrollBottom();
+               
+
              });
          } catch (error) {
             this.setState({readError: error.message});
          }
     }
+
 
     handleChange(event){ // get value from input field, set state variable
        
@@ -95,6 +110,7 @@ class ChatBlock extends React.Component {
     async handleSubmit(event){ //reference to chat, and push with unique key. If error, there is error.
         console.log(event);
         event.preventDefault();
+        
         this.setState({writeError: null});
         try{
             console.log(this.state.mentor);
@@ -105,30 +121,36 @@ class ChatBlock extends React.Component {
                 uid: this.state.user.uid
             });
             this.setState({ content: ''});
-            
+            this.messageEnd.scrollIntoView(false);
         } catch(error) {
             this.setState({ writeError: error.message});
         }
     }
 
+    scrollBottom=()=>{
+        this.messageEnd.scrollIntoView(false);
+       
+     }
+     
+
 
 ChatBox = ({pos, left_id, right_id, content, repeat}) => {
-    console.log(repeat, content)
+     
     return (
     <>
-        <div style={{display:"flex",padding:"15px 0 15px 0"}}>
+        <div style={{display:"flex",padding:"0px 0 0px 0"}}>
             {/* pos==='left'
             ? <h5 style={{float:pos}}> {left_id} </h5>
             : <h5 style={{float:pos}}> {right_id} </h5>
              */}
              {pos==="left"
 
-            ?<div style={{width:"80px",display:"flex",flexDirection:"column",alignItems:"center"}}><img style={{width:40 ,height:40,borderRadius:"50%",border:"1px solid gray"}} src="https://pbs.twimg.com/profile_images/788558965718208512/ObqcIBUu.jpg" /> <h5 style={{}}> {left_id} </h5></div>
-            : <div style={{width:"80px",display:"flex",flexDirection:"column",alignItems:"center"}}><img style={{width:40 ,height:40,borderRadius:"50%" }} src="https://lh3.googleusercontent.com/proxy/svNjgUbcdKgVxd-GarllzhHGf_Zdf-B8E1T2pzboU1WJ5_-YWwtluzQ8i2a9kb37TKG1bkQN1WJUyzD7q_VWGEhj8rvRTYidFB0xrYg39wln5oxO5f3VcdzMDPn-mgYTJrOLIsyH2QXB-X78_VCeo6qdqqoKjTA9oFbgAhMB1Rs" /> <h5 style={{}}> {right_id} </h5></div>
+            ?repeat===false?<ChatUser><img style={{width:40 ,height:40,borderRadius:"50%",border:"1px solid gray",marginTop:"5px"}} src="https://pbs.twimg.com/profile_images/788558965718208512/ObqcIBUu.jpg" /> <h5> {left_id} </h5></ChatUser>:<ChatUser></ChatUser>
+            :repeat===false? <ChatUser><img style={{width:40 ,height:40,borderRadius:"50%",marginTop:"5px" }} src="https://lh3.googleusercontent.com/proxy/svNjgUbcdKgVxd-GarllzhHGf_Zdf-B8E1T2pzboU1WJ5_-YWwtluzQ8i2a9kb37TKG1bkQN1WJUyzD7q_VWGEhj8rvRTYidFB0xrYg39wln5oxO5f3VcdzMDPn-mgYTJrOLIsyH2QXB-X78_VCeo6qdqqoKjTA9oFbgAhMB1Rs" /> <h5> {right_id} </h5></ChatUser>:<ChatUser></ChatUser>
             }
             
-            {pos === 'left'? <div style={{width:"85%",display:"flex",alignItems:"center"}}><span style={{postion:"relative",background:"#ceeddc",float:pos,padding:"5px 10px 5px 10px",borderRadius:"20px",whiteSpace:"pre-line", wordBreak:"break-all"}}> {content} </span></div>: 
-            <div style={{width:"85%",display:"flex",alignItems:"center"}} ><span style={{postion:"relative",  float:pos,padding:"5px 0px 5px 5px",whiteSpace:"pre-line", wordBreak:"break-all"}}> {content} </span></div>}
+            {pos === 'left'? <Message><span style={{postion:"relative",background:"#ceeddc",float:pos,padding:"3px 10px 3px 10px",borderRadius:"20px",whiteSpace:"pre-line", wordBreak:"break-all",margin:"5px 0 5px 0"}}> {content} </span></Message>: 
+            <Message ><span style={{postion:"relative",  float:pos,padding:"5px 0px 3px 3px",whiteSpace:"pre-line", wordBreak:"break-all",marginBottom:"5px"}}> {content} </span></Message>}
            {/* pos === 'left'? <Button  type="text" shape="round" size="middle" style={{background: "pink",  float:pos,cursor:"default"}}><span style={{width:"100%"}}>{content}</span></Button>: 
             <Button type="text" shape="round" size="middle" style={{background: "orange",  float:pos,cursor:"default"}}> <span style={{width:"100%"}}>{content}</span> </Button> */}
         </div>
@@ -137,17 +159,17 @@ ChatBox = ({pos, left_id, right_id, content, repeat}) => {
     )
 }
 able = ()=>{
-    if(this.state.content.replace(pattern,'')===""){
+    if(this.state.content.replace(pattern,'')===""||this.state.meeting_date!==today){
       return  (<div className="fixed" style={{position:"sticky",bottom:"0px",zIndex:"100"}}>
         <form onSubmit = {this.handleSubmit} >  {/*form to update message, with button to send */}
             <Layout>
                 <div style={{display:"flex",width:"100%"}}>
             <Content>
-                <input type="textarea" className="text" onChange={this.handleChange} value={this.state.content} style={{width:"100%",height:38,borderRadius:"100px 0 0 100px",outline:"none" ,border:"1px solid gray",borderRight:"none",paddingLeft:"20px"}}></input> {/*use this.handleChange to change state (is message okay?) */}
+                <ChatInput type="textarea" className="text" onChange={this.handleChange} value={this.state.content} /> {/*use this.handleChange to change state (is message okay?) */}
                  {this.state.error ? <p>{this.state.writeError}</p> : null}
              </Content>
                  <div style={{width:"10%",height:38,background:"white",borderRadius:"0 100px 100px 0",border:"1px solid gray",borderLeft:"none"}}>
-                 <button type="submit" className="send_btn" style={{width:"100%",height:"100%",borderRadius:"100px",background:"#0b283a",color:"gray",border:"none",outline:"none"}} disabled>전송</button>
+                 <SubBtn type="submit" disabled>전송</SubBtn>
                  </div>
                  </div>
              </Layout>
@@ -159,11 +181,11 @@ able = ()=>{
             <Layout>
             <div style={{display:"flex", width:"100%"}}>
             <Content>
-                <input type="textarea" className="text" onChange={this.handleChange} value={this.state.content} style={{width:"100%",height:38,borderRadius:"100px 0 0 100px",outline:"none" ,border:"1px solid gray",borderRight:"none",paddingLeft:"20px"}}></input> {/*use this.handleChange to change state (is message okay?) */}
+                <ChatInput type="textarea" className="text" onChange={this.handleChange} value={this.state.content} /> {/*use this.handleChange to change state (is message okay?) */}
                  {this.state.error ? <p>{this.state.writeError}</p> : null}
              </Content>
              <div style={{width:"10%",height:38,background:"white",borderRadius:"0 100px 100px 0",border:"1px solid gray",borderLeft:"none"}}>
-                 <button type="submit" className="send_btn" style={{width:"100%",height:"100%",borderRadius:" 100px",background:"#0b283a",color:"white",border:"none",outline:"none"}} >전송</button>
+                 <SubBtn type="submit">전송</SubBtn>
               </div>
              </div>
             </Layout>
@@ -184,14 +206,16 @@ able = ()=>{
         
         return (
        
-              <div className="chats">
-               <div style={{height:"55%"}}>
+              <div className="chats" ref={el=>{this.messageEnd=el;}}>
+               <div style={{}}>
                 { this.state.chats.map( (chat,index) => {
                  
                     return <ChatDiv key={chat.timestamp}>
                         { (chat.uid === this.state.user.uid)
+
                         ? <this.ChatBox  pos="right"  left_id={left_id} right_id={right_id} content= {chat.content} repeat = {this.state.repeat[index]} />
                         : <this.ChatBox  pos='left' left_id={left_id} right_id={right_id} content= {chat.content} repeat = {this.state.repeat[index]} />
+
                         }
                     </ChatDiv>
                 })}
@@ -207,12 +231,49 @@ const ChatDiv = styled.div`
    display:inline-block;
    width:100%;
    word-Break:break-all;
-   margin-Bottom:20px;
+   margin-Bottom:5px;
   
    
    :hover{
     box-shadow: 0 0 11px rgba(33,33,33,.2); 
    }
+`;
+const ChatUser = styled.div`
+width:80px;    
+display:flex;
+flex-Direction:column;
+align-Items:center;
+padding-top:5px;
+padding-bottom:2px;
+
+`;
+const Message = styled.div`
+width:85%;
+display:flex;
+align-Items:flex-end;
+
+
+`;
+const SubBtn = styled.button`
+display:flex;
+align-items:center;
+justify-content:center;
+width:100%;
+height:100%;
+border-Radius:100px;
+background:#0b283a;
+color:white;
+border:none;
+outline:none;
+`;
+const ChatInput = styled.input`
+width:100%;
+height:38px;
+border-Radius:100px 0 0 100px;
+outline:none;
+border:1px solid gray;
+border-Right:none;
+padding-Left:20px;
 `;
 const condition = authUser => authUser != null;
 

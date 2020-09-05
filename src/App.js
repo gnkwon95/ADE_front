@@ -22,7 +22,7 @@ const App = () => (
   <BrowserRouter>
     <Layout className="layout">
       <HeaderNav /> 
-      <Route exact path="/mentor" component={Mentor} />
+      <Route exact path="/mentor/:id" component={Mentor} />
       <Route exact path="/mentor-edit" component={ChangeProfile} />
       <Route   exact path="/chat" component={Chat} />
       <Route exact path="/" component={Home} />

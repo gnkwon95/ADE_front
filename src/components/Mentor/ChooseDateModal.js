@@ -1,8 +1,8 @@
 import {Calendar, Modal, Button} from 'antd';
 import React from "react";
 import "./ChooseDateModal.css"
-import { StyledMentorInfo } from "./styles";
-import HandleOK from "./handleok";
+
+
 import { AuthUserContext, withAuthorization } from "../../session";
 
 import moment from 'moment';
@@ -43,6 +43,7 @@ class ChooseDateModal extends React.Component {
             visible: false,
             date: moment().locale('ko').format('YYYY-MM-DD')
         }
+        
         //this.handleChange = this.handleChange.bind(this);
         this.sendConnection = this.sendConnection.bind(this);
     }

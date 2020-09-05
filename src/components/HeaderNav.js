@@ -59,13 +59,15 @@ const UserNav = () => {
   const is_mentor = async () => {
     const fetchData = await axios.get("http://15.164.251.155/mypage/");
     const userDatas = fetchData.data;
+    console.log(userDatas)
     const CurrentUser = userDatas.find(
       (userData) => userData.email === "user1@mail.com"
     );
     setMentorStatus(CurrentUser.is_mentor);
+  
   };
   is_mentor();
-
+  
   return (
     <Space size="middle">
       <Link to="/mentor">

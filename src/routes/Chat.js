@@ -15,7 +15,6 @@ import {Log} from "../Log/Log"
 
 const {TabPane} = Tabs;
 
-
 axios.defaults.baseURL ='http://15.164.251.155:'
 
 class Chat extends React.Component {
@@ -23,7 +22,9 @@ class Chat extends React.Component {
     super(props);
     this.state = {
       connections: [],
-      booleans:false
+
+      booleans:null
+
     }
   }
 
@@ -38,7 +39,9 @@ class Chat extends React.Component {
             this.setState({
                 connections: response.data,
             });
-            
+            console.log( 
+              this.state.connections=response.data,
+          )
         } catch(e){
             console.log(e);
         }
@@ -51,20 +54,30 @@ class Chat extends React.Component {
 
     componentDidMount(){
         this.resetState();
-        console.log(this.state.connections)
-      
     };
     changes =()=>{
      this.setState({
-       booleans:true
+       
      })
    
     }
-     
+
+    mentoData=(e)=>{
+      let a = e;
+      console.log(a);
+      const fetch =async()=>{
+            const res =  await axios.get(`http://15.164.251.155/profile_full/?user=${a}`);
+            this.setState({booleans:res})
+            console.log(this.state.booleans.data[0])
+      }
+      fetch();
+    }
+    
+   
 
 
   render() {
- //   Log('Chat', 'Load')
+
     return (
       <div className="frame" style={{display:'block'}}>
         <div>
@@ -74,11 +87,12 @@ class Chat extends React.Component {
     
         <Tabs defaultActiveKey="10" tabPosition='left' style={{width:'78%'}}>
 
-             { this.state.connections.map( (connection, i) => (
-             <>
+        { this.state.connections.map( (connection, i) => (
+                
+              <>
                 {connection.mentor_uid === this.props.firebase.getCurrentUser().uid
                 ? 
-                   <TabPane  tab={<div  onClick={this.changes} className={`tab_box ${this.state.booleans?"gray":""}`}>
+                   <TabPane  tab={<div  onClick={()=>this.mentoData(connection.mentee_uid)} className={`tab_box ${this.state.booleans?"gray":""}`}>
                    <div className="tab_img_box"><img className="tab_img" src="https://pbs.twimg.com/profile_images/788558965718208512/ObqcIBUu.jpg" /></div>
                    <ProfileInfo>
                      <span className="tab_name" >{connection.mentee_id} <span className="tab_company">현대자동차</span></span>
@@ -88,12 +102,12 @@ class Chat extends React.Component {
                  </div>} key={i}>
                       <ChatBlock connection = {connection} is_mentor = {true} />
                     </TabPane>
-                : <TabPane  tab={<div  onClick={this.changes} className={`tab_box ${this.state.booleans?"gray":""}`}>
+                : <TabPane  tab={<div  onClick={()=>this.mentoData(connection.mentor_uid)} className={`tab_box ${this.state.booleans?"gray":""}`}>
                 <div className="tab_img_box"><img className="tab_img" src="https://pbs.twimg.com/profile_images/788558965718208512/ObqcIBUu.jpg" /></div>
                 <ProfileInfo>
                   <span className="tab_name" >{connection.mentor_id} <span className="tab_company">현대자동차</span></span>
                   <span className="position">마케팅 매니저</span>
-                  <span className="last_reply">마지막 답장:&nbsp;5분전</span>
+                  <span className="last_reply">마지막 답장:&nbsp;10분전</span>
                 </ProfileInfo>
               </div>} key={i}>
                       <ChatBlock  connection = {connection} is_mentor= {false} />
@@ -104,13 +118,24 @@ class Chat extends React.Component {
               )) }
            
         </Tabs>
-           <ChatProfile />
+           <ChatProfile info={this.state.booleans}/>
       </div>
       </div>
     );
   }
 }
-
+const Child = styled(ChatBlock)`
+   .ant-tabs-left > .ant-tabs-nav .ant-tabs-tab,
+.ant-tabs-right > .ant-tabs-nav .ant-tabs-tab,
+.ant-tabs-left > div > .ant-tabs-nav .ant-tabs-tab,
+.ant-tabs-right > div > .ant-tabs-nav .ant-tabs-tab 
+   {
+    padding: 2px 24px;
+    margin-bottom:0px;  
+  }
+   
+   
+`;
 
 const ProfileInfo= styled.div`
  display: flex;

@@ -7,6 +7,10 @@ import * as Comps from '../components/Home'
 import "./Home.css";
 import axios from "axios";
 import { auth } from "firebase";
+
+import {withRouter} from "react-router-dom";
+
+
 import {Log} from "../Log/Log";
 import { AuthUserContext } from "../session";
 
@@ -34,19 +38,22 @@ const DummyData = Array(10)
     logo: faker.image.avatar(),
   }));
 
-
+  
 const MentorData = () => {
     console.log("calling mentor data")
     const response = axios.get('http://15.164.251.155/profile_full/');
-    console.log(response);
+
 }
 
 
-const Home = () => {
+
+    
+
+const Home = (props) => {
    // Log('Home', 'Load')
    const authUser = useContext(AuthUserContext)
 
-  // *** Fetch 멘토 데이터 ***
+  /*  *** Fetch 멘토 데이터 *** */
    const [cards, setCards] = useState(null);
    const [loading, setLoading] = useState(false);
    const [error, setError] = useState(null);
@@ -77,22 +84,29 @@ const Home = () => {
          setError(e);
        }
        setLoading(false);
+       
      };
      fetchData();
-     console.log(cards);
-   }, []);
+     
+   },[]);
 
    if (loading) return <div>로딩중..</div>;
    if (error) return <div>에러가 발생했습니다</div>;
    if (!cards) return null;
 
+
   // *** 알림 ***
+
   const openNotification = placement => {
     notification.open({
       message: `ConTag으로 취업할 시 1만원 환급!`,
       placement,
     });
   };
+
+ 
+  // *** 렌더링 ***
+
 
 
   const handleChange = value => (
@@ -103,6 +117,7 @@ const Home = () => {
     window.scrollTo(0, 265),
     console.log(cards)
   );
+
 
   return (
     <div  className="home">
@@ -123,9 +138,10 @@ const Home = () => {
           </div>
 
           <div className="home-mentorcard-cards">
+
             <h2>{cards.length}명의 멘토가 있습니다.</h2>
             {cards && cards.length>0 && cards.slice(min, max).map(data =>
-                <Comps.MentoCard key={data.user} data={data} />
+                <Comps.MentoCard   key={data.user} data={data} />
             )}
 
           <Pagination
@@ -134,6 +150,7 @@ const Home = () => {
               onChange={handleChange}
               total={cards.length} //total number of card data available
             />
+
           </div>
 
 
@@ -162,4 +179,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default withRouter(Home);
