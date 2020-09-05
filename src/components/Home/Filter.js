@@ -3,14 +3,36 @@ import { Checkbox, Divider, Affix, Select } from 'antd';
 
 const { Option } = Select;
 
-function onChange(checkedValues) {
-  console.log('checked = ', checkedValues);
+
+
+function onChange(e){
+    console.log(e);
 }
+
 
 const education = ['학사', '석사 이상'];
 const jobs = ['디자이너', '개발자', '마케터', '금융'];
 
-const Filter = () => {
+const Filter = ({setJob, setMajor, setLoc}) => {
+
+const locChange = (e) => {
+   if (e){
+      setLoc(e);
+    }
+}
+
+const jobChange = (e) => {
+    if(e){
+        setJob(e);
+    }
+}
+
+const majorChange = (e) => {
+    if(e){
+        setMajor(e);
+    }
+}
+
 
   return (
     <Affix offsetTop={200}>
@@ -21,7 +43,7 @@ const Filter = () => {
           mode="multiple"
           style={{ width: '90%' }}
           placeholder="지역 추가"
-          onChange={onChange}
+          onChange={locChange}
         >
           { jobs.map((data) => (
             <Option key={data}>{data}</Option>
@@ -32,7 +54,7 @@ const Filter = () => {
           mode="multiple"
           style={{ width: '90%' }}
           placeholder="직무 추가"
-          onChange={onChange}
+          onChange={jobChange}
         >
           { jobs.map((data) => (
             <Option key={data}>{data}</Option>
@@ -43,7 +65,7 @@ const Filter = () => {
           mode="multiple"
           style={{ width: '90%' }}
           placeholder="전공 추가"
-          onChange={onChange}
+          onChange={majorChange}
         >
           { jobs.map((data) => (
             <Option key={data}>{data}</Option>

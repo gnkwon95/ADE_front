@@ -45,7 +45,6 @@ const MentorData = () => {
 const Home = () => {
    // Log('Home', 'Load')
    const authUser = useContext(AuthUserContext)
-   console.log("user: ", authUser)
 
   // *** Fetch 멘토 데이터 ***
    const [cards, setCards] = useState(null);
@@ -53,6 +52,13 @@ const Home = () => {
    const [error, setError] = useState(null);
    const [min, setMin] = useState(null);
    const [max, setMax] = useState(null);
+   /////
+   const [loc, setLoc] = useState([]);
+   const [job, setJob] = useState([]);
+   const [major, setMajor] = useState([]);
+   const [search, setSearch] = useState("");
+   ////
+
    const myRef = useRef(null);
 
    useEffect(() => {
@@ -64,9 +70,10 @@ const Home = () => {
          setCards(null);
          setLoading(true);
          const response = await axios.get('http://15.164.251.155/profile_full/');
-         console.log(response.data); //여기는 잘찍힘
-         setCards(response.data); //이걸 어떻게 하는지 모르겠음. this.setState({cards: response.data})같은 느낌으로 하고싶은데
+         console.log(response.data);
+         setCards(response.data);
        } catch (e) {
+         console.log(e);
          setError(e);
        }
        setLoading(false);
@@ -102,11 +109,11 @@ const Home = () => {
 
       <Comps.Banner />
       <div ref={myRef} > </div>
-        <Comps.Searchbox />
+        <Comps.Searchbox loc = {loc} job = {job} major = {major} />
       <div  className="home-mentorcard-container" style={{maxWidth: "1280px", margin: "0 auto"}}>
 
         <div className="home-mentorcard-filter">
-          <Comps.Filter />
+          <Comps.Filter setLoc={setLoc} setJob={setJob} setMajor={setMajor} />
         </div>
         <div  className="home-mentorcard-board">
           <div className="home-mentorcard-sort" style={{ marginTop:"30px", marginBottom:"10px" }}>

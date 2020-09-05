@@ -5,11 +5,14 @@ const { Link } = Typography;
 
 const { Search } = Input;
 
-function Searchbox() {
+function Searchbox(loc) { //왜 loc에 모든게 저장돼있는걸까....
     const [value, setValue] = useState("")
 
     const onSubmit = (e) => {
-        console.log(e.target.value);
+        console.log(e);
+        console.log(loc);
+        //console.log(job);
+        //console.log(major);
     }
 
     return (
@@ -25,7 +28,7 @@ function Searchbox() {
                         type="text"
                         placeholder="원하시는 회사 또는 직무로 검색해보세요"
                     />
-                    <button className="searchbox-container-button" type="submit">검색</button>
+                    <button onClick = {onSubmit} className="searchbox-container-button" type="submit">검색</button>
                 </div>
             </div>
         </Affix>

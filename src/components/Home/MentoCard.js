@@ -5,7 +5,7 @@ import { Avatar, Tag, Divider, Card, Button, Row, Col } from "antd";
 const MentoCard = ({ data }) => {
   const {
           current_company,
-          current_job, 
+          current_job,
           real_name,
           work_start_year,
           voter,
@@ -21,6 +21,9 @@ const MentoCard = ({ data }) => {
                   : years < 7 ? "#2db7f5"
                   : "#108ee9"
   console.log(redirect)
+
+
+
   return (
     <Link to={redirect}>
       <Card hoverable>
@@ -46,12 +49,12 @@ const MentoCard = ({ data }) => {
             </div>
           </Col>
         </Row>
-        <Row style={{ padding:"10px" }}>        
+        <Row style={{ padding:"10px" }}>
           {PR}
         </Row>
-        {prepare ? 
+        {prepare ?
           <Row style={{ padding:"10px" }}>
-            함께 합격했던 회사:&nbsp; &nbsp; 
+            함께 합격했던 회사:&nbsp; &nbsp;
               {AppliedCompanies.map((data, index) => (
                 <Tag>{data.company}</Tag>
               ))}

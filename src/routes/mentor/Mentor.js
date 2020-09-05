@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, Divider, BackTop } from 'antd'
 import { UpCircleTwoTone } from '@ant-design/icons'
 import { AuthUserContext } from "../../session";
@@ -9,7 +9,8 @@ const Mentor = () => {
 
   const [menu, setMenu] = useState("profile")
 
-    
+  const user = useContext(AuthUserContext)
+  console.log(user)
 
   return (
     <AuthUserContext.Consumer>

@@ -14,7 +14,7 @@ const WithAuthentication = Component => {
       };
       this.update = this.update.bind(this);
     }
-  
+
     update = () => {
       axios.get('http://15.164.251.155/mypage/?user='+ this.props.firebase.getCurrentUser().uid)
               .then( (response) => {
