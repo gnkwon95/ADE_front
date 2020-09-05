@@ -1,9 +1,13 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React,{useEffect} from "react";
+import { Link,withRouter } from "react-router-dom";
 import { Avatar, Tag, Divider, Card, Button, Row, Col } from "antd";
 
-const MentoCard = ({ data }) => {
+const MentoCard = ({ data,link }) => {
+  
+    
+ 
   const {
+          user,
           current_company,
           current_job, 
           real_name,
@@ -19,6 +23,7 @@ const MentoCard = ({ data }) => {
   const redirect = "/mentor/" + nickname
   const tagColor = years < 3 ? "#87d068"
                   : years < 7 ? "#2db7f5"
+
                   : "#108ee9"
   console.log(redirect)
   return (
@@ -65,4 +70,4 @@ const MentoCard = ({ data }) => {
   );
 };
 
-export default MentoCard;
+export default withRouter(MentoCard);

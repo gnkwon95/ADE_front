@@ -32,8 +32,9 @@ const VisitorLog = (page, detail) => {
 
 
 export const Log = (page, detail) => {
-    const context = useContext(AuthUserContext)
-
+    const context = useContext(AuthUserContext) 
+    
+  
     if(context === null){
         VisitorLog(page, detail)
      } else {
